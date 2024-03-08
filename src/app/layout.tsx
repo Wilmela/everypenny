@@ -40,9 +40,10 @@ export default function RootLayout({
       <html lang="en">
         <body
           className={cn(
-            "font-play antialiased",
+            "font-kanit antialiased",
+            kanit.variable,
+            cambay.variable,
             play.variable,
-            cambay.variable
           )}
         >
           {children}
