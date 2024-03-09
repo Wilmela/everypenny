@@ -3,19 +3,29 @@ import { Schema, Model, model, models, Document } from "mongoose";
 export interface IPlan extends Document {
   type: string;
   amount: string | number;
+  step: string;
+  duration: string;
   isActive: boolean;
   subscriber: Schema.Types.ObjectId;
 }
 
 const PlanSchema = new Schema<IPlan>(
   {
+    amount: {
+      type: Number,
+      required: true,
+    },
+    step: {
+      type: String,
+      required: true,
+    },
     type: {
       type: String,
       required: true,
       unique: true,
     },
-    amount: {
-      type: Number,
+    duration: {
+      type: String,
       required: true,
     },
     isActive: {

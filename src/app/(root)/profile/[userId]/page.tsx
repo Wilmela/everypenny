@@ -6,6 +6,18 @@ import { getSession } from "@/lib/actions/auth.action";
 import { getUserPlan } from "@/lib/actions/plan.action";
 import Image from "next/image";
 
+type MediaProps = {
+  type: string;
+  source: {
+    url: string;
+  };
+};
+type TimeLineProps = {
+  title: string;
+  cardTitle: string;
+  media: MediaProps;
+};
+
 const ProfileDetail = async ({
   params: { userId },
 }: {
@@ -13,9 +25,22 @@ const ProfileDetail = async ({
 }) => {
   const session = await getSession();
 
-  const { type } = await getUserPlan(userId);
+  const plan = await getUserPlan(userId);
 
-  const userSub = subscriptionPlans.find((sub) => sub.type === type);
+  const userSub = subscriptionPlans.find((sub) => sub.type === plan?.type);
+
+  const timeLineItems: TimeLineProps[] = [
+    {
+      title: "May 2024",
+      cardTitle: "Monthly Savings",
+      media: {
+        type: "IMAGE",
+        source: {
+          url: "/assets/images/logo.png",
+        },
+      },
+    },
+  ];
 
   return (
     <section>
@@ -47,24 +72,21 @@ const ProfileDetail = async ({
               <span className="inline-flex items-center justify-center gap-2 p-text">
                 Current plan:
                 <p className="py-1 px-2 rounded-xl bg-APP_GREEN/20 w-fit ">
-                  {userSub?.type}
+                  {userSub?.type || "No plan."}
                 </p>
               </span>
             </>
 
             <div className="my-6 p-6 bg-white shadow-md w-full rounded-md">
-              <p className="p-text text-center text-accent-foreground">
-                Contribute
-              </p>
-              <ContributionForm />
+              <p className="p-text text-center py-2">Make Contribution</p>
+              <ContributionForm contributor={userId} plan={plan?.type} />
             </div>
           </div>
 
           <div className="col-span-1 md:col-span-2">
-            <ChronoTimeline />
+            <ChronoTimeline timeLineItems={timeLineItems} />
           </div>
         </div>
-        Make Contribution <br />
         Request Statement
       </MaxWidthContainer>
     </section>

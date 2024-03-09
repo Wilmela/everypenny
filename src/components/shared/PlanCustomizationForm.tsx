@@ -27,9 +27,11 @@ import Spinner from "./Spinner";
 const PlanCustomizationForm = ({
   userId,
   type,
+  duration,
 }: {
   userId: string;
   type: string;
+  duration: string;
 }) => {
   const initialValue = { step: "", amount: 0 };
 
@@ -41,16 +43,16 @@ const PlanCustomizationForm = ({
   const router = useRouter();
 
   // Suggested Amount
-
   const onSubmit = async (data: CustomPlanType) => {
-    const { amount, step } = data;
+    console.log(type, duration, data.step);
+
     // const formattedAmount = formatNaira(amount);
 
     try {
       const newSub = await createPlan({
-        step,
-        amount,
+        ...data,
         type,
+        duration,
         isActive: true,
         subscriber: userId,
       });
@@ -117,7 +119,7 @@ const PlanCustomizationForm = ({
           </div>
         </div>
 
-        <Button type="submit">
+        <Button type="submit" disabled={form.formState.isSubmitting}>
           Start {form.formState.isSubmitting && <Spinner />}
         </Button>
       </form>

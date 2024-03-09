@@ -7,9 +7,10 @@ export type CreateUserParams = {
 };
 
 export type CreatePlanParams = {
-  type: string;
-  step: string;
   amount: string | number;
+  step: string;
+  type: string;
+  duration: string;
   isActive: boolean;
   subscriber: string;
 };
@@ -19,7 +20,7 @@ export type ContributionParams = {
   contributor: string;
   receipt: string;
   plan: string;
-  dateOfContribution: Date;
-  dateOfContributionUpdate: Date;
+  dateOfContribution: string;
+  // dateOfContributionUpdate: Date;
   verifiedContribution: false;
 };

@@ -32,7 +32,10 @@ export const CustomPlanSchema = z.object({
 export type CustomPlanType = z.infer<typeof CustomPlanSchema>;
 
 export const ContributionSchema = z.object({
-  amount: z.string(),
+  amount: z
+    .string()
+    .min(1000, { message: "You can not contribute less than 1000 naira" }),
+  receipt: z.string().url(),
   date: z.date(),
 });
 export type ContributionType = z.infer<typeof ContributionSchema>;

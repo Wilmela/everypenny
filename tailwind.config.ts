@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        fold: "278px",
+      },
       fontFamily: {
         kanit: ["var(--font-kanit)"],
         play: "var(--font-play)",

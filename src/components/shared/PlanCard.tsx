@@ -7,7 +7,7 @@ import { getSession } from "@/lib/actions/auth.action";
 type Props = {
   type: string;
   bgImg: string;
-  duration: string | number;
+  duration: string;
   desc: string;
 };
 

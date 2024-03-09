@@ -9,7 +9,9 @@ const ProfilePage = async () => {
   } else {
     redirect(`/profile/${session.userId}`);
   }
-  return <div>Redirecting to your profile page.</div>;
+  return (
+    <div className="text-center p-text">You need to be signed in to get access to your personalized page.</div>
+  );
 };
 
 export default ProfilePage;

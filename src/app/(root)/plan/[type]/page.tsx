@@ -18,6 +18,8 @@ const PlanSetUpPage = async ({
 
   const session = await getSession();
 
+  console.log(type, selectedPlan.duration);
+  
   return (
     <section className="bg-gray-50">
       <MaxWidthContainer className="paddingY">
@@ -51,7 +53,11 @@ const PlanSetUpPage = async ({
 
           <div className="w-full md:w-[200px] lg:w-[400px] bg-white shadow-md p-4 h-fit rounded-md">
             <h2 className="my-2">Customize Your Plan</h2>
-            <PlanCustomizationForm userId={session.userId!} type={type} />
+            <PlanCustomizationForm
+              userId={session.userId!}
+              type={type}
+              duration={selectedPlan.duration}
+            />
           </div>
         </MotionDiv>
       </MaxWidthContainer>

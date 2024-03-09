@@ -38,13 +38,12 @@ export const sessionOptions: SessionOptions = {
 
 // Date and Time formatting
 export const formatNaira = (amount: number) => {
-  const formatter = Intl.NumberFormat("en-Us", {
+  return Intl.NumberFormat("en-Us", {
     style: "currency",
     currency: "Naira",
     maximumFractionDigits: 2,
-  });
+  }).format(amount);
 
-  return formatter.format(amount);
 };
 
 export const formatDate = (date: Date) => {

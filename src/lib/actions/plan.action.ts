@@ -6,6 +6,7 @@ import { handleError } from "../utils";
 import { CreatePlanParams } from "@/types";
 
 export const createPlan = async (plan: CreatePlanParams) => {
+  
   try {
     await connectToDatabase();
     const newPlan = await Plan.create(plan);
@@ -20,7 +21,6 @@ export const getPlans = async () => {
   try {
     await connectToDatabase();
     const plans = await Plan.find();
-    console.log(plans);
 
     return JSON.parse(JSON.stringify(plans));
   } catch (error) {

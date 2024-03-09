@@ -21,10 +21,10 @@ const ContributionSchema = new Schema(
       type: Date,
       default: Date.now,
     },
-    dateOfContributionUpdate: {
-      type: Date,
-      default: Date.now,
-    },
+    // dateOfContributionUpdate: {
+    //   type: Date,
+    //   default: Date.now,
+    // },
     isContributionVerified: {
       type: Boolean,
       default: false,

@@ -24,9 +24,10 @@ export default function Home() {
           priority
           className="-z-30 md:hidden object-cover object-center"
         />
-        <MaxWidthContainer className="flex flex-col h-[650px] lg:h-[800px] justify-center">
+        <MaxWidthContainer className="flex flex-col paddingY justify-center lg:h-screen">
           <div className="flex flex-col lg:flex-row lg:justify-between items-center">
-            <div className="w-full lg:w-8/12 flex flex-col gap-4 md:gap-8">
+            {/* Introduction and call to action */}
+            <div className="w-full lg:w-6/12 xl:w-9/12 flex flex-col gap-4 md:gap-8 fold:gap-4">
               <h1 className="title">
                 Make Every Penny <br className="hidden lg:block" /> Count
               </h1>
@@ -41,7 +42,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="mt-6 md:mt-12 w-full lg:w-4/12">
+            {/* Review Carousel */}
+            <div className="sm:mt-6 fold:mt-4 md:mt-12 w-full lg:w-6/12 xl:w-[35%] ">
               <CarouselDiv
                 autoPlay={true}
                 infiniteLoop={true}
@@ -50,7 +52,7 @@ export default function Home() {
                 stopOnHover={true}
                 showIndicators={false}
                 showStatus={false}
-                className="w-full "
+                className="w-full"
               >
                 {review.map((item) => (
                   <div key={item.name} className="p-4">
