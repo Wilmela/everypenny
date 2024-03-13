@@ -7,8 +7,11 @@ import {
   TwitterLogoIcon,
 } from "@radix-ui/react-icons";
 import NavItems from "./NavItems";
+import { getSession } from "@/lib/actions/auth.action";
 
-const Footer = () => {
+const Footer = async () => {
+  const session = await getSession();
+  if (!session.userId) return;
   return (
     <footer>
       <div className="py-8 bg-green-800">
@@ -34,7 +37,7 @@ const Footer = () => {
           </div>
           {/* Links */}
           <div className="flex items-center justify-center my-2">
-            <NavItems />
+            <NavItems userId={session.userId} />
           </div>
         </MaxWidthContainer>
       </div>

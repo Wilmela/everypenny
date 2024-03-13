@@ -16,13 +16,15 @@ export const makeContribution = async (
   try {
     await connectToDatabase();
 
+    // Create a new contribution
     const newContribution = await Contribution.create(contribution);
 
+    // create new contribution timeline
     await TimeLines.create({
       userId: contributor,
       timeline: {
         title: formatDate(new Date(contribution.dateOfContribution)),
-        cardTitle: `Contributed ${contribution.amount} ${
+        cardTitle: `${contribution.amount} contribution ${
           !contribution.verifiedContribution ? "Not verified" : "Verified"
         }`,
         media: {
@@ -34,6 +36,7 @@ export const makeContribution = async (
       },
     });
 
+    // Add contribution to user contribution array
     await User.findByIdAndUpdate(
       contributor,
       {
