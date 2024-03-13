@@ -1,8 +1,8 @@
 import Circles from "@/components/blocks/Circles";
 import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
-import SignInForm from "@/components/shared/SignInForm";
 import { getSession } from "@/lib/actions/auth.action";
 import { redirect } from "next/navigation";
+import AuthForm from "@/components/shared/AuthForm";
 
 const SignIn = async () => {
   const session = await getSession();
@@ -16,7 +16,7 @@ const SignIn = async () => {
     >
       <MaxWidthContainer className="auth-wrapper relative">
         <h1 className="title mb-8">Sign In</h1>
-        <SignInForm />
+        <AuthForm type="SignIn" />
 
         {/* <Circles /> */}
       </MaxWidthContainer>

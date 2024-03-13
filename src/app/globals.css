@@ -64,7 +64,7 @@ html {
 
 @layer utilities {
   .title {
-    @apply text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] bg-gradient-to-r to-40% from-slate-100 to-APP_GREEN bg-clip-text text-transparent font-[700];
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] bg-gradient-to-r to-40% from-slate-100 to-APP_GREEN bg-clip-text text-transparent font-[700] md:text-center lg:text-left;
   }
   .sub-title {
     @apply text-2xl sm:text-3xl lg:text-4xl bg-gradient-to-r to-10% from-yellow-300 to-APP_GREEN bg-clip-text text-transparent font-[400];

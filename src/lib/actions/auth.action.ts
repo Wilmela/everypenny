@@ -28,7 +28,8 @@ export const signOut = async () => {
 
 export const signIn = async ({ email, password }: SignInType) => {
   const session = await getSession();
-
+  console.log(email, password);
+  
   const user = await User.findOne({ email });
   if (!user) throw new Error("Wrong credentials");
 
