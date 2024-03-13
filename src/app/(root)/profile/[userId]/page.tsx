@@ -4,19 +4,11 @@ import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
 import { subscriptionPlans } from "@/constants";
 import { getSession } from "@/lib/actions/auth.action";
 import { getUserPlan } from "@/lib/actions/plan.action";
+import { getUserTimeline } from "@/lib/actions/timeLines.actions";
+import { findUserById } from "@/lib/actions/user.action.";
+import { TimeLineParams } from "@/types";
 import Image from "next/image";
-
-type MediaProps = {
-  type: string;
-  source: {
-    url: string;
-  };
-};
-type TimeLineProps = {
-  title: string;
-  cardTitle: string;
-  media: MediaProps;
-};
+import { redirect } from "next/navigation";
 
 const ProfileDetail = async ({
   params: { userId },
@@ -24,23 +16,21 @@ const ProfileDetail = async ({
   params: { userId: string };
 }) => {
   const session = await getSession();
+  if (!session.isLoggedIn) {
+    redirect("/auth/sign-in");
+  }
 
-  const plan = await getUserPlan(userId);
+  const userPlan = await getUserPlan(userId);
 
-  const userSub = subscriptionPlans.find((sub) => sub.type === plan?.type);
+  const userSub = subscriptionPlans.find((sub) => sub.type === userPlan.type);
 
-  const timeLineItems: TimeLineProps[] = [
-    {
-      title: "May 2024",
-      cardTitle: "Monthly Savings",
-      media: {
-        type: "IMAGE",
-        source: {
-          url: "/assets/images/logo.png",
-        },
-      },
-    },
-  ];
+  const timeline: TimeLineParams[] = await getUserTimeline(
+    userId,
+    `/profile/${userId}`
+  );
+
+  const data = await findUserById(userId);
+  console.log(data.contributions);
 
   return (
     <section>
@@ -62,32 +52,45 @@ const ProfileDetail = async ({
             </div>
 
             {/* Details */}
-            <>
-              <div className="flex gap-2 mt-4">
-                <p className="p-text">Full name: {session.firstName}</p>
-                <p className="p-text">{session.lastName}</p>
-              </div>
-              <p className="p-text">Email: {session.email}</p>
-              <p className="p-text">Registration No: {session.regId}</p>
-              <span className="inline-flex items-center justify-center gap-2 p-text">
-                Current plan:
-                <p className="py-1 px-2 rounded-xl bg-APP_GREEN/20 w-fit ">
-                  {userSub?.type || "No plan."}
-                </p>
-              </span>
-            </>
+            <div className="flex gap-2 mt-4">
+              <p className="p-text">Full name: {session.firstName}</p>
+              <p className="p-text">{session.lastName}</p>
+            </div>
+            <p className="p-text">Email: {session.email}</p>
+            <p className="p-text">Registration No: {session.regId}</p>
+            <span className="inline-flex items-center justify-center gap-2 p-text">
+              Current plan:
+              <p className="py-1 px-2 rounded-xl bg-APP_GREEN/20 w-fit ">
+                {userSub?.type || "No plan."}
+              </p>
+            </span>
 
             <div className="my-6 p-6 bg-white shadow-md w-full rounded-md">
-              <p className="p-text text-center py-2">Make Contribution</p>
-              <ContributionForm contributor={userId} plan={plan?.type} />
+              <p className="p-text text-center py-2 uppercase">
+                Make Contribution
+              </p>
+              <ContributionForm
+                contributor={userId}
+                plan={userPlan.type}
+                chosenAmount={userPlan.amount || 0}
+              />
             </div>
           </div>
 
           <div className="col-span-1 md:col-span-2">
-            <ChronoTimeline timeLineItems={timeLineItems} />
+            {timeline.length ? (
+              <ChronoTimeline timeLineItems={timeline} />
+            ) : (
+              <p className="p-text text-center">Start Contributing</p>
+            )}
           </div>
         </div>
         Request Statement
+        <br />
+        Verify transaction by Admin
+        <br />
+        Overall Amount Calculate Payment based on steps Admin <br />
+        verification of fund
       </MaxWidthContainer>
     </section>
   );

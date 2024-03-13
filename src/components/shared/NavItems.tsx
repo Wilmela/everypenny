@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useNavContext } from "@/context";
 
 type NavLink = (typeof NAV_LINKS)[number];
-const NavItems = () => {
+const NavItems = ({ userId }: { userId: string }) => {
   const pathname = usePathname();
   const { setToggled } = useNavContext();
 
@@ -33,7 +33,15 @@ const NavItems = () => {
               )}
               onClick={() => setToggled(false)}
             >
-              <Link href={link.route}>{link.label}</Link>
+              <Link
+                href={
+                  link.route === "/profile"
+                    ? `${link.route}/${userId}`
+                    : link.route
+                }
+              >
+                {link.label}
+              </Link>
             </li>
           );
         })}

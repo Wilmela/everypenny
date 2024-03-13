@@ -96,3 +96,21 @@ export const initialValue = {
   password: "",
 };
 
+
+
+// const timeLineItems: TimeLineProps[] = [
+  //   {
+  //     title: `${formatDate(
+  //       new Date(userContributions.dateOfContribution)
+  //     )}`,
+  //     cardTitle: `${userContributions.plan} Savings`,
+  //     media: {
+  //       type: "IMAGE",
+  //       source: {
+  //         url: userContributions.receipt,
+  //       },
+  //     },
+  //   },
+  // ];
+
+

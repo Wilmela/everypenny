@@ -1,5 +1,6 @@
 import { Schema, Model, model, models, Document } from "mongoose";
 import bcrypt from "bcrypt";
+import { ContributionParams } from "@/types";
 
 export interface IUser extends Document {
   regId: string;
@@ -8,6 +9,8 @@ export interface IUser extends Document {
   email: string;
   password: string;
   imageUrl?: string;
+  contributions: ContributionParams[]
+  isVerified: boolean;
   role: "user" | "admin";
   createdAt: Date;
   updatedAt: Date;
@@ -49,6 +52,8 @@ const UserSchema = new Schema<IUser, {}, Methods>(
       enum: ["user", "admin"],
       default: "user",
     },
+    contributions: [{ type: Schema.Types.ObjectId, ref: "Contribution" }],
+    isVerified: { type: Boolean, default: false },
     createdAt: {
       type: Date,
       default: Date.now,

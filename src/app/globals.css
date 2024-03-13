@@ -100,6 +100,6 @@ html {
     @apply w-full sm:w-9/12 lg:w-5/12;
   }
   .auth-wrapper {
-    @apply w-full flex flex-col h-screen items-center justify-center bg-gray-50;
+    @apply w-full flex flex-col h-screen items-center justify-center;
   }
 }

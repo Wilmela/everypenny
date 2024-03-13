@@ -6,8 +6,15 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const handleError = (error: Error | any) => {
-  if (typeof error === "string") return { error };
+export const handleError = (error: unknown) => {
+  if (error instanceof Error) {
+    console.log(error.message);
+    throw new Error(`Error ${error.message}`);
+  }
+  if (typeof error === "string") {
+    console.log(error);
+    throw new Error(`Error: ${error}`);
+  }
 
   return JSON.stringify({ error });
 };
@@ -43,15 +50,14 @@ export const formatNaira = (amount: number) => {
     currency: "Naira",
     maximumFractionDigits: 2,
   }).format(amount);
-
 };
 
 export const formatDate = (date: Date) => {
   const formattedDate = Intl.DateTimeFormat("en-Us", {
-    dateStyle: "full",
-    timeStyle: "long",
-    timeZone: "GMT+1",
-    timeZoneName: "short",
+    dateStyle: "short",
+    timeStyle: "short",
+    // timeZone: "GMT+1",
+    // timeZoneName: "short",
   }).format(date);
 
   return formattedDate;

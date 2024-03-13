@@ -2,7 +2,7 @@
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { CalendarIcon } from "@radix-ui/react-icons";
+import { CalendarIcon, ImageIcon } from "@radix-ui/react-icons";
 
 import {
   Form,
@@ -18,40 +18,55 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
 import Spinner from "./Spinner";
 import { makeContribution } from "@/lib/actions/contribution.action";
-import { formatDate } from "@/lib/utils";
+import { CldUploadBtn } from "../blocks/Blocks";
+import { useState } from "react";
+import Image from "next/image";
 
 type Props = {
   contributor: string;
   plan: string;
+  chosenAmount: number;
 };
-const ContributionForm = ({ contributor, plan }: Props) => {
+
+const ContributionForm = ({ contributor, plan, chosenAmount }: Props) => {
+  const initialsValue = { amount: 0, receipt: "", date: new Date() };
+
   const form = useForm<ContributionType>({
-    defaultValues: { amount: "", date: new Date() },
+    defaultValues: chosenAmount
+      ? { ...initialsValue, amount: chosenAmount }
+      : initialsValue,
     resolver: zodResolver(ContributionSchema),
   });
 
-  const onSubmit = async (data: ContributionType) => {
-    try {
-      const contribution = await makeContribution(
-        {
-          ...data,
-          receipt: "http://localhost.com",
-          contributor,
-          plan,
-          dateOfContribution: formatDate(data.date),
-          verifiedContribution: false,
-        },
-        `/profile/${contributor}`
-      );
+  const [imgUrl, setImgUrl] = useState("");
 
-      if (contribution) {
-        console.log("Contribution awaiting verification, thank you.");
+  const onSubmit = async (data: ContributionType) => {
+    if (imgUrl) {
+      try {
+        const contribution = await makeContribution(
+          contributor,
+          {
+            ...data,
+            receipt: imgUrl || "http://localhost.com",
+            contributor,
+            plan,
+            dateOfContribution: data.date,
+            verifiedContribution: false,
+          },
+          `/profile/${contributor}`
+        );
+
+        setImgUrl("");
+        if (contribution) {
+          alert("Contribution awaiting verification, thank you.");
+        }
+      } catch (error) {
+        throw error;
       }
-    } catch (error) {
-      throw error;
     }
+    return;
   };
-  
+
   return (
     <Form {...form}>
       <form
@@ -65,6 +80,7 @@ const ContributionForm = ({ contributor, plan }: Props) => {
             <FormItem>
               <FormControl>
                 <Input
+                  disabled
                   type="text"
                   {...field}
                   className="form-input"
@@ -77,16 +93,16 @@ const ContributionForm = ({ contributor, plan }: Props) => {
         />
 
         <FormField
-          name="amount"
+          name="receipt"
           control={form.control}
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="form-input inline-flex items-center gap-2">
+              <ImageIcon className="w-8 h-8 text-gray-400" />
+
               <FormControl>
-                <Input
-                  type="file"
-                  {...field}
-                  className="form-input"
-                  placeholder="Receipt"
+                <CldUploadBtn
+                  uploadPreset="t6fadj5g"
+                  onSuccess={(results: any) => setImgUrl(results?.info?.url)}
                 />
               </FormControl>
               <FormMessage />
@@ -117,11 +133,21 @@ const ContributionForm = ({ contributor, plan }: Props) => {
           )}
         />
 
-        <Button type="submit" className="form-btn">
-          {form.formState.isSubmitting && <Spinner />}
+        <Button type="submit" className="form-btn inline-flex gap-2">
           Contribute
+          {form.formState.isSubmitting && <Spinner />}
         </Button>
       </form>
+
+      {imgUrl && (
+        <Image
+          src={imgUrl}
+          width={400}
+          height={400}
+          alt="receipt"
+          className="aspect-video mt-4 object-contain"
+        />
+      )}
     </Form>
   );
 };

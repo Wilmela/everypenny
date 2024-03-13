@@ -1,7 +1,16 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
-let cache = (global as any).mongoose || { conn: null, promise: null };
+interface ConnType {
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
+}
+
+let cache: ConnType = (global as any).mongoose;
 const URL = process.env.MONGO_URI as string;
+
+if (!cache) {
+  cache = (global as any).mongoose || { conn: null, promise: null };
+}
 
 const connectToDatabase = async () => {
   if (cache.conn) return cache.conn;

@@ -1,4 +1,9 @@
-import { CarouselDiv, MotionDiv, MotionP } from "@/components/blocks/Blocks";
+import {
+  CarouselDiv,
+  MotionDiv,
+  MotionP,
+  Parallax,
+} from "@/components/blocks/Blocks";
 import CallToAction from "@/components/shared/CallToAction";
 import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
 import Image from "next/image";
@@ -72,35 +77,37 @@ export default function Home() {
 
       {/* Security */}
       <section className="bg-gray-50 paddingY" id="explore">
-        <MaxWidthContainer className="grid grid-cols-1 md:grid-cols-2">
-          {points.map((point) => {
-            return (
-              <MotionDiv
-                whileHover={{ scale: 1.03 }}
-                className="flex flex-col gap-4 my-4 mr-4 shadow-sm bg-white p-4 rounded-md cursor-pointer"
-                key={point.title}
-              >
-                <h3 className="sub-title">{point.title}</h3>
-
-                <div className="flex gap-4 items-center">
-                  <MotionDiv whileInView={{ x: [-100, 0] }}>
-                    <Image
-                      src={point.image}
-                      width={100}
-                      height={50}
-                      alt="security_icon"
-                    />
-                  </MotionDiv>
-                  <MotionP
-                    whileHover={{ scale: 1.05 }}
-                    className="max-w-[40ch] text-muted-foreground"
-                  >
-                    {point.desc}
-                  </MotionP>
-                </div>
-              </MotionDiv>
-            );
-          })}
+        <MaxWidthContainer>
+          <h3 className="page-title mb-6">About</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            {points.map((point) => {
+              return (
+                <MotionDiv
+                  whileHover={{ scale: 1.03 }}
+                  className="flex flex-col gap-4 my-4 mr-4 shadow-sm bg-white p-4 rounded-md cursor-pointer"
+                  key={point.title}
+                >
+                  <h3 className="sub-title">{point.title}</h3>
+                  <div className="flex gap-4 items-center">
+                    <MotionDiv whileInView={{ x: [-100, 0] }}>
+                      <Image
+                        src={point.image}
+                        width={100}
+                        height={50}
+                        alt="security_icon"
+                      />
+                    </MotionDiv>
+                    <MotionP
+                      whileHover={{ scale: 1.05 }}
+                      className="max-w-[40ch] text-muted-foreground"
+                    >
+                      {point.desc}
+                    </MotionP>
+                  </div>
+                </MotionDiv>
+              );
+            })}
+          </div>
         </MaxWidthContainer>
       </section>
     </>

@@ -16,11 +16,22 @@ export type CreatePlanParams = {
 };
 
 export type ContributionParams = {
-  amount: string;
+  amount: number;
   contributor: string;
   receipt: string;
   plan: string;
-  dateOfContribution: string;
+  dateOfContribution: Date;
   // dateOfContributionUpdate: Date;
   verifiedContribution: false;
+};
+
+export type TimeLineParams = {
+  title: string;
+  cardTitle: string;
+  media: {
+    type: string;
+    source: {
+      url: string;
+    };
+  };
 };

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useNavContext } from "@/context";
 
-const MobileNav = () => {
+const MobileNav = ({userId}: {userId: string}) => {
   const { toggled, setToggled } = useNavContext();
 
   return (
@@ -29,7 +29,7 @@ const MobileNav = () => {
         })}
       >
         <div className="bg-APP_GREEN/50 w-6/12 py-8 h-[30] animate-slide-left">
-          <NavItems />
+          <NavItems userId={userId} />
         </div>
       </div>
     </div>

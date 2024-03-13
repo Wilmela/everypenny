@@ -3,7 +3,7 @@ import { Schema, models, model } from "mongoose";
 const ContributionSchema = new Schema(
   {
     amount: {
-      type: String,
+      type: Number,
       required: true,
     },
     contributor: {
@@ -12,10 +12,11 @@ const ContributionSchema = new Schema(
     },
     receipt: {
       type: String,
+      required: true,
     },
     plan: {
-      type: Schema.Types.ObjectId,
-      ref: "Plan",
+      type: String,
+      required: true,
     },
     dateOfContribution: {
       type: Date,
@@ -25,7 +26,7 @@ const ContributionSchema = new Schema(
     //   type: Date,
     //   default: Date.now,
     // },
-    isContributionVerified: {
+    verifiedContribution: {
       type: Boolean,
       default: false,
     },

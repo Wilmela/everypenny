@@ -12,14 +12,13 @@ const PlanSetUpPage = async ({
 }: {
   params: { type: string };
 }) => {
+  // check the selected plan type
   const selectedPlan: any = subscriptionPlans.find(
     (p: SubType) => p.type === type
   );
 
   const session = await getSession();
 
-  console.log(type, selectedPlan.duration);
-  
   return (
     <section className="bg-gray-50">
       <MaxWidthContainer className="paddingY">

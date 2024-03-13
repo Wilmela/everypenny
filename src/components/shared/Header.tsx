@@ -23,7 +23,7 @@ const Header = async () => {
           </Link>
 
           <div className="hidden md:block">
-            <NavItems />
+            <NavItems userId={session.userId!} />
           </div>
 
           <div className="flex gap-2 items-center">
@@ -44,7 +44,9 @@ const Header = async () => {
                 </>
               ) : (
                 <form action={signOut} className="flex items-center gap-2">
-                  <p className="text-sm text-white hidden sm:block">Hi, {session.firstName}</p>
+                  <p className="text-sm text-white hidden sm:block">
+                    Hi, {session.firstName}
+                  </p>
                   <Button
                     className="rounded-full hover:text-gray-300 text-white"
                     type="submit"
@@ -55,7 +57,7 @@ const Header = async () => {
               )}
             </div>
 
-            <MobileNav />
+            <MobileNav userId={session.userId!} />
           </div>
         </div>
       </MaxWidthContainer>
