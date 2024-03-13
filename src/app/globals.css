@@ -88,10 +88,10 @@ html {
     @apply rounded-full bg-white hover:bg-green-500 text-APP_GREEN duration-300 ease-in font-[400];
   }
   .p-text {
-    @apply text-sm sm:text-lg text-muted-foreground font-cambay font-[400] fold:text-xs;
+    @apply text-sm xr:text-[1rem] xr:leading-[1.3rem] sm:text-lg text-muted-foreground font-cambay font-[400] fold:text-xs;
   }
   .paddingY {
-    @apply py-10 md:py-20;
+    @apply py-8 md:py-16;
   }
   .form-input {
     @apply p-4 rounded-full h-11 w-full border-gray-300 border-[0.5px] forced-color-adjust-auto shadow-sm;

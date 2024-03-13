@@ -18,6 +18,6 @@ export const getUserTimeline = async (userId: string, path: string) => {
 
     return JSON.parse(JSON.stringify(existingTimeLines));
   } catch (error) {
-    handleError(error);
+    return { error: handleError(error) };
   }
 };

@@ -1,6 +1,5 @@
 "use client";
 
-// import { timeLineItems } from "@/constants";
 import { Chrono } from "react-chrono";
 
 const ChronoTimeline = ({ timeLineItems }: any) => {

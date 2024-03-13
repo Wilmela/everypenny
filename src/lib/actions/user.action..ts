@@ -5,7 +5,6 @@ import connectToDatabase from "../database";
 import User from "../database/model/user.model";
 import { handleError } from "@/lib/utils";
 import Contribution from "../database/model/contribution.model";
-import { revalidatePath } from "next/cache";
 
 export const createUser = async (user: CreateUserParams) => {
   try {
@@ -20,7 +19,7 @@ export const createUser = async (user: CreateUserParams) => {
     const newUser = await User.create({ ...user, regId: uniqueId });
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
-    handleError(error);
+    return { error: handleError(error) };
   }
 };
 
@@ -35,6 +34,6 @@ export const findUserById = async (userId: string) => {
 
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
-    handleError(error);
+    return { error: handleError(error) };
   }
 };

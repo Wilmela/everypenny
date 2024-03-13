@@ -6,17 +6,19 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const handleError = (error: unknown) => {
-  if (error instanceof Error) {
-    console.log(error.message);
-    throw new Error(`Error ${error.message}`);
-  }
-  if (typeof error === "string") {
-    console.log(error);
-    throw new Error(`Error: ${error}`);
-  }
+export const handleError = (error: unknown): string => {
+  let message: string;
 
-  return JSON.stringify({ error });
+  if (error instanceof Error) {
+    message = error.message;
+  } else if (error && typeof error === "object" && "message" in error) {
+    message = String(error.message);
+  } else if (typeof error === "string") {
+    message = error;
+  } else {
+    message = "Oops, something went wrong.";
+  }
+  return message;
 };
 
 // IRON-SESSION CONFIG - These are params you want the session to hold

@@ -6,14 +6,13 @@ import { handleError } from "../utils";
 import { CreatePlanParams } from "@/types";
 
 export const createPlan = async (plan: CreatePlanParams) => {
-  
   try {
     await connectToDatabase();
     const newPlan = await Plan.create(plan);
 
     return JSON.parse(JSON.stringify(newPlan));
   } catch (error) {
-    handleError(error);
+    return { error: handleError(error) };
   }
 };
 
@@ -24,9 +23,9 @@ export const getPlans = async () => {
 
     return JSON.parse(JSON.stringify(plans));
   } catch (error) {
-    handleError(error);
+    return { error: handleError(error) };
   }
-}
+};
 
 export const getPlanByType = async (type: string) => {
   try {
@@ -36,7 +35,7 @@ export const getPlanByType = async (type: string) => {
 
     return JSON.parse(JSON.stringify(plan));
   } catch (error) {
-    handleError(error);
+    return { error: handleError(error) };
   }
 };
 
@@ -48,6 +47,6 @@ export const getUserPlan = async (userId: string) => {
 
     return JSON.parse(JSON.stringify(plan));
   } catch (error) {
-    handleError(error);
+    return { error: handleError(error) };
   }
 };

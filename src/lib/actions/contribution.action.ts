@@ -47,11 +47,13 @@ export const makeContribution = async (
       { new: true }
     );
 
+    // Notify admin of a contribution by a user with regId: via email
+
     revalidatePath(path);
 
     return JSON.parse(JSON.stringify(newContribution));
   } catch (error) {
-    handleError(error);
+    return { error: handleError(error) };
   }
 };
 
@@ -63,7 +65,7 @@ export const getUserContributions = async (userId: string) => {
     });
     return JSON.parse(JSON.stringify(contributions));
   } catch (error) {
-    handleError(error);
+    return { error: handleError(error) };
   }
 };
 
@@ -78,6 +80,6 @@ export const getAllContributions = async (userId: string) => {
     }
     return;
   } catch (error) {
-    handleError(error);
+    return { error: handleError(error) };
   }
 };

@@ -1,3 +1,4 @@
+import PersonalDetails from "@/components/shared/PersonalDetails";
 import ChronoTimeline from "@/components/shared/ChronoTimeline";
 import ContributionForm from "@/components/shared/ContributionForm";
 import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
@@ -22,15 +23,16 @@ const ProfileDetail = async ({
 
   const userPlan = await getUserPlan(userId);
 
-  const userSub = subscriptionPlans.find((sub) => sub.type === userPlan.type);
+  const userSub = subscriptionPlans.find(
+    (sub) => sub.type === userPlan.type
+  ) as (typeof subscriptionPlans)[number];
 
   const timeline: TimeLineParams[] = await getUserTimeline(
     userId,
     `/profile/${userId}`
   );
 
-  const data = await findUserById(userId);
-  console.log(data.contributions);
+  // const data = await findUserById(userId); populate contributions for account statement
 
   return (
     <section>
@@ -39,44 +41,36 @@ const ProfileDetail = async ({
         <h3 className="page-sub-title text-center my-2">
           Welcome, {session.firstName} {session.lastName}
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-4 justify-between rounded-md my-8 gap-8 md:gap-0">
-          <div className="flex flex-col items-start col-span-2 md:w-[300px]">
-            {/* Image */}
-            <div className="relative w-full  h-[320px] flex gap-2 col-span-1">
-              <Image
-                src="/assets/images/dp.jpeg"
-                fill
-                alt="user_image"
-                className="object-cover"
-              />
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-5 justify-between rounded-md my-8 gap-8 md:gap-0">
+          {/* First */}
+          <div className="items-start col-span-1 md:col-span-1">
+            <p className="p-text py-2 uppercase">personal detail</p>
+            <PersonalDetails type={userSub.type} />
 
-            {/* Details */}
-            <div className="flex gap-2 mt-4">
-              <p className="p-text">Full name: {session.firstName}</p>
-              <p className="p-text">{session.lastName}</p>
-            </div>
-            <p className="p-text">Email: {session.email}</p>
-            <p className="p-text">Registration No: {session.regId}</p>
-            <span className="inline-flex items-center justify-center gap-2 p-text">
-              Current plan:
-              <p className="py-1 px-2 rounded-xl bg-APP_GREEN/20 w-fit ">
-                {userSub?.type || "No plan."}
-              </p>
-            </span>
+            <>
+              <p className="p-text uppercase mt-8">Make Contribution</p>
+              <div className="my-6 p-2 bg-white shadow-md w-full rounded-md">
+                <ContributionForm
+                  contributor={userId}
+                  plan={userPlan.type}
+                  chosenAmount={userPlan.amount || 0}
+                />
+              </div>
 
-            <div className="my-6 p-6 bg-white shadow-md w-full rounded-md">
-              <p className="p-text text-center py-2 uppercase">
-                Make Contribution
-              </p>
-              <ContributionForm
-                contributor={userId}
-                plan={userPlan.type}
-                chosenAmount={userPlan.amount || 0}
-              />
-            </div>
+              <h3 className="font-semibold text-3xl md:hidden text-center mt-8 ">
+                Savings: ₦10000
+              </h3>
+            </>
           </div>
 
+          {/* Second */}
+          <div className="hidden md:block md:col-span-2">
+            <h3 className="font-semibold text-3xl text-center">
+              Savings: ₦10000
+            </h3>
+          </div>
+
+          {/* Third */}
           <div className="col-span-1 md:col-span-2">
             {timeline.length ? (
               <ChronoTimeline timeLineItems={timeline} />
@@ -89,8 +83,7 @@ const ProfileDetail = async ({
         <br />
         Verify transaction by Admin
         <br />
-        Overall Amount Calculate Payment based on steps Admin <br />
-        verification of fund
+        Overall Amount Calculate Payment based on steps <br />
       </MaxWidthContainer>
     </section>
   );

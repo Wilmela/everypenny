@@ -20,6 +20,7 @@ const config = {
     extend: {
       screens: {
         fold: "278px",
+        xr: "413px",
       },
       fontFamily: {
         kanit: ["var(--font-kanit)"],

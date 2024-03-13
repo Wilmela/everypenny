@@ -23,7 +23,6 @@ import { initialValue } from "@/constants";
 import Spinner from "./Spinner";
 import { signIn } from "@/lib/actions/auth.action";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
-import { boolean } from "zod";
 import { useState } from "react";
 
 type AuthFormType = {
@@ -34,6 +33,7 @@ const AuthForm = ({ type }: AuthFormType) => {
   const SIGN_UP = type === "SignUp";
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
   const form = useForm<CreateUserType | SignInType>({
     resolver: zodResolver(SIGN_UP ? CreateUserSchema : SignInSchema),
@@ -52,10 +52,15 @@ const AuthForm = ({ type }: AuthFormType) => {
       }
     } else {
       try {
-        await signIn({
+        const user = await signIn({
           email: data.email,
           password: data.password,
         } as SignInType);
+
+        if (user?.error) {
+          setError(user?.error);
+          return;
+        }
         router.push("/");
       } catch (error) {
         throw error;
@@ -151,9 +156,9 @@ const AuthForm = ({ type }: AuthFormType) => {
                       className="absolute right-6"
                     >
                       {showPassword ? (
-                        <EyeClosedIcon className="w-6 h-6 text-APP_GREEN"  />
+                        <EyeClosedIcon className="w-6 h-6 text-APP_GREEN" />
                       ) : (
-                        <EyeOpenIcon className="w-6 h-6 text-APP_GREEN"  />
+                        <EyeOpenIcon className="w-6 h-6 text-APP_GREEN" />
                       )}
                     </div>
                   </div>
@@ -171,7 +176,9 @@ const AuthForm = ({ type }: AuthFormType) => {
             {form.formState.isSubmitting && <Spinner />}
           </Button>
           <span>
-            {SIGN_UP ? "Already have an account ? " : "Don't have an account ? "}
+            {SIGN_UP
+              ? "Already have an account ? "
+              : "Don't have an account ? "}
 
             <Link
               className="text-green-700 hover:text-green-400"
@@ -182,6 +189,7 @@ const AuthForm = ({ type }: AuthFormType) => {
           </span>
         </div>
       </form>
+      {error && <p className="text-sm text-red-500 py-2"> {error}</p>}
     </Form>
   );
 };
