@@ -78,7 +78,7 @@ export default function Home() {
       {/* Security */}
       <section className="bg-gray-50 paddingY" id="explore">
         <MaxWidthContainer>
-          <h3 className="page-title mb-6">About</h3>
+          <h3 className="page-title mb-6">Good To Know</h3>
           <div className="grid grid-cols-1 md:grid-cols-2">
             {points.map((point) => {
               return (

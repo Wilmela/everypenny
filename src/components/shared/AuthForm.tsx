@@ -24,6 +24,7 @@ import Spinner from "./Spinner";
 import { signIn } from "@/lib/actions/auth.action";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
+import { useToast } from "../ui/use-toast";
 
 type AuthFormType = {
   type: "SignIn" | "SignUp";
@@ -33,7 +34,8 @@ const AuthForm = ({ type }: AuthFormType) => {
   const SIGN_UP = type === "SignUp";
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
+
+  const { toast } = useToast();
 
   const form = useForm<CreateUserType | SignInType>({
     resolver: zodResolver(SIGN_UP ? CreateUserSchema : SignInSchema),
@@ -58,7 +60,12 @@ const AuthForm = ({ type }: AuthFormType) => {
         } as SignInType);
 
         if (user?.error) {
-          setError(user?.error);
+          toast({
+            title: "Something went wrong!",
+            description: user.error,
+            variant: "destructive",
+            duration: 5000,
+          });
           return;
         }
         router.push("/");
@@ -189,7 +196,6 @@ const AuthForm = ({ type }: AuthFormType) => {
           </span>
         </div>
       </form>
-      {error && <p className="text-sm text-red-500 py-2"> {error}</p>}
     </Form>
   );
 };

@@ -49,7 +49,7 @@ export const sessionOptions: SessionOptions = {
 export const formatNaira = (amount: number) => {
   return Intl.NumberFormat("en-Us", {
     style: "currency",
-    currency: "Naira",
+    currency: "NGN",
     maximumFractionDigits: 2,
   }).format(amount);
 };
@@ -63,4 +63,12 @@ export const formatDate = (date: Date) => {
   }).format(date);
 
   return formattedDate;
+};
+
+export const generateRandomNumber = (): number => {
+  const min = 10000;
+  const max = 99999;
+  const randNum = Math.floor(Math.random() * (max - min + 1)) + min;
+
+  return randNum;
 };

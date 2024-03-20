@@ -18,6 +18,7 @@ const Header = async () => {
               src="/assets/images/logo.png"
               width={60}
               height={60}
+              priority
               alt="company-logo"
             />
           </Link>

@@ -3,10 +3,12 @@
 import { ContributionParams } from "@/types";
 import connectToDatabase from "../database";
 import Contribution from "../database/model/contribution.model";
-import { formatDate, handleError } from "../utils";
+import { formatDate, generateRandomNumber, handleError } from "../utils";
 import { revalidatePath } from "next/cache";
 import User from "../database/model/user.model";
 import TimeLines from "../database/model/timeLine.model";
+import { findUserContributions } from "./user.action.";
+import { isValidObjectId } from "mongoose";
 
 export const makeContribution = async (
   contributor: string,
@@ -20,11 +22,16 @@ export const makeContribution = async (
     const newContribution = await Contribution.create(contribution);
 
     // create new contribution timeline
+    const randNum: number = generateRandomNumber();
     await TimeLines.create({
+      timeLineId: randNum,
       userId: contributor,
       timeline: {
         title: formatDate(new Date(contribution.dateOfContribution)),
         cardTitle: `${contribution.amount} contribution ${
+          !contribution.verifiedContribution ? "Not verified" : "Verified"
+        }`,
+        cardSubtitle: `${
           !contribution.verifiedContribution ? "Not verified" : "Verified"
         }`,
         media: {
@@ -57,17 +64,37 @@ export const makeContribution = async (
   }
 };
 
-export const getUserContributions = async (userId: string) => {
+export const getUserTotalAmount = async (userId: string) => {
+  if (!isValidObjectId(userId)) return;
   try {
     await connectToDatabase();
-    const contributions = await Contribution.find({
-      contributor: userId,
-    });
-    return JSON.parse(JSON.stringify(contributions));
+    const user = await findUserContributions(userId);
+    
+    const contributedAmount: number[] = user.contributions.map(
+      ({ amount }: { amount: number }) => amount
+    );
+
+    let sum: number = 0;
+    for (let i = 0; i < contributedAmount.length; i++) {
+      sum += contributedAmount[i];
+    }
+
+    return JSON.parse(JSON.stringify(sum));
   } catch (error) {
     return { error: handleError(error) };
   }
 };
+
+export const verifyContribution = async (contributionId: number) => {
+  try {
+    await connectToDatabase();
+   
+  } catch (error) {
+    return { error: handleError(error) };
+  }
+};
+
+
 
 // Only admin
 export const getAllContributions = async (userId: string) => {

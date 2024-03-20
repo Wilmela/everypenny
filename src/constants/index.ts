@@ -42,6 +42,7 @@ export const review = [
   },
 ];
 
+// ABOUT
 export const points = [
   {
     title: "Security",
@@ -56,12 +57,11 @@ export const points = [
   {
     title: "Plans",
     image: "/assets/icons/security.png",
-    desc: " Our plans are totally customizable. This is a well thought process to our you decide how you want to save.",
+    desc: " Our plans are totally customizable. This is a well thought process to help you decide how you want to save.",
   },
 ];
 
 // SUB PLANS
-
 export const subscriptionPlans = [
   {
     type: "Micro",
@@ -95,22 +95,5 @@ export const initialValue = {
   email: "",
   password: "",
 };
-
-
-
-// const timeLineItems: TimeLineProps[] = [
-  //   {
-  //     title: `${formatDate(
-  //       new Date(userContributions.dateOfContribution)
-  //     )}`,
-  //     cardTitle: `${userContributions.plan} Savings`,
-  //     media: {
-  //       type: "IMAGE",
-  //       source: {
-  //         url: userContributions.receipt,
-  //       },
-  //     },
-  //   },
-  // ];
 
 

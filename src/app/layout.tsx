@@ -3,6 +3,7 @@ import { Kanit, Play, Cambay } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { NavContextProvider } from "@/context";
+import { Toaster } from "@/components/ui/toaster";
 
 const kanit = Kanit({
   subsets: ["latin"],
@@ -43,10 +44,11 @@ export default function RootLayout({
             "font-kanit antialiased",
             kanit.variable,
             cambay.variable,
-            play.variable,
+            play.variable
           )}
         >
           {children}
+          <Toaster />
         </body>
       </html>
     </NavContextProvider>

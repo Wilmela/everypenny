@@ -2,23 +2,41 @@
 
 import { Chrono } from "react-chrono";
 
-const ChronoTimeline = ({ timeLineItems }: any) => {
+const ChronoTimeline = ({ timeLineItems }: TimeLineParams) => {
+  if (typeof window === "undefined") {
+    alert("Window is undefined");
+  }
+  
   return (
-    <div>
+    <>
       <Chrono
         items={timeLineItems}
         mode="VERTICAL_ALTERNATING"
-        allowDynamicUpdate={true}
-        cardHeight={150}
+        theme={{
+          primary: "green",
+          secondary: "lightGreen",
+          cardBgColor: "white",
+          titleColor: "black",
+          // titleColorActive: "white",
+        }}
+        fontSizes={{
+          cardText: "0.8rem",
+          cardSubtitle: "0.7rem",
+          cardTitle: "0.8rem",
+          title: "1rem",
+        }}
+        cardHeight={100}
         contentDetailsHeight={50}
         itemWidth={200}
-        // activeItemIndex={1}
+        // activeItemIndex={0}
         mediaHeight={100}
-        scrollable={true}
+        scrollable={{ scrollbar: true }}
+        slideShow
         slideItemDuration={2000}
+        slideShowType="reveal"
         onScrollEnd={() => console.log("End of timeline")}
       />
-    </div>
+    </>
   );
 };
 

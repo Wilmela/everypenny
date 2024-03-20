@@ -17,7 +17,7 @@ const NavItems = ({ userId }: { userId: string }) => {
     <nav>
       <MotionUl
         className="flex flex-col md:flex-row items-center gap-4 z-10"
-        whileInView={{ y: [100, 0] }}
+        animate={{ y: [100, 0] }}
       >
         {NAV_LINKS.map((link: NavLink) => {
           const isActive = link.route === pathname;

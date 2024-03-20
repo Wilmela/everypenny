@@ -1,10 +1,12 @@
 import { Document, Schema, model, models, Model } from "mongoose";
 
-export interface TimeLineProps {
+export interface TimeLineProps extends Document {
   userId: string;
+  timeLineId: string;
   timeline: {
     title: string;
     cardTitle: string;
+    cardSubtitle: string;
     media: {
       type: string;
       source: {
@@ -17,12 +19,17 @@ export interface TimeLineProps {
 
 const timeLineSchema = new Schema<TimeLineProps>({
   userId: { type: String, required: true },
+  timeLineId:{type: String},
   timeline: {
     title: {
       type: String,
       required: true,
     },
     cardTitle: {
+      type: String,
+      required: true,
+    },
+    cardSubtitle: {
       type: String,
       required: true,
     },
@@ -43,5 +50,5 @@ const timeLineSchema = new Schema<TimeLineProps>({
   createdAt: { type: Date, default: Date.now },
 });
 
-const TimeLines = models.TimeLines || model("TimeLines", timeLineSchema);
+const TimeLines = models?.TimeLines || model("TimeLines", timeLineSchema);
 export default TimeLines as Model<TimeLineProps>;

@@ -1,7 +1,12 @@
+import { generateRandomNumber } from "@/lib/utils";
 import { Schema, models, model } from "mongoose";
 
 const ContributionSchema = new Schema(
   {
+    contributionId: {
+      type: Number,
+      default: generateRandomNumber(),
+    },
     amount: {
       type: Number,
       required: true,

@@ -21,3 +21,20 @@ export const getUserTimeline = async (userId: string, path: string) => {
     return { error: handleError(error) };
   }
 };
+
+export const verifyUserContribution = async (userId: string, path: string) => {
+  try {
+    await connectToDatabase();
+
+    const existingTimeLines: TimeLineParams[] = (
+      await TimeLines.find({ userId })
+    ).map((res) => res.timeline);
+
+    revalidatePath(path);
+
+    return JSON.parse(JSON.stringify(existingTimeLines));
+  } catch (error) {
+    return { error: handleError(error) };
+  }
+};
+

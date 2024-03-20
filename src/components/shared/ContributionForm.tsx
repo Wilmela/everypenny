@@ -18,9 +18,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
 import Spinner from "./Spinner";
 import { makeContribution } from "@/lib/actions/contribution.action";
-import { CldUploadBtn } from "../blocks/Blocks";
 import { useState } from "react";
-import Image from "next/image";
+import ReceiptUploader from "./ReceiptUploader";
 
 type Props = {
   contributor: string;
@@ -96,13 +95,13 @@ const ContributionForm = ({ contributor, plan, chosenAmount }: Props) => {
           name="receipt"
           control={form.control}
           render={({ field }) => (
-            <FormItem className="form-input inline-flex items-center gap-2">
-              <ImageIcon className="w-8 h-8 text-gray-400" />
-
+            <FormItem className="border items-center gap-2 rounded-md">
               <FormControl>
-                <CldUploadBtn
-                  uploadPreset="t6fadj5g"
-                  onSuccess={(results: any) => setImgUrl(results?.info?.url)}
+                <ReceiptUploader
+                  publicId={field.value}
+                  onValueChange={(e) => field.onChange(e)}
+                  setImgUrl={setImgUrl}
+                  imgUrl={imgUrl}
                 />
               </FormControl>
               <FormMessage />
@@ -138,16 +137,6 @@ const ContributionForm = ({ contributor, plan, chosenAmount }: Props) => {
           {form.formState.isSubmitting && <Spinner />}
         </Button>
       </form>
-
-      {imgUrl && (
-        <Image
-          src={imgUrl}
-          width={400}
-          height={400}
-          alt="receipt"
-          className="aspect-video mt-4 object-contain"
-        />
-      )}
     </Form>
   );
 };

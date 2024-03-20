@@ -28,6 +28,7 @@ export type ContributionParams = {
 export type TimeLineParams = {
   title: string;
   cardTitle: string;
+  cardSubtitle: string;
   media: {
     type: string;
     source: {
