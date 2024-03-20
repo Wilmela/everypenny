@@ -1,8 +1,9 @@
 "use client";
 
+import { TimeLineParams } from "@/types";
 import { Chrono } from "react-chrono";
 
-const ChronoTimeline = ({ timeLineItems }: TimeLineParams) => {
+const ChronoTimeline = ({ timeLineItems }: any) => {
   if (typeof window === "undefined") {
     alert("Window is undefined");
   }
