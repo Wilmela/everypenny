@@ -25,7 +25,7 @@ const PersonalDetails = async ({
         <p className="p-text">Full name: {session.firstName}</p>
         <p className="p-text">{session.lastName}</p>
       </div>
-      <p className="p-text">Email: {session.email}</p>
+      <p className="p-text truncate">Email: {session.email}</p>
       <p className="p-text">Registration No: {session.regId}</p>
       <span className="inline-flex items-center justify-center gap-2 p-text">
         Current plan:

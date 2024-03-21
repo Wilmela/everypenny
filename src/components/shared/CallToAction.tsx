@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 
 const CallToAction = () => {
   return (
-    <div className="flex flex-col sm:flex-row gap-4 md:justify-center lg:justify-start">
+    <div className="flex flex-col sm:flex-row gap-6 md:gap-2 md:justify-center lg:justify-start">
       <Button size="lg" className="btn" asChild variant="default">
         <Link href="#explore">Explore</Link>
       </Button>

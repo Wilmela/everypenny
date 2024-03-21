@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <>
       {/* Landing */}
-      <section>
+      <section className="h-auto relative">
         <Image
           src="/assets/images/save-up-bg.webp"
           fill
@@ -29,26 +29,31 @@ export default function Home() {
           priority
           className="-z-30 md:hidden object-cover object-center"
         />
-        <MaxWidthContainer className="flex flex-col paddingY justify-center lg:h-screen">
-          <div className="flex flex-col lg:flex-row lg:justify-between items-center">
+        <MaxWidthContainer className="flex flex-col paddingY justify-center xl:h-screen">
+          <div className="flex flex-col gap-8 md:gap-0 md:flex-row md:justify-between items-center">
             {/* Introduction and call to action */}
-            <div className="w-full lg:w-6/12 xl:w-9/12 flex flex-col gap-4 md:gap-8 fold:gap-4">
-              <h1 className="title">
-                Make Every Penny <br className="hidden lg:block" /> Count
-              </h1>
-              <div className="max-w-prose desc font-[300] -z-10 md:text-center lg:text-left">
-                <p>Let&apos;s help you save up and grow!</p>
-                <p>
-                  Join the community of over 1000+ people growing financially.
-                </p>
+            <div className="w-full lg:w-6/12 xl:w-9/12 flex flex-col gap-8 md:gap-8 fold:gap-4">
+              <div className="flex flex-col gap-6">
+                <h1 className="title">
+                  Make Every Penny <br className="hidden lg:block" /> Count
+                </h1>
+                <div className="md:max-w-[27ch] lg:max-w-prose desc font-[300] -z-10 md:text-center lg:text-left">
+                  <p className="desc-text">
+                    Let&apos;s help you save up and grow!
+                  </p>
+                  <p className="desc-text">
+                    Join the community of over 1000+ people growing financially.
+                  </p>
+                </div>
               </div>
-              <div className="mt-2 md:mt-4">
+
+              <div className="my-10 md:my-6">
                 <CallToAction />
               </div>
             </div>
 
             {/* Review Carousel */}
-            <div className="sm:mt-6 fold:mt-4 md:mt-12 w-full lg:w-6/12 xl:w-[35%] ">
+            <div className="sm:mt-6 fold:mt-4 md:mt-12 w-full md:pl-16 lg:pl-0 md:w-6/12 xl:w-[35%] ">
               <CarouselDiv
                 autoPlay={true}
                 infiniteLoop={true}

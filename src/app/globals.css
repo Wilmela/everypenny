@@ -64,14 +64,21 @@ html {
 
 @layer utilities {
   .title {
-    @apply text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] bg-gradient-to-r to-40% from-slate-100 to-APP_GREEN bg-clip-text text-transparent font-[700] md:text-center lg:text-left;
+    @apply text-6xl leading-[4rem] text-center sm:text-7xl md:text-6xl lg:text-[5rem] bg-gradient-to-r to-40% from-slate-100 to-APP_GREEN bg-clip-text text-transparent font-[700] md:text-left tracking-tight;
+  }
+  .desc-text {
+    @apply text-[1.3rem] leading-[1.9rem] text-center md:text-left;
   }
   .sub-title {
     @apply text-2xl sm:text-3xl lg:text-4xl bg-gradient-to-r to-10% from-yellow-300 to-APP_GREEN bg-clip-text text-transparent font-[400];
   }
+  .paddingY {
+    @apply py-20;
+  }
   .page-title {
     @apply text-2xl sm:text-3xl lg:text-4xl bg-gradient-to-r from-green-900 to-APP_GREEN bg-clip-text text-transparent font-[700];
   }
+
   .page-sub-title {
     @apply text-lg md:text-xl lg:text-2xl text-green-500;
   }
@@ -79,7 +86,7 @@ html {
     @apply text-white text-lg sm:text-2xl font-[300];
   }
   .btn {
-    @apply rounded-full text-white duration-300 ease-in w-full sm:w-48 h-12 text-2xl font-[400];
+    @apply rounded-full text-white duration-300 ease-in w-full md:w-44 lg:w-48 h-12 text-2xl font-[400];
   }
   .form-btn {
     @apply rounded-full text-white duration-300 ease-in w-full h-12 text-2xl font-[400];
@@ -90,9 +97,7 @@ html {
   .p-text {
     @apply text-sm xr:text-[1rem] xr:leading-[1.3rem] sm:text-lg text-gray-600 font-cambay font-[400] fold:text-xs;
   }
-  .paddingY {
-    @apply py-8 md:py-16;
-  }
+
   .form-input {
     @apply p-4 rounded-full h-11 w-full border-gray-300 border-[0.5px] forced-color-adjust-auto shadow-sm;
   }
