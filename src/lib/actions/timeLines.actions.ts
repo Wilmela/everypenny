@@ -4,13 +4,12 @@ import { revalidatePath } from "next/cache";
 import connectToDatabase from "../database";
 import TimeLines from "../database/model/timeLine.model";
 import { handleError } from "../utils";
-import { TimeLineParams } from "@/types";
 
 export const getUserTimeline = async (userId: string, path: string) => {
   try {
     await connectToDatabase();
 
-    const existingTimeLines: TimeLineParams[] = (
+    const existingTimeLines = (
       await TimeLines.find({ userId })
     ).map((res) => res.timeline);
 
@@ -26,7 +25,7 @@ export const verifyUserContribution = async (userId: string, path: string) => {
   try {
     await connectToDatabase();
 
-    const existingTimeLines: TimeLineParams[] = (
+    const existingTimeLines = (
       await TimeLines.find({ userId })
     ).map((res) => res.timeline);
 
