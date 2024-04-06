@@ -37,7 +37,7 @@ const Footer = async () => {
           </div>
           {/* Links */}
           <div className="flex items-center justify-center my-2">
-            <NavItems userId={session.userId!} />
+            <NavItems userId={session.userId!} role={session.role!} />
           </div>
         </MaxWidthContainer>
       </div>
