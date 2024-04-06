@@ -59,7 +59,7 @@ const Header = async () => {
               )}
             </div>
 
-            <MobileNav userId={session.userId!} />
+            <MobileNav userId={session.userId!} role={session.role!} />
           </div>
         </div>
       </MaxWidthContainer>
