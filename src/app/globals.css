@@ -5,6 +5,7 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
+    --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -64,47 +65,59 @@ html {
 
 @layer utilities {
   .title {
-    @apply text-6xl leading-[4rem] text-center sm:text-7xl md:text-6xl lg:text-[5rem] bg-gradient-to-r to-40% from-slate-100 to-APP_GREEN bg-clip-text text-transparent font-[700] md:text-left tracking-tight;
+    @apply text-6xl leading-[4rem] text-center sm:text-7xl md:text-6xl lg:text-[5rem] bg-gradient-to-r to-60% from-slate-100 to-APP_GREEN bg-clip-text text-transparent font-[700] md:text-left tracking-tight;
   }
   .desc-text {
-    @apply text-[1.3rem] leading-[1.9rem] text-center md:text-left;
+    @apply text-[1.3rem] sm:leading-[1.9rem] text-center md:text-left;
   }
   .sub-title {
-    @apply text-2xl sm:text-3xl lg:text-4xl bg-gradient-to-r to-10% from-yellow-300 to-APP_GREEN bg-clip-text text-transparent font-[400];
+    @apply text-2xl sm:text-3xl lg:text-4xl bg-gradient-to-r to-10% from-yellow-200 to-APP_GREEN bg-clip-text text-transparent font-cambay font-[700];
   }
   .paddingY {
     @apply py-20;
   }
   .page-title {
-    @apply text-2xl sm:text-3xl lg:text-4xl bg-gradient-to-r from-green-900 to-APP_GREEN bg-clip-text text-transparent font-[700];
+    @apply text-2xl sm:text-3xl lg:text-4xl text-[#1C3041] font-[700];
+  }
+  .dark-page-title {
+    @apply text-2xl sm:text-3xl lg:text-4xl text-gray-300 font-[700];
   }
 
   .page-sub-title {
-    @apply text-lg md:text-xl lg:text-2xl text-green-500;
+    @apply text-lg md:text-xl lg:text-2xl text-gray-500;
   }
   .desc {
     @apply text-white text-lg sm:text-2xl font-[300];
   }
   .btn {
-    @apply rounded-full text-white duration-300 ease-in w-full md:w-44 lg:w-48 h-12 text-2xl font-[400];
+    @apply rounded-full text-white duration-300 ease-in w-full md:w-44 lg:w-48 h-12 text-xl font-[400];
   }
   .form-btn {
-    @apply rounded-full text-white duration-300 ease-in w-full h-12 text-2xl font-[400];
+    @apply rounded-full text-white duration-300 ease-in w-full h-12 text-xl font-[400];
   }
   .auth-btn {
     @apply rounded-full bg-white hover:bg-green-500 text-APP_GREEN duration-300 ease-in font-[400];
   }
   .p-text {
-    @apply text-sm xr:text-[1rem] xr:leading-[1.3rem] sm:text-lg text-gray-600 font-cambay font-[400] fold:text-xs;
+    @apply text-[1.2rem] leading-[1.2rem] xr:text-[1.2rem] xr:leading-[1.38rem] sm:text-lg text-gray-700 font-cambay font-[400] fold:text-xs;
+  }
+  .p-text-white {
+    @apply text-[1.2rem] leading-[1.2rem] xr:text-[1.2rem] xr:leading-[1.38rem] sm:text-lg text-gray-200 font-cambay font-[400] fold:text-xs;
   }
 
   .form-input {
-    @apply p-4 rounded-full h-11 w-full border-gray-300 border-[0.5px] forced-color-adjust-auto shadow-sm;
+    @apply p-4 rounded-full h-11 w-full border-gray-300 border-[0.5px] shadow-sm;
   }
   .form {
     @apply w-full sm:w-9/12 lg:w-5/12;
   }
   .auth-wrapper {
     @apply w-full flex flex-col h-screen items-center justify-center;
+  }
+  .success-alert {
+    @apply bg-green-50 text-black;
+  }
+  .error-alert {
+    @apply bg-red-100 text-black;
   }
 }

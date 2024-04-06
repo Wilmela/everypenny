@@ -5,7 +5,7 @@ const Spinner = ({ className }: { className?: string }) => {
   return (
     <div
       className={cn(
-        "inline-block h-6 w-6 ml-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] text-success motion-reduce:animate-[spin_1.5s_linear_infinite]",
+        "inline-block h-4 w-4 ml-2 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] text-success motion-reduce:animate-[spin_1.5s_linear_infinite]",
         className
       )}
       role="status"

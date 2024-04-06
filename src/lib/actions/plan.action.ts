@@ -27,17 +27,21 @@ export const getPlans = async () => {
   }
 };
 
-export const getPlanByType = async (type: string) => {
-  try {
-    await connectToDatabase();
-    const plan = await Plan.findOne({ type });
-    console.log(plan);
+// export const getPlanByType = async (type: string) => {
+//   console.log(type);
 
-    return JSON.parse(JSON.stringify(plan));
-  } catch (error) {
-    return { error: handleError(error) };
-  }
-};
+//   try {
+//     await connectToDatabase();
+
+//     const plan = await Plan.findOne({type
+//     });
+
+//     console.log(plan);
+//     return JSON.parse(JSON.stringify(plan));
+//   } catch (error) {
+//     return { error: handleError(error) };
+//   }
+// };
 
 export const getUserPlan = async (userId: string) => {
   try {

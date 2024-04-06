@@ -22,7 +22,7 @@ const Review = ({ image, name, location, remark }: ReviewProps) => {
 
         <div className="absolute top-14 left-20">⭐️⭐️⭐️⭐️⭐️</div>
 
-        <div className="absolute md:top-24 fold:top-20 xr:top-24 xr:max-w-[45ch] text-sm md:text-[1rem] md:leading-[1.7rem] text-left md:max-w-[28ch] lg:max-w-[40ch] fold:text-xs">
+        <div className="absolute md:top-24 fold:top-20 xr:top-24 xr:max-w-[40ch] text-sm md:text-[1rem] md:leading-[1.7rem] text-left md:max-w-[28ch] lg:max-w-[35ch] fold:text-xs font-play">
           {remark}
         </div>
       </div>

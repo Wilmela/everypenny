@@ -58,7 +58,7 @@ const ReceiptUploader = ({
                   width={imgConfig.width}
                   height={imgConfig.height}
                   alt="receipt"
-                  className="aspect-video mt-4 object-contain"
+                  className="aspect-video mt-4 object-cover"
                 />
               ) : (
                 <div

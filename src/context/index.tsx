@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Dispatch,
@@ -25,4 +25,4 @@ export const NavContextProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useNavContext = () => useContext(NavContext) ;
+export const useNavContext = () => useContext(NavContext);

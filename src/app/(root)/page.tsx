@@ -39,10 +39,10 @@ export default function Home() {
                 </h1>
                 <div className="md:max-w-[27ch] lg:max-w-prose desc font-[300] -z-10 md:text-center lg:text-left">
                   <p className="desc-text">
-                    Let&apos;s help you save up and grow!
+                    Join the community of over 1000+ people growing financially.
                   </p>
                   <p className="desc-text">
-                    Join the community of over 1000+ people growing financially.
+                    Let&apos;s help you save up and grow!
                   </p>
                 </div>
               </div>
@@ -80,35 +80,40 @@ export default function Home() {
         </MaxWidthContainer>
       </section>
 
-      {/* Security */}
-      <section className="bg-gray-50 paddingY" id="explore">
+      {/* Good to Know */}
+      <section className="bg-APP_ASH paddingY" id="explore">
         <MaxWidthContainer>
-          <h3 className="page-title mb-6">Good To Know</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2">
+          <h3 className="dark-page-title mb-6">Good To Know</h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
             {points.map((point) => {
               return (
                 <MotionDiv
                   whileHover={{ scale: 1.03 }}
-                  className="flex flex-col gap-4 my-4 mr-4 shadow-sm bg-white p-4 rounded-md cursor-pointer"
+                  transition={{ duration: 0.3 }}
+                  className="flex flex-col gap-4 my-4 mr-4 shadow-sm text-white p-6 rounded-md cursor-pointer h-auto relative hover:bg-black/30 transition-all duration-300"
                   key={point.title}
                 >
                   <h3 className="sub-title">{point.title}</h3>
-                  <div className="flex gap-4 items-center">
-                    <MotionDiv whileInView={{ x: [-100, 0] }}>
-                      <Image
-                        src={point.image}
-                        width={100}
-                        height={50}
-                        alt="security_icon"
-                      />
-                    </MotionDiv>
-                    <MotionP
-                      whileHover={{ scale: 1.05 }}
-                      className="max-w-[40ch] text-muted-foreground"
-                    >
-                      {point.desc}
-                    </MotionP>
-                  </div>
+
+                  <MotionDiv
+                    whileInView={{ x: [-100, 0] }}
+                    className="absolute top-16 left-32 -z- opacity-30"
+                  >
+                    <Image
+                      src={point.image}
+                      width={150}
+                      height={100}
+                      alt="security_icon"
+                    />
+                  </MotionDiv>
+
+                  <MotionP
+                    whileHover={{ scale: 1.01 }}
+                    className="max-w-[30h] z-10 p-text-white"
+                  >
+                    {point.desc}
+                  </MotionP>
                 </MotionDiv>
               );
             })}

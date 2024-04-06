@@ -40,3 +40,10 @@ export const ContributionSchema = z.object({
   date: z.date(),
 });
 export type ContributionType = z.infer<typeof ContributionSchema>;
+
+export const SearchSchema = z.object({
+  search: z.string().min(2, {
+    message: "too short",
+  }),
+});
+export type SearchType = z.infer<typeof SearchSchema>;

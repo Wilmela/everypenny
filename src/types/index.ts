@@ -5,6 +5,15 @@ export type CreateUserParams = {
   password: string;
   imageUrl?: string;
 };
+export type SearchUserParams = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  regId?: string;
+  plan?: string;
+  role?: string;
+};
 
 export type CreatePlanParams = {
   amount: string | number;
@@ -16,6 +25,7 @@ export type CreatePlanParams = {
 };
 
 export type ContributionParams = {
+  contributionId?: string;
   amount: number;
   contributor: string;
   receipt: string;
@@ -27,12 +37,31 @@ export type ContributionParams = {
 
 export type TimeLineParams = {
   title: string;
+  timeLinId: number;
   cardTitle: string;
-  cardSubtitle: string;
+  // cardSubtitle: string;
   media: {
     type: string;
     source: {
       url: string;
     };
   };
+};
+
+export type StatementProp = {
+  id?: number;
+  contributionId: string;
+  amount: string;
+  plan: string;
+  dateOfContribution: Date;
+  verifiedContribution: boolean;
+};
+
+// NODEMAILER
+export type MailOptionType = {
+  from?: string;
+  to?: string;
+  subject?: string;
+  text?: string;
+  html?: string;
 };

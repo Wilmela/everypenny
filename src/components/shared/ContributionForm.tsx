@@ -20,6 +20,7 @@ import Spinner from "./Spinner";
 import { makeContribution } from "@/lib/actions/contribution.action";
 import { useState } from "react";
 import ReceiptUploader from "./ReceiptUploader";
+import { toast } from "../ui/use-toast";
 
 type Props = {
   contributor: string;
@@ -57,7 +58,12 @@ const ContributionForm = ({ contributor, plan, chosenAmount }: Props) => {
 
         setImgUrl("");
         if (contribution) {
-          alert("Contribution awaiting verification, thank you.");
+          toast({
+            title: "Successfully uploaded",
+            description: "Contribution awaiting verification, thank you.",
+            variant: "default",
+            style: { backgroundColor: "lightGreen", color: "black" },
+          });
         }
       } catch (error) {
         throw error;
@@ -70,7 +76,7 @@ const ContributionForm = ({ contributor, plan, chosenAmount }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full flex flex-col gap-2"
+        className="w-full flex flex-col gap-4"
       >
         <FormField
           name="amount"

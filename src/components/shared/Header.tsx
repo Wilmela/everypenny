@@ -8,6 +8,7 @@ import { getSession, signOut } from "@/lib/actions/auth.action";
 
 const Header = async () => {
   const session = await getSession();
+  const role = session.role;
 
   return (
     <header className="bg-APP_GREEN sticky top-0 z-50">
@@ -24,7 +25,7 @@ const Header = async () => {
           </Link>
 
           <div className="hidden md:block">
-            <NavItems userId={session.userId!} />
+            <NavItems userId={session.userId!} role={role!} />
           </div>
 
           <div className="flex gap-2 items-center">

@@ -3,12 +3,13 @@
 import { ContributionParams } from "@/types";
 import connectToDatabase from "../database";
 import Contribution from "../database/model/contribution.model";
-import { formatDate, generateRandomNumber, handleError } from "../utils";
+import { formatDateTime, generateRandomNumber, handleError } from "../utils";
 import { revalidatePath } from "next/cache";
 import User from "../database/model/user.model";
 import TimeLines from "../database/model/timeLine.model";
-import { findUserContributions } from "./user.action.";
 import { isValidObjectId } from "mongoose";
+import sendEmail from "../nodemailer";
+import { redirect } from "next/navigation";
 
 export const makeContribution = async (
   contributor: string,
@@ -17,23 +18,24 @@ export const makeContribution = async (
 ) => {
   try {
     await connectToDatabase();
+    const contributionId = generateRandomNumber();
 
     // Create a new contribution
-    const newContribution = await Contribution.create(contribution);
+    const newContribution = await Contribution.create({
+      ...contribution,
+      contributionId,
+    });
 
     // create new contribution timeline
-    const randNum: number = generateRandomNumber();
     await TimeLines.create({
-      timeLineId: randNum,
       userId: contributor,
+      timeLineId: contributionId,
       timeline: {
-        title: formatDate(new Date(contribution.dateOfContribution)),
-        cardTitle: `${contribution.amount} contribution ${
-          !contribution.verifiedContribution ? "Not verified" : "Verified"
-        }`,
-        cardSubtitle: `${
-          !contribution.verifiedContribution ? "Not verified" : "Verified"
-        }`,
+        title: formatDateTime(new Date(contribution.dateOfContribution)),
+        cardTitle: `${contribution.amount} contributed `,
+        // cardSubtitle: `${
+        //   !contribution.verifiedContribution ? "Not verified" : "Verified"
+        // }`,
         media: {
           type: "IMAGE",
           source: {
@@ -44,8 +46,10 @@ export const makeContribution = async (
     });
 
     // Add contribution to user contribution array
+    const user = await User.findById(contributor);
+    if (!user) throw new Error("User not found.");
     await User.findByIdAndUpdate(
-      contributor,
+      user._id,
       {
         $push: {
           contributions: newContribution,
@@ -55,6 +59,16 @@ export const makeContribution = async (
     );
 
     // Notify admin of a contribution by a user with regId: via email
+    await sendEmail({
+      from: user?.email,
+      subject: "Test Message",
+      text: `User with name ${user.firstName} just made a contribution awaiting verification`,
+      // html: `<html>
+      //           <body>
+      //             <p>${user?.firstName} just made a contribution awaiting verification</p>
+      //           </body>
+      //       </html>`,
+    });
 
     revalidatePath(path);
 
@@ -64,12 +78,31 @@ export const makeContribution = async (
   }
 };
 
+export const getUserContributions = async (userId: string) => {
+  try {
+    await connectToDatabase();
+
+    const user = await User.findOne({ _id: userId })
+      .populate({
+        path: "contributions",
+        model: Contribution,
+        select:
+          "contributionId plan amount verifiedContribution dateOfContribution",
+      })
+      .select("firstName lastName regId");
+
+    return JSON.parse(JSON.stringify(user));
+  } catch (error) {
+    return { error: handleError(error) };
+  }
+};
+
 export const getUserTotalAmount = async (userId: string) => {
   if (!isValidObjectId(userId)) return;
   try {
     await connectToDatabase();
-    const user = await findUserContributions(userId);
-    
+    const user = await getUserContributions(userId);
+
     const contributedAmount: number[] = user.contributions.map(
       ({ amount }: { amount: number }) => amount
     );
@@ -85,16 +118,27 @@ export const getUserTotalAmount = async (userId: string) => {
   }
 };
 
-export const verifyContribution = async (contributionId: number) => {
+export const verifyContribution = async (id: string, userId: string) => {
   try {
     await connectToDatabase();
-   
+    await Contribution.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          verifyContribution: verifyContribution
+            ? !verifyContribution
+            : verifyContribution,
+        },
+      },
+      { new: true }
+    );
+
+    revalidatePath("/profile/${userId}");
+    redirect(`/profile/${userId}`);
   } catch (error) {
     return { error: handleError(error) };
   }
 };
-
-
 
 // Only admin
 export const getAllContributions = async (userId: string) => {

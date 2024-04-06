@@ -7,6 +7,7 @@ export interface IUser extends Document {
   firstName: string;
   lastName: string;
   email: string;
+  phone: number;
   password: string;
   imageUrl?: string;
   contributions: ContributionParams[]
@@ -37,6 +38,11 @@ const UserSchema = new Schema<IUser, {}, Methods>(
     },
     email: {
       type: String,
+      required: true,
+      unique: true,
+    },
+    phone: {
+      type: Number,
       required: true,
       unique: true,
     },

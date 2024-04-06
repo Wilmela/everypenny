@@ -1,4 +1,3 @@
-
 export const NAV_LINKS = [
   {
     label: "Home",
@@ -20,6 +19,10 @@ export const NAV_LINKS = [
     label: "Support",
     route: "/support",
   },
+  {
+    label: "Dashboard",
+    route: "/dashboard",
+  },
 ];
 
 // REVIEW
@@ -27,18 +30,18 @@ export const NAV_LINKS = [
 export const review = [
   {
     photo: "/assets/images/dp.jpeg",
-    name: "John Doe",
+    name: "Mchenry Ibra",
     location: "Port Harcourt",
     remark:
-      "This is a great review. I love Every Penny. They helped me save up for my school fees.",
+      "Every-Penny made saving for my dream project a breeze! Highly intuitive and customizable, it helped me reach my goal faster than expected.",
   },
 
   {
     photo: "/assets/images/dp.jpeg",
-    name: "Jane Doe",
+    name: "John Daniel",
     location: "Lagos",
     remark:
-      "This is a great review. I love Every Penny. They helped me save up for my school fees.I 100% recommend.",
+      "Thanks to Every-Penny, I achieved my dream project with ease. Customizable plans and user-friendly features made saving a joy.",
   },
 ];
 
@@ -47,17 +50,17 @@ export const points = [
   {
     title: "Security",
     image: "/assets/icons/security.png",
-    desc: " Your finance is 100% secure. Financial transactions are managed by a robust system equipped with no tolerance.",
+    desc: "Rest assured that the security of your finances is our paramount concern. Our organization utilizes a meticulously designed and rigorously maintained system to manage financial transactions with absolute integrity and zero tolerance for any potential compromises.",
   },
   {
     title: "Ease of Use",
     image: "/assets/icons/security.png",
-    desc: " Your finance is 100% secure. Financial transactions are managed by a robust system equipped with no tolerance.",
+    desc: "Our application prioritizes user experience with an intuitive interface and streamlined features. It ensures hassle-free navigation for users of all levels, enabling confident financial management. With thorough design, it empowers users to achieve their goals effortlessly.",
   },
   {
     title: "Plans",
     image: "/assets/icons/security.png",
-    desc: " Our plans are totally customizable. This is a well thought process to help you decide how you want to save.",
+    desc: "Our plans offer complete customization, allowing you to tailor your savings strategy. They are meticulously designed to assist in decision-making, ensuring alignment with your financial goals",
   },
 ];
 
@@ -89,11 +92,17 @@ export const subscriptionPlans = [
   },
 ];
 
+// SUB TYPE
+export const getSubType = (plan: { type?: string }): string => {
+  const userSub = subscriptionPlans.find(
+    (sub) => sub.type === plan?.type
+  ) as (typeof subscriptionPlans)[number];
+  return userSub?.type;
+};
+
 export const initialValue = {
   firstName: "",
   lastName: "",
   email: "",
   password: "",
 };
-
-

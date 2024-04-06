@@ -1,14 +1,22 @@
-import { getSession } from "@/lib/actions/auth.action";
+
 import Image from "next/image";
-import React from "react";
 
+type Props = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  regId: string;
+  plan?: string;
+  role?: string;
+};
 const PersonalDetails = async ({
-  type,
-}: {
-  type: string;
-}) => {
-  const session = await getSession();
-
+  firstName,
+  lastName,
+  email,
+  regId,
+  plan,
+  role,
+}: Props) => {
   return (
     <>
       <div className="relative w-full h-[320px] flex gap-2">
@@ -22,17 +30,18 @@ const PersonalDetails = async ({
 
       {/* Details */}
       <div className="flex gap-2 mt-4">
-        <p className="p-text">Full name: {session.firstName}</p>
-        <p className="p-text">{session.lastName}</p>
+        <p className="p-text">Full name: {firstName}</p>
+        <p className="p-text">{lastName}</p>
       </div>
-      <p className="p-text truncate">Email: {session.email}</p>
-      <p className="p-text">Registration No: {session.regId}</p>
+      <p className="p-text truncate">Email: {email}</p>
+      <p className="p-text">Registration No: {regId}</p>
       <span className="inline-flex items-center justify-center gap-2 p-text">
         Current plan:
-        <p className="py-1 px-2 rounded-xl bg-APP_GREEN/20 w-fit ">
-          {type || "No plan."}
+        <p className="py-1 px-2 rounded-xl bg-APP_GREEN/20 w-fit lowercase ">
+          {plan || "No plan."}
         </p>
       </span>
+      <p className="p-text">Role: {role}</p>
     </>
   );
 };

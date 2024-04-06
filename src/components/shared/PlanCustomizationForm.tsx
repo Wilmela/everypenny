@@ -44,7 +44,7 @@ const PlanCustomizationForm = ({
 
   // Suggested Amount
   const onSubmit = async (data: CustomPlanType) => {
-
+    if (!data.amount && !data.step) return;
     // const formattedAmount = formatNaira(amount);
 
     try {

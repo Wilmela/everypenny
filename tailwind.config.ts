@@ -33,6 +33,8 @@ const config = {
       },
       colors: {
         APP_GREEN: "#17A349",
+        APP_ASH: "#131200",
+        APP_BG: "#FEFFFE",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

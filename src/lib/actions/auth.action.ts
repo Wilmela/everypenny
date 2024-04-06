@@ -9,7 +9,7 @@ import {
   sessionOptions,
 } from "@/lib/utils";
 import User from "../database/model/user.model";
-import { SignInType } from "../validation";
+import { SignInSchema, SignInType } from "../validation";
 import { redirect } from "next/navigation";
 import connectToDatabase from "../database";
 
@@ -34,6 +34,9 @@ export const signOut = async () => {
 
 export const signIn = async ({ email, password }: SignInType) => {
   const session = await getSession();
+
+  const validCredentials = SignInSchema.safeParse({ email, password });
+  if (!validCredentials.success) return;
 
   try {
     await connectToDatabase();

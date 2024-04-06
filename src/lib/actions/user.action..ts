@@ -14,7 +14,7 @@ export const createUser = async (user: CreateUserParams) => {
     // const max = 99999;
     // const randNum = Math.floor(Math.random() * (max - min + 1)) + min;
 
-    const randNum:number = generateRandomNumber();
+    const randNum: number = generateRandomNumber();
     const uniqueId = `${user.firstName.toLowerCase().slice(0, 3)}-${randNum}`;
 
     const newUser = await User.create({ ...user, regId: uniqueId });
@@ -34,20 +34,23 @@ export const findUserById = async (userId: string) => {
   }
 };
 
-export const findUserContributions = async (userId: string) => {
+export const findUserByRegId = async (regId: string) => {
   try {
     await connectToDatabase();
-
-    const user = await User.findOne({ _id: userId })
-      .populate({
-        path: "contributions",
-        model: Contribution,
-        select: "amount dateOfContribution",
-      })
-      .select("firstName lastName regId");
-
+    const user = await User.findOne({regId});
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
     return { error: handleError(error) };
   }
 };
+
+export const findAllUsers = async () => {
+  try {
+    await connectToDatabase();
+    const users = await User.find();
+    return JSON.parse(JSON.stringify(users));
+  } catch (error) {
+    return { error: handleError(error) };
+  }
+};
+
