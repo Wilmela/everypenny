@@ -44,7 +44,6 @@ const ProfileDetail = async ({
     getUserContributions(userId),
   ]);
 
-
   // GET USER SUBSCRIPTION TYPE
   const userSub = getSubType(userPlan);
 
@@ -108,7 +107,7 @@ const ProfileDetail = async ({
                 />
               )}
               <br />
-              Verify transaction by Admin
+              Contribution account.
               <br />
               Overall Amount Calculate Payment based on steps <br />
             </>

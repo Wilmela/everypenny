@@ -99,10 +99,10 @@ html {
     @apply rounded-full bg-white hover:bg-green-500 text-APP_GREEN duration-300 ease-in font-[400];
   }
   .p-text {
-    @apply text-[1.2rem] leading-[1.2rem] xr:text-[1.2rem] xr:leading-[1.38rem] sm:text-lg text-gray-700 font-cambay font-[400] fold:text-xs;
+    @apply text-[1.4rem] leading-[1.3rem] xr:text-[1.4rem] xr:leading-[1.38rem] sm:text-lg text-gray-700 font-cambay font-[400] fold:text-xs;
   }
   .p-text-white {
-    @apply text-[1.2rem] leading-[1.2rem] xr:text-[1.2rem] xr:leading-[1.38rem] sm:text-lg text-gray-200 font-cambay font-[400] fold:text-xs;
+    @apply text-[1.4rem] leading-[1.3rem] xr:text-[1.4rem] xr:leading-[1.5rem] sm:text-lg text-gray-200 font-cambay font-[400] fold:text-xs;
   }
 
   .form-input {

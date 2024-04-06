@@ -16,10 +16,6 @@ export const NAV_LINKS = [
     route: "/faq",
   },
   {
-    label: "Support",
-    route: "/support",
-  },
-  {
     label: "Dashboard",
     route: "/dashboard",
   },
@@ -106,3 +102,29 @@ export const initialValue = {
   email: "",
   password: "",
 };
+
+//FAQ
+export const FAQ: { question: string; answer: string }[] = [
+  {
+    question: "What services does EveryPenny providers?",
+    answer:
+      "Every Penny specializes in offering financial growth solutions. Provides users the platform to save and grow their finances.",
+  },
+  {
+    question: "How can Every Penny benefit me?",
+    answer:
+      "Our solutions streamline financial operations and improve overall efficiency. From digitizing contribution records to facilitating seamless communication users, we aim to elevate the quality of care.",
+  },
+  {
+    question:
+      "Is EveryPenny compliant with financial regulations and standards?",
+    answer:
+      "Yes, EveryPenny is committed to adhering to all relevant healthcare regulations and standards, including HIPAA. Our solutions prioritize data security and privacy to ensure compliance with industry requirements.",
+  },
+  {
+    question:
+      "What sets EveryPenny apart from other financial savings providers? ",
+    answer:
+      "We differentiate ourselves through innovative technologies, user-friendly interfaces, and a client-centric approach. Our solutions are tailored to meet your unique savings needs of healthcare while fostering a positive and efficient user experience.",
+  },
+];

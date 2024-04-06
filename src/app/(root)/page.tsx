@@ -83,15 +83,15 @@ export default function Home() {
       {/* Good to Know */}
       <section className="bg-APP_ASH paddingY" id="explore">
         <MaxWidthContainer>
-          <h3 className="dark-page-title mb-6">Good To Know</h3>
+          <h3 className="dark-page-title mb-4">Good To Know</h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 md:mt-12">
             {points.map((point) => {
               return (
                 <MotionDiv
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.3 }}
-                  className="flex flex-col gap-4 my-4 mr-4 shadow-sm text-white p-6 rounded-md cursor-pointer h-auto relative hover:bg-black/30 transition-all duration-300"
+                  className="flex flex-col gap-4 my-4 mr-4 shadow-sm text-white p-6 rounded-md cursor-pointer h-auto relative hover:bg-black/30 transition-all ease-in"
                   key={point.title}
                 >
                   <h3 className="sub-title">{point.title}</h3>

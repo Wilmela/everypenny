@@ -11,7 +11,7 @@ import { getSession } from "@/lib/actions/auth.action";
 
 const Footer = async () => {
   const session = await getSession();
-  
+
   return (
     <footer>
       <div className="py-8 bg-green-800">
@@ -39,6 +39,9 @@ const Footer = async () => {
           <div className="flex items-center justify-center my-2">
             <NavItems userId={session.userId!} role={session.role!} />
           </div>
+          <p className="text-white text-center mt-4">
+            For support call: +234 803 8888 192
+          </p>
         </MaxWidthContainer>
       </div>
       <div className="bg-green-900 py-2">
