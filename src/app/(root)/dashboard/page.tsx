@@ -8,7 +8,7 @@ import { getUserContributions } from "@/lib/actions/contribution.action";
 import { getUserPlan } from "@/lib/actions/plan.action";
 import { findAllUsers } from "@/lib/actions/user.action.";
 import { cn } from "@/lib/utils";
-import { ContributionParams, SearchUserParams } from "@/types";
+import { SearchUserParams } from "@/types";
 import { redirect } from "next/navigation";
 
 const DashboardPage = async ({
