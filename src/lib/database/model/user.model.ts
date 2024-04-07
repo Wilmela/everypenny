@@ -10,7 +10,7 @@ export interface IUser extends Document {
   phone: number;
   password: string;
   imageUrl?: string;
-  contributions: ContributionParams[]
+  contributions: ContributionParams[];
   isVerified: boolean;
   role: "user" | "admin";
   createdAt: Date;
@@ -91,6 +91,14 @@ UserSchema.pre("save", async function (next) {
 UserSchema.methods.comparePassword = async function (password) {
   try {
     return await bcrypt.compare(password, this.password);
+  } catch (error) {
+    throw error;
+  }
+};
+
+UserSchema.methods.verifyUser = async function (otp:string) {
+  try {
+    
   } catch (error) {
     throw error;
   }

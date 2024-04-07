@@ -54,6 +54,7 @@ const DashboardPage = async ({
         <SearchForm />
       </div>
       <div className="w-full flex items-center justify-center">
+        
         <div className={cn("w-96", { hidden: !filteredUser })}>
           <PersonalDetails
             firstName={filteredUser?.firstName!}

@@ -10,6 +10,8 @@ import TimeLines from "../database/model/timeLine.model";
 import { isValidObjectId } from "mongoose";
 import sendEmail from "../nodemailer";
 import { redirect } from "next/navigation";
+import { render } from "@react-email/render";
+import Welcome from "@/components/emails/Welcome";
 
 export const makeContribution = async (
   contributor: string,
@@ -62,12 +64,8 @@ export const makeContribution = async (
     await sendEmail({
       from: user?.email,
       subject: "Test Message",
-      text: `User with name ${user.firstName} just made a contribution awaiting verification`,
-      // html: `<html>
-      //           <body>
-      //             <p>${user?.firstName} just made a contribution awaiting verification</p>
-      //           </body>
-      //       </html>`,
+      // text: `User with name ${user.firstName} just made a contribution awaiting verification`,
+      html: `<p>Coming from ${user?.email}</p>`,
     });
 
     revalidatePath(path);
@@ -133,8 +131,7 @@ export const verifyContribution = async (id: string, userId: string) => {
       { new: true }
     );
 
-    revalidatePath("/profile/${userId}");
-    redirect(`/profile/${userId}`);
+    revalidatePath(`/public/${userId}`);
   } catch (error) {
     return { error: handleError(error) };
   }

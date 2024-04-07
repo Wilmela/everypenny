@@ -47,3 +47,15 @@ export const SearchSchema = z.object({
   }),
 });
 export type SearchType = z.infer<typeof SearchSchema>;
+
+export const OtpSchema = z.object({
+  otp: z
+    .string()
+    .min(6, {
+      message: "not less than 6 character short",
+    })
+    .max(6, {
+      message: "not more than 6 character short",
+    }),
+});
+export type OtpType = z.infer<typeof OtpSchema>;

@@ -7,6 +7,7 @@ import { getSession } from "@/lib/actions/auth.action";
 import { getUserPlan } from "@/lib/actions/plan.action";
 import { getUserTimeline } from "@/lib/actions/timeLines.actions";
 import { redirect } from "next/navigation";
+import { CopyIcon } from "@radix-ui/react-icons";
 import {
   getUserContributions,
   getUserTotalAmount,
@@ -64,9 +65,9 @@ const ProfileDetail = async ({
           Welcome, {session.firstName} {session.lastName}
         </h3>
         {/* GRID CONTAINER */}
-        <div className="grid grid-cols-1 md:grid-cols-5 justify-between rounded-md my-8 gap-8 md:gap-0">
+        <div className="grid grid-cols-1 md:grid-cols-5 justify-between rounded-md my-8 gap-4 md:gap-0 relative">
           {/* COLUMN-1 */}
-          <div className="items-start col-span-1 md:col-span-1 md:border-r-[0.5px] md:pr-2">
+          <div className="items-start col-span-1 md:col-span-1 md:border-r-[0.5px] md:pr-2 sticky top-0 left-0">
             <>
               <PersonalDetails
                 firstName={session.firstName!}
@@ -97,18 +98,26 @@ const ProfileDetail = async ({
                         contribution={latestContributionResult}
                       />
                     </span>
+
+                    {/* ACCOUNT MOBILE VIEW */}
+                    <div className="flex flex-col">
+                      <p className="p-text">
+                        Bank: United Bank for Africa (UBA)
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <p className="p-text">Account Number: 1234567890</p>
+                        <CopyIcon />
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
-              <p className="p-text uppercase mt-8">Download Statement</p>
+              <p className="p-text uppercase mb-4 mt-8">Download Statement</p>
               {userContributions.contributions.length > 0 && (
                 <Statement
                   userContributions={userContributions.contributions}
                 />
               )}
-              <br />
-              Contribution account.
-              <br />
               Overall Amount Calculate Payment based on steps <br />
             </>
           </div>
@@ -136,6 +145,13 @@ const ProfileDetail = async ({
                   </>
                 )}
               </CardContent>
+              <CardFooter className="flex flex-col items-start bg-gray-50 pt-4 over border-t">
+                <p className="p-text">Bank: United Bank for Africa (UBA)</p>
+                <div className="flex items-center gap-2">
+                  <p className="p-text">Account Number: 1234567890</p>
+                  <CopyIcon />
+                </div>
+              </CardFooter>
             </Card>
           </div>
 

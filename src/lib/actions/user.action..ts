@@ -24,6 +24,13 @@ export const createUser = async (user: CreateUserParams) => {
   }
 };
 
+export const verifyUser = async (otp: string) => {
+  try {
+    await connectToDatabase();
+  } catch (error) {
+    return { error: handleError(error) };
+  }
+};
 export const findUserById = async (userId: string) => {
   try {
     await connectToDatabase();
@@ -37,7 +44,7 @@ export const findUserById = async (userId: string) => {
 export const findUserByRegId = async (regId: string) => {
   try {
     await connectToDatabase();
-    const user = await User.findOne({regId});
+    const user = await User.findOne({ regId });
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
     return { error: handleError(error) };
@@ -53,4 +60,3 @@ export const findAllUsers = async () => {
     return { error: handleError(error) };
   }
 };
-

@@ -1,13 +1,15 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import MaxWidthContainer from "./MaxWidthContainer";
 import Image from "next/image";
 import {
   InstagramLogoIcon,
   LinkedInLogoIcon,
   TwitterLogoIcon,
+  PieChartIcon,
 } from "@radix-ui/react-icons";
 import NavItems from "./NavItems";
 import { getSession } from "@/lib/actions/auth.action";
+import Link from "next/link";
 
 const Footer = async () => {
   const session = await getSession();
@@ -16,7 +18,7 @@ const Footer = async () => {
     <footer>
       <div className="py-8 bg-green-800">
         <MaxWidthContainer className="flex flex-col">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mb-8">
             <Image
               src="/assets/images/logo.png"
               alt="company_logo"
@@ -24,13 +26,17 @@ const Footer = async () => {
               height={40}
             />
             <div className="flex items-center gap-2">
-              <Logo>
+              <p className="text-white hidden md:block">Reach us:</p>
+              <Logo href="">
+                <PieChartIcon />
+              </Logo>
+              <Logo href="">
                 <TwitterLogoIcon />
               </Logo>
-              <Logo>
+              <Logo href="">
                 <InstagramLogoIcon />
               </Logo>
-              <Logo>
+              <Logo href="">
                 <LinkedInLogoIcon />
               </Logo>
             </div>
@@ -39,9 +45,6 @@ const Footer = async () => {
           <div className="flex items-center justify-center my-2">
             <NavItems userId={session.userId!} role={session.role!} />
           </div>
-          <p className="text-white text-center mt-4">
-            For support call: +234 803 8888 192
-          </p>
         </MaxWidthContainer>
       </div>
       <div className="bg-green-900 py-2">
@@ -55,8 +58,14 @@ const Footer = async () => {
 
 export default Footer;
 
-const Logo = ({ children }: { children: ReactNode }) => (
-  <div className="w-10 h-10 rounded-full bg-APP_GREEN/20 flex items-center justify-center hover:bg-APP_GREEN/40 text-APP_GREEN cursor-pointer duration-300 ease-in">
+interface Props extends PropsWithChildren {
+  href: string;
+}
+const Logo = ({ children, href }: Props) => (
+  <Link
+    href={href}
+    className="w-10 h-10 rounded-full bg-APP_GREEN/20 flex items-center justify-center hover:bg-APP_GREEN/40 text-APP_GREEN cursor-pointer duration-300 ease-in"
+  >
     {children}
-  </div>
+  </Link>
 );
