@@ -36,7 +36,7 @@ const NavItems = ({ userId, role }: { userId: string; role: string }) => {
                 >
                   <Link
                     href={
-                      link.route === "/profile"
+                      link.route === "/profile" && userId !== undefined
                         ? `${link.route}/${userId}`
                         : link.route
                     }

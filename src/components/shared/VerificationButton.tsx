@@ -10,32 +10,29 @@ import { useRouter } from "next/navigation";
 type Props = {
   id: string;
   userId: string;
+  isVerified: boolean;
 };
-const VerificationButton = ({ id, userId }: Props) => {
+const VerificationButton = ({ id, userId, isVerified }: Props) => {
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
 
-  console.log(id);
-
   const handleVerification = async () => {
-    console.log("Calling this function");
-
     setSubmitting(true);
     try {
-      const res = await verifyContribution(id, userId);
+      const res = await verifyContribution(id, userId, isVerified);
       if (res?.error) {
         toast({
           title: res.error,
           description: "Error why verifying contribution",
           variant: "destructive",
-          className: "error-alert",
+          duration: 3000,
         });
       }
       toast({
         title: "Verified",
         description: "Last contribution verified",
         variant: "default",
-        className: "success-alert",
+        duration: 3000,
       });
       setSubmitting(false);
       router.replace(`/profile/${userId}`);

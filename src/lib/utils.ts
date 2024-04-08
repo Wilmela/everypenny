@@ -26,12 +26,13 @@ export const handleError = (error: unknown): string => {
 // IRON-SESSION CONFIG - These are params you want the session to hold
 export interface SessionData {
   userId?: string;
-  regId?: string;
+  // regId?: string;
   firstName?: string;
-  lastName?: string;
+  // lastName?: string;
   role?: string;
-  email?: string;
-  image?: string;
+  // phone?: string | number;
+  // email?: string;
+  // image?: string;
   isLoggedIn: boolean;
 }
 export const defaultSession: SessionData = {
@@ -117,6 +118,10 @@ export const generatePDF = (statements: StatementProp[]) => {
   doc.save(`statement_${formatDateTime(date)}.pdf`);
 };
 
+// STYLES
+export const success = { backgroundColor: "lightGreen", color: "black" };
+export const error = { backgroundColor: "red", color: "white" };
+
 // GENERATE OTP
 const generateOTP = (otp_length = 6) => {
   let OTP = "";
@@ -129,3 +134,6 @@ const generateOTP = (otp_length = 6) => {
 };
 
 export default generateOTP;
+
+ export const baseUrl =
+    "https://res.cloudinary.com/dbb2hbxkn/image/upload/v1712560478/";

@@ -50,12 +50,13 @@ export const signIn = async ({ email, password }: SignInType) => {
     session.isLoggedIn = true;
 
     session.userId = user._id.toString();
-    session.email = user.email;
     session.firstName = user.firstName;
-    session.lastName = user.lastName;
-    session.image = user.imageUrl;
+    // session.email = user.email;
+    // session.lastName = user.lastName;
+    // session.image = user.imageUrl;
     session.role = user.role;
-    session.regId = user.regId;
+    // session.phone = user.phone;
+    // session.regId = user.regId;
     await session.save();
   } catch (error) {
     return {

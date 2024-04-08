@@ -24,6 +24,8 @@ import {
 import { CheckIcon } from "@radix-ui/react-icons";
 import { ContributionParams } from "@/types";
 import Statement from "@/components/shared/Statement";
+import { Separator } from "@/components/ui/separator";
+import { findUserById } from "@/lib/actions/user.action.";
 
 const ProfileDetail = async ({
   params: { userId },
@@ -37,13 +39,15 @@ const ProfileDetail = async ({
   }
 
   // API CALL
-  const [userPlan, timeline, sum, userContributions] = await Promise.all<any>([
-    getUserPlan(userId),
-    getUserTimeline(userId, `/profile/${userId}`),
-    // Verify the contribution before running the sum function
-    getUserTotalAmount(userId),
-    getUserContributions(userId),
-  ]);
+  const [user, userPlan, timeline, sum, userContributions] =
+    await Promise.all<any>([
+      findUserById(userId),
+      getUserPlan(userId),
+      getUserTimeline(userId, `/profile/${userId}`),
+      // Verify the contribution before running the sum function
+      getUserTotalAmount(userId),
+      getUserContributions(userId),
+    ]);
 
   // GET USER SUBSCRIPTION TYPE
   const userSub = getSubType(userPlan);
@@ -62,7 +66,7 @@ const ProfileDetail = async ({
       <MaxWidthContainer className="paddingY">
         <h3 className="page-title text-center">Profile</h3>
         <h3 className="page-sub-title text-center my-1">
-          Welcome, {session.firstName} {session.lastName}
+          Welcome, {user.firstName} {user.lastName}
         </h3>
         {/* GRID CONTAINER */}
         <div className="grid grid-cols-1 md:grid-cols-5 justify-between rounded-md my-8 gap-4 md:gap-0 relative">
@@ -70,13 +74,18 @@ const ProfileDetail = async ({
           <div className="items-start col-span-1 md:col-span-1 md:border-r-[0.5px] md:pr-2 sticky top-0 left-0">
             <>
               <PersonalDetails
-                firstName={session.firstName!}
-                lastName={session.lastName!}
-                email={session.email!}
-                regId={session.regId!}
+                firstName={user.firstName}
+                lastName={user.lastName}
+                email={user.email}
+                regId={user.regId}
                 plan={userSub}
-                role={session.role}
+                role={user.role}
+                phone={user.phone}
+                userId={user._id}
+                userImage={user.imageUrl}
               />
+              <Separator className="mt-4" />
+
               <p className="p-text uppercase mt-8">Make Contribution</p>
               <div className="my-6 px-2 py-6 bg-white shadow-md w-full rounded-lg">
                 <ContributionForm
@@ -85,6 +94,16 @@ const ProfileDetail = async ({
                   chosenAmount={userPlan?.amount || 0}
                 />
               </div>
+
+              <div className="flex flex-col items-center md:hidden">
+                <Separator className="mb-4" />
+                <p className="p-text">Bank: United Bank for Africa (UBA)</p>
+                <div className="flex items-center gap-2">
+                  <p className="p-text">Account Number: 1234567890</p>
+                  <CopyIcon />
+                </div>
+              </div>
+
               <div className="flex flex-col items-center gap-2 md:hidden">
                 {latestContribution && (
                   <div>
@@ -100,26 +119,23 @@ const ProfileDetail = async ({
                     </span>
 
                     {/* ACCOUNT MOBILE VIEW */}
-                    <div className="flex flex-col">
-                      <p className="p-text">
-                        Bank: United Bank for Africa (UBA)
-                      </p>
-                      <div className="flex items-center gap-2">
-                        <p className="p-text">Account Number: 1234567890</p>
-                        <CopyIcon />
-                      </div>
-                    </div>
                   </div>
                 )}
               </div>
-              <p className="p-text uppercase mb-4 mt-8">Download Statement</p>
               {userContributions.contributions.length > 0 && (
-                <Statement
-                  userContributions={userContributions.contributions}
-                />
+                <>
+                  <Separator />
+                  <p className="p-text uppercase mb-4 mt-8">
+                    Download Statement
+                  </p>
+                  <Statement
+                    userContributions={userContributions.contributions}
+                  />
+                </>
               )}
-              Overall Amount Calculate Payment based on steps <br />
             </>
+            <Separator className="mt-4" />
+            Overall Amount Calculate Payment based on steps <br />
           </div>
 
           {/* COLUMN-2 */}

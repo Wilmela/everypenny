@@ -19,8 +19,9 @@ import { Button } from "../ui/button";
 import Spinner from "./Spinner";
 import { makeContribution } from "@/lib/actions/contribution.action";
 import { useState } from "react";
-import ReceiptUploader from "./ReceiptUploader";
+import ImageUploader from "./ImageUploader";
 import { toast } from "../ui/use-toast";
+import { success } from "@/lib/utils";
 
 type Props = {
   contributor: string;
@@ -62,7 +63,7 @@ const ContributionForm = ({ contributor, plan, chosenAmount }: Props) => {
             title: "Successfully uploaded",
             description: "Contribution awaiting verification, thank you.",
             variant: "default",
-            style: { backgroundColor: "lightGreen", color: "black" },
+            style: success,
           });
         }
       } catch (error) {
@@ -103,7 +104,7 @@ const ContributionForm = ({ contributor, plan, chosenAmount }: Props) => {
           render={({ field }) => (
             <FormItem className="border items-center gap-2 rounded-md">
               <FormControl>
-                <ReceiptUploader
+                <ImageUploader
                   publicId={field.value}
                   onValueChange={(e) => field.onChange(e)}
                   setImgUrl={setImgUrl}
@@ -129,7 +130,7 @@ const ContributionForm = ({ contributor, plan, chosenAmount }: Props) => {
                   onChange={(date: Date) => field.onChange(date)}
                   // showTimeSelect
                   // timeInputLabel="Time:"
-                  dateFormat="MM/dd/yyyy h:mm aa"
+                  dateFormat="MM/dd/yy h:mm aa"
                   // wrapperClassName=''
                 />
               </FormControl>

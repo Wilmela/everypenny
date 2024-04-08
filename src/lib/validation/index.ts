@@ -22,6 +22,7 @@ export const CreateUserSchema = z.object({
   password: z
     .string()
     .min(6, { message: "password should be at least 6 character long" }),
+  imageUrl: z.any(),
 });
 export type CreateUserType = z.infer<typeof CreateUserSchema>;
 
@@ -59,3 +60,22 @@ export const OtpSchema = z.object({
     }),
 });
 export type OtpType = z.infer<typeof OtpSchema>;
+
+// UPDATE USER
+export const UpdateUserSchema = z.object({
+  firstName: z.string().min(4, {
+    message: "not less than 4 character short",
+  }),
+  lastName: z.string().min(4, {
+    message: "not less than 4 character short",
+  }),
+  email: z.string().email().min(4, {
+    message: "not less than 4 character short",
+  }),
+  phone: z.string().min(6, {
+    message: "not less than 6 character short",
+  }),
+
+  imageUrl: z.any(),
+});
+export type UpdateUserType = z.infer<typeof UpdateUserSchema>;

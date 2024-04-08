@@ -19,7 +19,7 @@ import { CustomPlanSchema, CustomPlanType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { formatNaira, handleError } from "@/lib/utils";
+import { handleError } from "@/lib/utils";
 import { createPlan } from "@/lib/actions/plan.action";
 import { useRouter } from "next/navigation";
 import Spinner from "./Spinner";

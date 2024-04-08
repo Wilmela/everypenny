@@ -116,22 +116,24 @@ export const getUserTotalAmount = async (userId: string) => {
   }
 };
 
-export const verifyContribution = async (id: string, userId: string) => {
+export const verifyContribution = async (id: string, userId: string, isVerified: boolean) => {
   try {
     await connectToDatabase();
-    await Contribution.findByIdAndUpdate(
+    const updatedContribution = await Contribution.findByIdAndUpdate(
       id,
       {
         $set: {
-          verifyContribution: verifyContribution
-            ? !verifyContribution
-            : verifyContribution,
+          verifiedContribution: !isVerified,
         },
       },
       { new: true }
     );
 
-    revalidatePath(`/public/${userId}`);
+    if (updatedContribution) {
+      console.log(verifyContribution);
+
+      revalidatePath(`/public/${userId}`);
+    }
   } catch (error) {
     return { error: handleError(error) };
   }

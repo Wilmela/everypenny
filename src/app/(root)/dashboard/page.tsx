@@ -54,7 +54,6 @@ const DashboardPage = async ({
         <SearchForm />
       </div>
       <div className="w-full flex items-center justify-center">
-        
         <div className={cn("w-96", { hidden: !filteredUser })}>
           <PersonalDetails
             firstName={filteredUser?.firstName!}
@@ -63,14 +62,18 @@ const DashboardPage = async ({
             regId={filteredUser?.regId!}
             plan={userSub}
             role={filteredUser?.role!}
+            userId={filteredUser?._id!}
+            userImage={filteredUser?.imageUrl!}
           />
           <div className="mt-4">
-            {latestContributionResult?.verifiedContribution !== undefined && (
-              <VerificationButton
-                id={latestContributionResult?._id!}
-                userId={filteredUser?._id!}
-              />
-            )}
+            {!latestContributionResult?.verifiedContribution &&
+              latestContributionResult?.verifiedContribution !== undefined && (
+                <VerificationButton
+                  id={latestContributionResult?._id!}
+                  userId={filteredUser?._id!}
+                  isVerified={latestContributionResult?.verifiedContribution!}
+                />
+              )}
           </div>
         </div>
       </div>

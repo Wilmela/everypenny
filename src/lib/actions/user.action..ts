@@ -1,18 +1,17 @@
 "use server";
 
-import { CreateUserParams } from "@/types";
+import { CreateUserParams, UpdateUserProps } from "@/types";
 import connectToDatabase from "../database";
 import User from "../database/model/user.model";
 import { generateRandomNumber, handleError } from "@/lib/utils";
-import Contribution from "../database/model/contribution.model";
+import { UpdateUserType } from "../validation";
+import { revalidatePath } from "next/cache";
 
 export const createUser = async (user: CreateUserParams) => {
+  console.log(user.imageUrl);
+
   try {
     await connectToDatabase();
-
-    // const min = 10000;
-    // const max = 99999;
-    // const randNum = Math.floor(Math.random() * (max - min + 1)) + min;
 
     const randNum: number = generateRandomNumber();
     const uniqueId = `${user.firstName.toLowerCase().slice(0, 3)}-${randNum}`;
@@ -56,6 +55,37 @@ export const findAllUsers = async () => {
     await connectToDatabase();
     const users = await User.find();
     return JSON.parse(JSON.stringify(users));
+  } catch (error) {
+    return { error: handleError(error) };
+  }
+};
+export const updateUserById = async (
+  userId: string,
+  user: UpdateUserType,
+  currentImageUrl: string
+) => {
+  try {
+    await connectToDatabase();
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          phone: user.phone,
+          imageUrl: user.imageUrl === "" ? currentImageUrl : user.imageUrl,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+
+    if (updatedUser) {
+      revalidatePath(`/profile/${userId}`);
+    }
+    return JSON.parse(JSON.stringify(updatedUser));
   } catch (error) {
     return { error: handleError(error) };
   }

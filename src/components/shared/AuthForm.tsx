@@ -24,7 +24,8 @@ import Spinner from "./Spinner";
 import { signIn } from "@/lib/actions/auth.action";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
-import { useToast } from "../ui/use-toast";
+import { toast } from "../ui/use-toast";
+import ImageUploader from "./ImageUploader";
 
 type AuthFormType = {
   type: "SignIn" | "SignUp";
@@ -34,8 +35,7 @@ const AuthForm = ({ type }: AuthFormType) => {
   const SIGN_UP = type === "SignUp";
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-
-  const { toast } = useToast();
+  const [imgUrl, setImgUrl] = useState("");
 
   const form = useForm<CreateUserType | SignInType>({
     resolver: zodResolver(SIGN_UP ? CreateUserSchema : SignInSchema),
@@ -83,6 +83,25 @@ const AuthForm = ({ type }: AuthFormType) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="form">
         {SIGN_UP && (
           <>
+            <div className="py-1">
+              <FormField
+                name="imageUrl"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <ImageUploader
+                        publicId={field.value}
+                        onValueChange={(e) => field.onChange(e)}
+                        setImgUrl={setImgUrl}
+                        imgUrl={imgUrl}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             <div className="py-1">
               <FormField
                 name="firstName"

@@ -101,6 +101,7 @@ export const initialValue = {
   lastName: "",
   email: "",
   password: "",
+  imageUrl: "",
 };
 
 //FAQ

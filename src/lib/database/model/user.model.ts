@@ -7,7 +7,7 @@ export interface IUser extends Document {
   firstName: string;
   lastName: string;
   email: string;
-  phone: number;
+  phone: string | number;
   password: string;
   imageUrl?: string;
   contributions: ContributionParams[];
@@ -42,9 +42,10 @@ const UserSchema = new Schema<IUser, {}, Methods>(
       unique: true,
     },
     phone: {
-      type: Number,
+      type: String,
       required: true,
       unique: true,
+      default: "234801111111",
     },
     password: {
       type: String,
@@ -96,9 +97,8 @@ UserSchema.methods.comparePassword = async function (password) {
   }
 };
 
-UserSchema.methods.verifyUser = async function (otp:string) {
+UserSchema.methods.verifyUser = async function (otp: string) {
   try {
-    
   } catch (error) {
     throw error;
   }

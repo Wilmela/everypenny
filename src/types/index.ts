@@ -13,6 +13,7 @@ export type SearchUserParams = {
   regId?: string;
   plan?: string;
   role?: string;
+  imageUrl?: string;
 };
 
 export type CreatePlanParams = {
@@ -64,4 +65,26 @@ export type MailOptionType = {
   subject?: string;
   text?: string;
   html?: string;
+};
+
+//  PERSONAL DETAILS
+export type PersonalDetailProps = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string | number;
+  regId: string;
+  plan?: string;
+  role?: string;
+  userId: string;
+  userImage?: string;
+};
+
+export type UpdateUserProps = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  imageUrl: string;
 };

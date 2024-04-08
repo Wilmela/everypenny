@@ -12,7 +12,7 @@ type Props = {
   setImgUrl: Dispatch<SetStateAction<string>>;
   imgUrl: string;
 };
-const ReceiptUploader = ({
+const ImageUploader = ({
   publicId,
   onValueChange,
   setImgUrl,
@@ -66,9 +66,7 @@ const ReceiptUploader = ({
                   className="flex flex-col items-center p-4 cursor-pointer"
                 >
                   <ImageIcon className="w-8 h-8 text-gray-400" />
-                  <p className="text-muted-foreground text-sm">
-                    Upload receipt
-                  </p>
+                  <p className="text-muted-foreground text-sm">Upload Image</p>
                 </div>
               )}
             </>
@@ -79,4 +77,4 @@ const ReceiptUploader = ({
   );
 };
 
-export default ReceiptUploader;
+export default ImageUploader;
