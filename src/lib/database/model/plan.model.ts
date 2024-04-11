@@ -6,7 +6,7 @@ export interface IPlan extends Document {
   step: string;
   duration: string;
   isActive: boolean;
-  subscriber: Schema.Types.ObjectId;
+  subscriber: string[];
 }
 
 const PlanSchema = new Schema<IPlan>(
@@ -33,10 +33,10 @@ const PlanSchema = new Schema<IPlan>(
       required: true,
       default: false,
     },
-    subscriber: {
+    subscriber: [{
       type: Schema.Types.ObjectId,
       ref: "User",
-    },
+    }],
   },
   { timestamps: true }
 );

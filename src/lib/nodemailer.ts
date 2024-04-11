@@ -20,13 +20,16 @@ const sendEmail = async (options: MailOptionType) => {
     html: options.html,
   };
 
-  transporter.sendMail(
-    mailOptions,
-    function (err: Error | null, info: SMTPTransport.SentMessageInfo) {
-      if (err) throw err;
-      // console.log(info);
-    }
-  );
+  try {
+    transporter.sendMail(
+      mailOptions,
+      function (err: Error | null, info: SMTPTransport.SentMessageInfo) {
+        if (err) throw err;
+      }
+    );
+  } catch (error) {
+    throw error;
+  }
 };
 
 export default sendEmail;

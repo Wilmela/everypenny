@@ -12,7 +12,8 @@ export type SearchUserParams = {
   email: string;
   regId?: string;
   plan?: string;
-  role?: string;
+  role: string;
+  phone: string;
   imageUrl?: string;
 };
 

@@ -4,8 +4,6 @@ import SearchForm from "@/components/shared/SearchForm";
 import VerificationButton from "@/components/shared/VerificationButton";
 import { getSubType } from "@/constants";
 import { getSession } from "@/lib/actions/auth.action";
-import { getUserContributions } from "@/lib/actions/contribution.action";
-import { getUserPlan } from "@/lib/actions/plan.action";
 import { findAllUsers } from "@/lib/actions/user.action.";
 import { cn } from "@/lib/utils";
 import { SearchUserParams } from "@/types";
@@ -17,31 +15,29 @@ const DashboardPage = async ({
   searchParams?: { query?: string };
 }) => {
   const session = await getSession();
+
   if (session.role !== "admin") redirect("/");
 
-  const query = searchParams?.query || "";
+  const query = searchParams?.query?.toLowerCase() || "";
 
-  const users: SearchUserParams[] = await findAllUsers();
+  const users = await findAllUsers();
 
   // Filter user by first name, last name, email or regId
-  const filteredUser: SearchUserParams | undefined = users.find(
-    (user) =>
-      query.toLowerCase().includes(user.firstName.toLowerCase()) ||
-      query.toLowerCase().includes(user.lastName.toLowerCase()) ||
-      query.toLowerCase().includes(user.email) ||
-      query.toLowerCase().includes(user.regId!)
+  const filteredUser: any = users.find(
+    (user: SearchUserParams) =>
+      user.firstName.toLowerCase().includes(query) ||
+      user.lastName.toLowerCase().includes(query) ||
+      user.email.toLowerCase().includes(query) ||
+      user.regId!.includes(query)
   );
 
-  const userPlan = await getUserPlan(filteredUser?._id!);
-  const userContributions: any = await getUserContributions(filteredUser?._id!);
-
-  const userSub = getSubType(userPlan);
+  const userSub = getSubType(filteredUser.plan!);
 
   let latestContribution;
   let latestContributionResult;
 
-  if (userContributions !== null) {
-    latestContribution = userContributions.contributions;
+  if (filteredUser !== null) {
+    latestContribution = filteredUser.contributions;
 
     latestContributionResult =
       latestContribution[latestContribution.length - 1];
@@ -61,19 +57,22 @@ const DashboardPage = async ({
             email={filteredUser?.email!}
             regId={filteredUser?.regId!}
             plan={userSub}
-            role={filteredUser?.role!}
+            role={filteredUser?.role}
+            phone={filteredUser?.phone}
             userId={filteredUser?._id!}
             userImage={filteredUser?.imageUrl!}
           />
           <div className="mt-4">
             {!latestContributionResult?.verifiedContribution &&
-              latestContributionResult?.verifiedContribution !== undefined && (
-                <VerificationButton
-                  id={latestContributionResult?._id!}
-                  userId={filteredUser?._id!}
-                  isVerified={latestContributionResult?.verifiedContribution!}
-                />
-              )}
+            latestContributionResult?.verifiedContribution !== undefined ? (
+              <VerificationButton
+                id={latestContributionResult?._id!}
+                userId={filteredUser?._id!}
+                isVerified={latestContributionResult?.verifiedContribution!}
+              />
+            ) : (
+              <p className="p-text">No unverified contribution</p>
+            )}
           </div>
         </div>
       </div>

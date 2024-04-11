@@ -12,12 +12,13 @@ const PersonalDetails = async ({
   role,
   phone,
   userId,
-  userImage
+  userImage,
 }: PersonalDetailProps) => {
+  const imageLink = `${process.env.CLOUDINARY_IMAGE_URL}/${userImage}`;
 
   return (
     <>
-      <div className="relative w-full h-[320px] flex gap-2">
+      <div className="relative w-full h-[320px] flex gap-2 mb-2">
         <Link
           href={`/profile/${userId}/edit/`}
           className="bg-APP_GREEN hover:bg-APP_GREEN/80 size-10 rounded-full flex items-center justify-center absolute z-10 top-5 right-5"
@@ -25,10 +26,7 @@ const PersonalDetails = async ({
           <Pencil1Icon className="size-6 text-white" />
         </Link>
         <Image
-          src={
-            `${process.env.CLOUDINARY_IMAGE_URL}/${userImage}` ||
-            "/assets/images/dp.jpeg"
-          }
+          src={!userImage ? "/assets/images/dp.jpeg" : imageLink}
           fill
           alt="user_image"
           className="object-cover"
@@ -36,10 +34,9 @@ const PersonalDetails = async ({
       </div>
 
       {/* Details */}
-      <div className="flex gap-2 mt-4">
-        <p className="p-text">Full name: {firstName}</p>
-        <p className="p-text">{lastName}</p>
-      </div>
+      <p className="p-text">
+        Full name: {firstName} {lastName}
+      </p>
       <p className="p-text truncate">Email: {email}</p>
       <p className="p-text">Registration No: {regId}</p>
       <p className="p-text">Phone: {phone}</p>

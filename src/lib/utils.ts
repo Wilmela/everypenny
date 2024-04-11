@@ -123,7 +123,7 @@ export const success = { backgroundColor: "lightGreen", color: "black" };
 export const error = { backgroundColor: "red", color: "white" };
 
 // GENERATE OTP
-const generateOTP = (otp_length = 6) => {
+export const generateOTP = (otp_length = 6) => {
   let OTP = "";
   for (let i = 1; i <= otp_length; i++) {
     // const rand = crypto.getRandomValues()
@@ -133,7 +133,5 @@ const generateOTP = (otp_length = 6) => {
   return OTP;
 };
 
-export default generateOTP;
-
- export const baseUrl =
-    "https://res.cloudinary.com/dbb2hbxkn/image/upload/v1712560478/";
+export const baseUrl =
+  "https://res.cloudinary.com/dbb2hbxkn/image/upload/v1712560478/";

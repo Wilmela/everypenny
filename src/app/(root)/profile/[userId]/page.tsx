@@ -2,14 +2,12 @@ import PersonalDetails from "@/components/shared/PersonalDetails";
 import ChronoTimeline from "@/components/shared/ChronoTimeline";
 import ContributionForm from "@/components/shared/ContributionForm";
 import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
-import { getSubType, subscriptionPlans } from "@/constants";
+import { getSubType } from "@/constants";
 import { getSession } from "@/lib/actions/auth.action";
-import { getUserPlan } from "@/lib/actions/plan.action";
 import { getUserTimeline } from "@/lib/actions/timeLines.actions";
 import { redirect } from "next/navigation";
 import { CopyIcon } from "@radix-ui/react-icons";
 import {
-  getUserContributions,
   getUserTotalAmount,
 } from "@/lib/actions/contribution.action";
 import { cn, formatNaira } from "@/lib/utils";
@@ -39,24 +37,23 @@ const ProfileDetail = async ({
   }
 
   // API CALL
-  const [user, userPlan, timeline, sum, userContributions] =
+  const [user, timeline, sum] =
     await Promise.all<any>([
       findUserById(userId),
-      getUserPlan(userId),
       getUserTimeline(userId, `/profile/${userId}`),
       // Verify the contribution before running the sum function
       getUserTotalAmount(userId),
-      getUserContributions(userId),
     ]);
 
+
   // GET USER SUBSCRIPTION TYPE
-  const userSub = getSubType(userPlan);
+  const userSub = getSubType(user.plan);
 
   // Get the latest contribution for verification
   const latestContribution: Pick<
     ContributionParams,
     "contributionId" | "amount" | "dateOfContribution" | "verifiedContribution"
-  >[] = userContributions.contributions;
+  >[] = user.contributions;
 
   const latestContributionResult =
     latestContribution[latestContribution.length - 1];
@@ -90,8 +87,8 @@ const ProfileDetail = async ({
               <div className="my-6 px-2 py-6 bg-white shadow-md w-full rounded-lg">
                 <ContributionForm
                   contributor={userId}
-                  plan={userPlan?.type}
-                  chosenAmount={userPlan?.amount || 0}
+                  plan={user.plan?.type}
+                  chosenAmount={user.plan?.amount || 0}
                 />
               </div>
 
@@ -122,14 +119,14 @@ const ProfileDetail = async ({
                   </div>
                 )}
               </div>
-              {userContributions.contributions.length > 0 && (
+              {user.contributions.length > 0 && (
                 <>
                   <Separator />
                   <p className="p-text uppercase mb-4 mt-8">
                     Download Statement
                   </p>
                   <Statement
-                    userContributions={userContributions.contributions}
+                    userContributions={user.contributions}
                   />
                 </>
               )}

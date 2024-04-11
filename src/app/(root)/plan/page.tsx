@@ -2,15 +2,15 @@ import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
 import PlanCard from "@/components/shared/PlanCard";
 import { subscriptionPlans } from "@/constants";
 import { getSession } from "@/lib/actions/auth.action";
-import { getUserPlan } from "@/lib/actions/plan.action";
+import { findUserById } from "@/lib/actions/user.action.";
 import { cn } from "@/lib/utils";
 
 const PlanPage = async () => {
   const { userId } = await getSession();
   
-  const plan: { isActive: boolean } = await getUserPlan(userId!);
+  const user = await findUserById(userId!);
 
-  const isActive = plan?.isActive;
+  const isActive = user.plan?.isActive;
 
   return (
     <MaxWidthContainer className="paddingY flex flex-col">

@@ -28,13 +28,13 @@ const UserUpdateForm = ({ user }: { user: UpdateUserProps }) => {
     resolver: zodResolver(UpdateUserSchema),
   });
 
+  const imageLink = `${baseUrl}/${user?.imageUrl}`;
 
   const [imgUrl, setImgUrl] = useState("");
 
   const router = useRouter();
 
   const onSubmit = async (data: UpdateUserType) => {
-    
     const updatedUser = await updateUserById(user._id, data, user.imageUrl);
 
     if (updatedUser?.error) {
@@ -80,7 +80,7 @@ const UserUpdateForm = ({ user }: { user: UpdateUserProps }) => {
             )}
           />
           <Image
-            src={`${baseUrl}/${user?.imageUrl}`}
+            src={!user.imageUrl ? "/assets/images/dp.jpeg" : imageLink}
             alt="users"
             width={200}
             height={200}

@@ -63,9 +63,12 @@ export const makeContribution = async (
     // Notify admin of a contribution by a user with regId: via email
     await sendEmail({
       from: user?.email,
-      subject: "Test Message",
+      subject: "Contribution Alert.",
       // text: `User with name ${user.firstName} just made a contribution awaiting verification`,
-      html: `<p>Coming from ${user?.email}</p>`,
+      html: `<div> 
+                <h1 >Hi Admin from ${user.email} </h1>
+                <p>The user with name ${user.firstName} and regId: ${user.regId} just made a contribution. Kindly verify.</p>
+             </div>`,
     });
 
     revalidatePath(path);
@@ -76,32 +79,17 @@ export const makeContribution = async (
   }
 };
 
-export const getUserContributions = async (userId: string) => {
-  try {
-    await connectToDatabase();
-
-    const user = await User.findOne({ _id: userId })
-      .populate({
-        path: "contributions",
-        model: Contribution,
-        select:
-          "contributionId plan amount verifiedContribution dateOfContribution",
-      })
-      .select("firstName lastName regId");
-
-    return JSON.parse(JSON.stringify(user));
-  } catch (error) {
-    return { error: handleError(error) };
-  }
-};
-
 export const getUserTotalAmount = async (userId: string) => {
   if (!isValidObjectId(userId)) return;
   try {
     await connectToDatabase();
-    const user = await getUserContributions(userId);
+    const user = await User.findOne({ _id: userId }).populate({
+      path: "contributions",
+      model: Contribution,
+    });
 
-    const contributedAmount: number[] = user.contributions.map(
+    if (!user) throw new Error("User not found.");
+    const contributedAmount: number[] = user!.contributions.map(
       ({ amount }: { amount: number }) => amount
     );
 
@@ -116,7 +104,11 @@ export const getUserTotalAmount = async (userId: string) => {
   }
 };
 
-export const verifyContribution = async (id: string, userId: string, isVerified: boolean) => {
+export const verifyContribution = async (
+  id: string,
+  userId: string,
+  isVerified: boolean
+) => {
   try {
     await connectToDatabase();
     const updatedContribution = await Contribution.findByIdAndUpdate(

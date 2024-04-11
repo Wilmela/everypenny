@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MotionUl } from "../blocks/Blocks";
-import { useState } from "react";
 import { useNavContext } from "@/context";
 
 type NavLink = (typeof NAV_LINKS)[number];

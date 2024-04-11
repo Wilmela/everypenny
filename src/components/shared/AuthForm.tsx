@@ -46,9 +46,17 @@ const AuthForm = ({ type }: AuthFormType) => {
     if (SIGN_UP) {
       try {
         const newUser = await createUser(data as CreateUserType);
-        if (newUser) {
-          router.push("/auth/sign-in");
+        if (newUser?.error) {
+          toast({
+            title: "Something went wrong!",
+            description: newUser.error,
+            variant: "destructive",
+            duration: 5000,
+          });
+
+          router.replace("/");
         }
+        router.push("/auth/sign-in");
       } catch (error) {
         throw error;
       }

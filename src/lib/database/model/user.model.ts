@@ -1,6 +1,6 @@
 import { Schema, Model, model, models, Document } from "mongoose";
 import bcrypt from "bcrypt";
-import { ContributionParams } from "@/types";
+import { ContributionParams, CreatePlanParams } from "@/types";
 
 export interface IUser extends Document {
   regId: string;
@@ -10,6 +10,7 @@ export interface IUser extends Document {
   phone: string | number;
   password: string;
   imageUrl?: string;
+  plan: Omit<CreatePlanParams, "subscriber">;
   contributions: ContributionParams[];
   isVerified: boolean;
   role: "user" | "admin";
@@ -43,9 +44,7 @@ const UserSchema = new Schema<IUser, {}, Methods>(
     },
     phone: {
       type: String,
-      required: true,
-      unique: true,
-      default: "234801111111",
+      default: "+234801111111",
     },
     password: {
       type: String,
@@ -58,6 +57,10 @@ const UserSchema = new Schema<IUser, {}, Methods>(
       type: String,
       enum: ["user", "admin"],
       default: "user",
+    },
+    plan: {
+      type: Schema.Types.ObjectId,
+      ref: "Plan",
     },
     contributions: [{ type: Schema.Types.ObjectId, ref: "Contribution" }],
     isVerified: { type: Boolean, default: false },
