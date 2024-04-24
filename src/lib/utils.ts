@@ -78,7 +78,12 @@ export const generateRandomNumber = (): number => {
 };
 
 // GENERATE PDF
-export const generatePDF = (statements: StatementProp[]) => {
+export const generatePDF = (
+  statements: StatementProp[],
+  sum = 0,
+  from: string,
+  to: string
+) => {
   const doc = new jsPDF();
   doc.setFontSize(16);
 
@@ -90,12 +95,21 @@ export const generatePDF = (statements: StatementProp[]) => {
     "Status",
     "Contribution Date",
   ];
+  const footer: (string | number | boolean)[] = [
+    "Between",
+    from,
+    "-",
+    to,
+    "Total",
+    formatNaira(sum),
+  ];
   const tableRows: any[] = [];
   statements.map((statement: StatementProp, index: number) => {
     const date = new Date(statement.dateOfContribution);
+    let initial: number = 1;
 
-    const row = [
-      index++,
+    const row: (string | number | boolean)[] = [
+      initial++,
       statement.contributionId,
       statement.plan,
       statement.amount,
@@ -109,13 +123,14 @@ export const generatePDF = (statements: StatementProp[]) => {
   autoTable(doc, {
     head: [tableColumn],
     body: tableRows,
+    foot: [footer],
     startY: 20, // margin-top
   });
 
   const date = new Date();
-  doc.text("Your savings so far.", 14, 15);
+  doc.text(`Your savings so far`, 14, 15);
   // File name
-  doc.save(`statement_${formatDateTime(date)}.pdf`);
+  doc.save(`statement_from:_${from}_to:_${to}.pdf`);
 };
 
 // STYLES

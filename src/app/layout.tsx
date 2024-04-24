@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { NavContextProvider } from "@/context";
 import { Toaster } from "@/components/ui/toaster";
+import { siteConfig } from "@/config/site";
 
 const kanit = Kanit({
   subsets: ["latin"],
@@ -24,11 +25,16 @@ const cambay = Cambay({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
-    template: `%s | Every Penny`,
-    default: "Every Penny",
+    template: `%s | ${siteConfig.name}`,
+    default: siteConfig.shortDesc,
   },
-  description: "Every Penny counts. Save up!",
+  authors: [
+    { name: siteConfig.author, url: siteConfig.url },
+    { name: siteConfig.author2, url: siteConfig.url },
+  ],
+  description: siteConfig.longDesc,
 };
 
 export default function RootLayout({

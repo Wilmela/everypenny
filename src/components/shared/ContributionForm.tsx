@@ -2,7 +2,7 @@
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { CalendarIcon, ImageIcon } from "@radix-ui/react-icons";
+import { CalendarIcon } from "@radix-ui/react-icons";
 
 import {
   Form,
@@ -22,6 +22,7 @@ import { useState } from "react";
 import ImageUploader from "./ImageUploader";
 import { toast } from "../ui/use-toast";
 import { success } from "@/lib/utils";
+import { ButtonGradientWrapper } from "../blocks/ButtonGradientWrapper";
 
 type Props = {
   contributor: string;
@@ -131,6 +132,7 @@ const ContributionForm = ({ contributor, plan, chosenAmount }: Props) => {
                   // showTimeSelect
                   // timeInputLabel="Time:"
                   dateFormat="MM/dd/yy h:mm aa"
+                  disabled
                   // wrapperClassName=''
                 />
               </FormControl>
@@ -139,10 +141,12 @@ const ContributionForm = ({ contributor, plan, chosenAmount }: Props) => {
           )}
         />
 
-        <Button type="submit" className="form-btn inline-flex gap-2">
-          Contribute
-          {form.formState.isSubmitting && <Spinner />}
-        </Button>
+        <ButtonGradientWrapper>
+          <Button type="submit" className="form-btn inline-flex gap-2">
+            Contribute
+            {form.formState.isSubmitting && <Spinner />}
+          </Button>
+        </ButtonGradientWrapper>
       </form>
     </Form>
   );

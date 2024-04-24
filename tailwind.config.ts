@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import {fontFamily} from 'tailwindcss/defaultTheme'
 
 const config = {
   darkMode: ["class"],
@@ -23,7 +24,7 @@ const config = {
         xr: "413px",
       },
       fontFamily: {
-        kanit: ["var(--font-kanit)"],
+        kanit: ["var(--font-kanit)", ...fontFamily.sans],
         play: "var(--font-play)",
         cambay: "var(--font-cambay)",
       },
@@ -32,9 +33,11 @@ const config = {
         smallBanner: "url('/assets/images/bg2.webp')",
       },
       colors: {
-        APP_GREEN: "#17A349",
+        // APP_GREEN: "#17A349",
+        APP_GREEN: "#1e944c",
         APP_ASH: "#131200",
         APP_BG: "#FEFFFE",
+        APP_JUNGLE_GREEN: "#1A2421",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

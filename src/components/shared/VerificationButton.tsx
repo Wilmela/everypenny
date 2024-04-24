@@ -6,13 +6,15 @@ import { toast } from "../ui/use-toast";
 import { useState } from "react";
 import Spinner from "./Spinner";
 import { useRouter } from "next/navigation";
+import { VerificationProps } from "@/types";
+import { ButtonGradientWrapper } from "../blocks/ButtonGradientWrapper";
 
-type Props = {
-  id: string;
-  userId: string;
-  isVerified: boolean;
-};
-const VerificationButton = ({ id, userId, isVerified }: Props) => {
+const VerificationButton = ({
+  id,
+  userId,
+  isVerified,
+  sessionUserId,
+}: VerificationProps) => {
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
 
@@ -35,7 +37,7 @@ const VerificationButton = ({ id, userId, isVerified }: Props) => {
         duration: 3000,
       });
       setSubmitting(false);
-      router.replace(`/profile/${userId}`);
+      if (userId === sessionUserId) router.replace(`/profile/${userId}`);
     } catch (error) {
       setSubmitting(false);
 
@@ -44,14 +46,16 @@ const VerificationButton = ({ id, userId, isVerified }: Props) => {
   };
 
   return (
-    <Button
-      size="lg"
-      className="btn"
-      disabled={submitting}
-      onClick={handleVerification}
-    >
-      Verify {submitting && <Spinner />}
-    </Button>
+    <ButtonGradientWrapper>
+      <Button
+        size="lg"
+        className="btn"
+        disabled={submitting}
+        onClick={handleVerification}
+      >
+        Verify {submitting && <Spinner />}
+      </Button>
+    </ButtonGradientWrapper>
   );
 };
 

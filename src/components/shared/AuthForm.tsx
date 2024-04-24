@@ -56,6 +56,7 @@ const AuthForm = ({ type }: AuthFormType) => {
 
           router.replace("/");
         }
+
         router.push("/auth/sign-in");
       } catch (error) {
         throw error;

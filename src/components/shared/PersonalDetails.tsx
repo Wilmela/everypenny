@@ -2,6 +2,7 @@ import { PersonalDetailProps } from "@/types";
 import Image from "next/image";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const PersonalDetails = async ({
   firstName,
@@ -13,15 +14,19 @@ const PersonalDetails = async ({
   phone,
   userId,
   userImage,
+  isEditable,
 }: PersonalDetailProps) => {
   const imageLink = `${process.env.CLOUDINARY_IMAGE_URL}/${userImage}`;
 
   return (
     <>
-      <div className="relative w-full h-[320px] flex gap-2 mb-2">
+      <div className="relative w-full h-[300px] flex gap-2 mb-2">
         <Link
-          href={`/profile/${userId}/edit/`}
-          className="bg-APP_GREEN hover:bg-APP_GREEN/80 size-10 rounded-full flex items-center justify-center absolute z-10 top-5 right-5"
+          href={`/profile/${userId}/edit`}
+          className={cn(
+            "bg-APP_GREEN hover:bg-APP_GREEN/80 size-10 rounded-full flex items-center justify-center absolute z-10 top-5 right-5",
+            { hidden: !isEditable }
+          )}
         >
           <Pencil1Icon className="size-6 text-white" />
         </Link>
@@ -46,7 +51,7 @@ const PersonalDetails = async ({
           {plan || "No plan."}
         </p>
       </span>
-      <p className="p-text capitalize">Role: {role}</p>
+      {role === "admin" && <p className="p-text capitalize">Role: {role}</p>}
     </>
   );
 };

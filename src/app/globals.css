@@ -11,7 +11,7 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 142.1 76.2% 36.3%;
+    --primary: 143 66% 35%;
     --primary-foreground: 355.7 100% 97.3%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -34,7 +34,8 @@
     --card-foreground: 0 0% 95%;
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 95%;
-    --primary: 142.1 70.6% 45.3%;
+    /* --primary: 142.1 70.6% 45.3%; */
+    --primary: 143 66% 35%;
     --primary-foreground: 144.9 80.4% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -74,17 +75,17 @@ html {
     @apply text-2xl sm:text-3xl lg:text-4xl bg-gradient-to-r to-10% from-yellow-200 to-APP_GREEN bg-clip-text text-transparent font-cambay font-[700];
   }
   .paddingY {
-    @apply py-20;
+    @apply py-24;
   }
   .page-title {
     @apply text-2xl sm:text-3xl lg:text-4xl text-[#1C3041] font-[700];
   }
   .dark-page-title {
-    @apply text-2xl sm:text-3xl lg:text-4xl text-gray-300 font-[700];
+    @apply text-2xl sm:text-3xl lg:text-4xl text-gray-300 font-[700] text-center md:text-left;
   }
 
   .page-sub-title {
-    @apply text-lg md:text-xl lg:text-2xl text-gray-500;
+    @apply text-lg md:text-xl lg:text-2xl text-gray-500 mb-16 mt-1;
   }
   .desc {
     @apply text-white text-lg sm:text-2xl font-[300] font-cambay;
@@ -104,6 +105,9 @@ html {
   .p-text-white {
     @apply text-[1.1rem] leading-[1.3rem] lg:text-lg text-green-50 font-cambay font-[400];
   }
+  .p-text-white-2 {
+    @apply text-[1.2rem] leading-[1.3rem] lg:text-lg text-green-100 font-cambay font-[400] text-center md:text-left;
+  }
 
   .form-input {
     @apply p-4 rounded-full h-11 w-full border-gray-300 border-[0.5px] shadow-sm;
@@ -119,5 +123,11 @@ html {
   }
   .error-alert {
     @apply bg-red-100 text-black;
+  }
+  .date {
+    @apply rounded-md p-4 border border-APP_GREEN/90;
+  }
+  .label{
+    @apply flex flex-col gap-2 w-[120px] text-muted-foreground
   }
 }

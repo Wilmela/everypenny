@@ -19,10 +19,17 @@ import Spinner from "./Spinner";
 import { updateUserById } from "@/lib/actions/user.action.";
 import { useRouter } from "next/navigation";
 import { toast } from "../ui/use-toast";
-import { success, error, baseUrl } from "@/lib/utils";
+import { success, error, baseUrl, SessionData } from "@/lib/utils";
 import Image from "next/image";
+import { ButtonGradientWrapper } from "../blocks/ButtonGradientWrapper";
 
-const UserUpdateForm = ({ user }: { user: UpdateUserProps }) => {
+const UserUpdateForm = ({
+  user,
+  session,
+}: {
+  user: UpdateUserProps;
+  session: SessionData;
+}) => {
   const form = useForm<UpdateUserType>({
     defaultValues: user,
     resolver: zodResolver(UpdateUserSchema),
@@ -46,12 +53,14 @@ const UserUpdateForm = ({ user }: { user: UpdateUserProps }) => {
       });
     } else {
       toast({
-        title: updatedUser.error,
+        title: "Updated.",
         description: "User updated successfully",
         variant: "default",
         style: success,
       });
-      router.replace(`/profile/${user._id}`);
+      if (user._id === session?.userId) {
+        router.replace(`/profile/${user._id}`);
+      }
     }
   };
 
@@ -61,7 +70,7 @@ const UserUpdateForm = ({ user }: { user: UpdateUserProps }) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full md:w-6/12 lg:w-5/12"
       >
-        <div className="my-2 flex items-center justify-between w-full">
+        <div className="my-2 flex items-center justify-between w-full max-h-[270px] rounded-md overflow-hidden">
           <FormField
             name="imageUrl"
             control={form.control}
@@ -161,17 +170,19 @@ const UserUpdateForm = ({ user }: { user: UpdateUserProps }) => {
           />
         </div>
 
-        <Button
-          className="form-btn"
-          size="lg"
-          type="submit"
-          disabled={form.formState.isSubmitting}
-        >
-          Update
-          {form.formState.isSubmitting && (
-            <Spinner className="text-green-700" />
-          )}
-        </Button>
+        <ButtonGradientWrapper>
+          <Button
+            className="form-btn"
+            size="lg"
+            type="submit"
+            disabled={form.formState.isSubmitting}
+          >
+            Update
+            {form.formState.isSubmitting && (
+              <Spinner className="text-green-700" />
+            )}
+          </Button>
+        </ButtonGradientWrapper>
       </form>
     </Form>
   );

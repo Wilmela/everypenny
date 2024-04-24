@@ -1,3 +1,5 @@
+import { CheckCircledIcon } from "@radix-ui/react-icons";
+import { FaUserGroup } from "react-icons/fa6";
 export const NAV_LINKS = [
   {
     label: "Home",
@@ -50,12 +52,12 @@ export const points = [
   },
   {
     title: "Ease of Use",
-    image: "/assets/icons/security.png",
+    image: "/assets/icons/ease.png",
     desc: "Our application prioritizes user experience with an intuitive interface and streamlined features. It ensures hassle-free navigation for users of all levels, enabling confident financial management. With thorough design, it empowers users to achieve their goals effortlessly.",
   },
   {
     title: "Plans",
-    image: "/assets/icons/security.png",
+    image: "/assets/icons/plan.png",
     desc: "Our plans offer complete customization, allowing you to tailor your savings strategy. They are meticulously designed to assist in decision-making, ensuring alignment with your financial goals",
   },
 ];
@@ -105,27 +107,68 @@ export const initialValue = {
 };
 
 //FAQ
-export const FAQ: { question: string; answer: string }[] = [
+export const FAQ: {
+  question: string;
+  answer: { main: string; points: string[] };
+}[] = [
   {
     question: "What services does EveryPenny providers?",
-    answer:
-      "Every Penny specializes in offering financial growth solutions. Provides users the platform to save and grow their finances.",
+    answer: {
+      main: "Every Penny is a secure, user-friendly platform designed to help you save for your goals. We offer:",
+      points: [
+        "Goal Setting Tools: Set clear, achievable goals and track your progress with our intuitive interface.",
+        "Automated Savings: Schedule automatic transfers from your checking account to your Every Penny account, making saving effortless",
+        "Progress Visualization: Stay motivated with progress charts and celebratory milestones!",
+        "Community Support: Connect with other savers, share tips, and celebrate each other's successes!",
+      ],
+    },
   },
   {
     question: "How can Every Penny benefit me?",
-    answer:
-      "Our solutions streamline financial operations and improve overall efficiency. From digitizing contribution records to facilitating seamless communication users, we aim to elevate the quality of care.",
+    answer: {
+      main: "Every Penny is more than just a savings app. It's your personalized financial cheerleader",
+      points: [
+        "Break Down Barriers: Small, consistent savings add up! Every Penny helps you conquer seemingly impossible goals.",
+        "Stay Focused: Eliminate temptation by separating your spending and saving accounts.",
+        "Progress Visualization: Stay motivated with progress charts and celebratory milestones!",
+        "Empowerment Through Knowledge: Our financial resources and community forum equip you with the tools to manage your money with confidence.",
+      ],
+    },
   },
   {
     question:
       "Is EveryPenny compliant with financial regulations and standards?",
-    answer:
-      "Yes, EveryPenny is committed to adhering to all relevant healthcare regulations and standards, including HIPAA. Our solutions prioritize data security and privacy to ensure compliance with industry requirements.",
+    answer: {
+      main: "Financial security is our top priority. Every Penny is a registered 501(c)(3) non-profit organization. Your funds are held in a secure, FDIC-insured partner bank. We prioritize transparency and accountability, so you can save with peace of mind.",
+      points: [],
+    },
   },
   {
     question:
       "What sets EveryPenny apart from other financial savings providers? ",
-    answer:
-      "We differentiate ourselves through innovative technologies, user-friendly interfaces, and a client-centric approach. Our solutions are tailored to meet your unique savings needs of healthcare while fostering a positive and efficient user experience.",
+    answer: {
+      main: "Every Penny goes beyond traditional savings. We're a community-driven platform with a mission:",
+      points: [
+        "Non-Profit Focus: We're not driven by profit margins. We're driven by your success!",
+        "Empowerment Over Selling: We don't push investment products or hidden fees. We focus on helping you save smart.",
+        "Building Confidence: We believe financial literacy is key. We offer resources and support to help you understand your finances.",
+      ],
+    },
+  },
+];
+
+// DASHBOARD
+export const adminActions = [
+  {
+    href: "/dashboard/verify-contribution",
+    icon: CheckCircledIcon,
+    text: "Verify contribution",
+    tag: "Verify",
+  },
+  {
+    href: "/dashboard/users",
+    icon: FaUserGroup,
+    text: "View all Users",
+    tag: "Users",
   },
 ];

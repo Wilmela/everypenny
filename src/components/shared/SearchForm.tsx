@@ -15,6 +15,8 @@ import { SearchSchema, SearchType } from "@/lib/validation";
 import { useDebouncedCallback } from "use-debounce";
 
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { ButtonGradientWrapper } from "../blocks/ButtonGradientWrapper";
 
 const SearchForm = () => {
   const initialValue = { search: "" };
@@ -39,7 +41,7 @@ const SearchForm = () => {
     // Replaces the current dashboard pathname to include the query key and value
     router.replace(`${pathname}?${params.toString()}`);
   }, 300);
-  
+
   return (
     <Form {...form}>
       <form
@@ -50,22 +52,24 @@ const SearchForm = () => {
           name="search"
           control={form.control}
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="flex items-center gap-2">
+              <FormMessage />
               <FormControl>
                 <Input
                   defaultValue={searchParams.get("query")?.toString()}
                   {...field}
                   placeholder="Search"
-                  className="form-input md:w-[17rem]"
+                  className={cn("form-input md:w-[17rem]")}
                 />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
-        <Button className="rounded-full py-[1.4rem] w-fit" type="submit">
-          Search
-        </Button>
+        <ButtonGradientWrapper>
+          <Button className="rounded-full py-[1.4rem] w-fit" type="submit">
+            Search
+          </Button>
+        </ButtonGradientWrapper>
       </form>
     </Form>
   );

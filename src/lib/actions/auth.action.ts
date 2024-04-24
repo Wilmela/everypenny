@@ -12,10 +12,11 @@ import User from "../database/model/user.model";
 import { SignInSchema, SignInType } from "../validation";
 import { redirect } from "next/navigation";
 import connectToDatabase from "../database";
+import { revalidatePath } from "next/cache";
 
 export const getSession = async () => {
   const session = await getIronSession<SessionData>(cookies(), sessionOptions);
-
+  if (!session) throw new Error("No logged in user");
   if (!session.isLoggedIn) {
     // Default name when not logged in
     session.firstName = defaultSession.firstName;

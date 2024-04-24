@@ -1,3 +1,5 @@
+import { SessionData } from "@/lib/utils";
+
 export type CreateUserParams = {
   firstName: string;
   lastName: string;
@@ -64,7 +66,7 @@ export type MailOptionType = {
   from?: string;
   to?: string;
   subject?: string;
-  text?: string;
+  // text?: string;
   html?: string;
 };
 
@@ -79,6 +81,7 @@ export type PersonalDetailProps = {
   role?: string;
   userId: string;
   userImage?: string;
+  isEditable: boolean;
 };
 
 export type UpdateUserProps = {
@@ -88,4 +91,24 @@ export type UpdateUserProps = {
   email: string;
   phone: string;
   imageUrl: string;
+};
+
+export type VerificationProps = {
+  id: string;
+  userId: string;
+  isVerified: boolean;
+  sessionUserId?: string;
+};
+
+// USER
+export interface User {
+  sn: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  regId: string;
+  role: string;
+  imageUrl: string;
+  // sum: number;
 };

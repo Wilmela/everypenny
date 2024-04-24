@@ -9,9 +9,8 @@ import User from "../database/model/user.model";
 import TimeLines from "../database/model/timeLine.model";
 import { isValidObjectId } from "mongoose";
 import sendEmail from "../nodemailer";
-import { redirect } from "next/navigation";
 import { render } from "@react-email/render";
-import Welcome from "@/components/emails/Welcome";
+import ContributionTemplate from "@/components/emails/ContributionTemplate";
 
 export const makeContribution = async (
   contributor: string,
@@ -28,50 +27,55 @@ export const makeContribution = async (
       contributionId,
     });
 
-    // create new contribution timeline
-    await TimeLines.create({
-      userId: contributor,
-      timeLineId: contributionId,
-      timeline: {
-        title: formatDateTime(new Date(contribution.dateOfContribution)),
-        cardTitle: `${contribution.amount} contributed `,
-        // cardSubtitle: `${
-        //   !contribution.verifiedContribution ? "Not verified" : "Verified"
-        // }`,
-        media: {
-          type: "IMAGE",
-          source: {
-            url: contribution.receipt,
+    if(newContribution){
+      // create new contribution timeline
+      await TimeLines.create({
+        userId: contributor,
+        timeLineId: contributionId,
+        timeline: {
+          title: formatDateTime(new Date(contribution.dateOfContribution)),
+          cardTitle: `${contribution.amount} contributed `,
+          // cardSubtitle: `${
+          //   !contribution.verifiedContribution ? "Not verified" : "Verified"
+          // }`,
+          media: {
+            type: "IMAGE",
+            source: {
+              url: contribution.receipt,
+            },
           },
         },
-      },
-    });
+      });
 
-    // Add contribution to user contribution array
-    const user = await User.findById(contributor);
-    if (!user) throw new Error("User not found.");
-    await User.findByIdAndUpdate(
-      user._id,
-      {
-        $push: {
-          contributions: newContribution,
+      // Add contribution to user contributions array
+      const user = await User.findById(contributor);
+      if (!user) throw new Error("User not found.");
+      await User.findByIdAndUpdate(
+        user._id,
+        {
+          $push: {
+            contributions: [...user.contributions, newContribution],
+          },
         },
-      },
-      { new: true }
-    );
+        { new: true }
+      );
 
-    // Notify admin of a contribution by a user with regId: via email
-    await sendEmail({
-      from: user?.email,
-      subject: "Contribution Alert.",
-      // text: `User with name ${user.firstName} just made a contribution awaiting verification`,
-      html: `<div> 
-                <h1 >Hi Admin from ${user.email} </h1>
-                <p>The user with name ${user.firstName} and regId: ${user.regId} just made a contribution. Kindly verify.</p>
-             </div>`,
-    });
+      // Notify admin of a contribution by a user with regId: via email
+      await sendEmail({
+        from: user?.email,
+        to: process.env.EMAIL,
+        subject: "Contribution Alert.",
+        html: render(
+          ContributionTemplate({
+            firstName: user.firstName,
+            email: user.email,
+            regId: user.regId,
+          })
+        ),
+      });
 
-    revalidatePath(path);
+      revalidatePath(path);
+    }
 
     return JSON.parse(JSON.stringify(newContribution));
   } catch (error) {

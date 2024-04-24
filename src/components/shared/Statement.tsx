@@ -1,85 +1,95 @@
 "use client";
 
-import React from "react";
+import React, { ChangeEventHandler, useState } from "react";
 import { StatementProp } from "@/types";
 import { generatePDF } from "@/lib/utils";
 import { Button } from "../ui/button";
+import { ButtonGradientWrapper } from "../blocks/ButtonGradientWrapper";
+import { generateReceiptPerMonth } from "@/lib/actions/user.action.";
 
-const Statement = ({
-  userContributions,
-}: {
-  userContributions: StatementProp[];
-}) => {
+const Statement = ({ user, sum }: { user: any; sum: number }) => {
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [contributions, setContributions] = useState<StatementProp[]>([]);
+  const min = "2024-06-07T00:00";
+  const max = "2026-06-14T00:00";
+
+  // Fetch data only when both fromDate and toDate have values
+  const fetchData = async () => {
+    try {
+      if (fromDate && toDate) {
+        const res: any = await generateReceiptPerMonth(
+          user._id,
+          new Date(fromDate),
+          new Date(toDate)
+        );
+        setContributions(res.contributions);
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // Call fetchData on component mount and whenever fromDate or toDate changes
+  React.useEffect(() => {
+    fetchData();
+  }, [user._id, fromDate, toDate]);
+
+  // Generate pdf
   const handleGeneratePDF = () => {
-    generatePDF(userContributions);
+    generatePDF(contributions, sum, fromDate, toDate);
   };
   return (
-    <Button className="form-btn w-fit" size="lg" onClick={handleGeneratePDF}>
-      Statement
-    </Button>
+    <div>
+      <form action="">
+        <div className="flex gap-2 justify-center pb-6 ">
+          <label htmlFor="from" className="label">
+            From
+            <input
+              name="from"
+              type="date"
+              min={min}
+              max={max}
+              value={fromDate}
+              onChange={(e) => {
+                setFromDate(e.target.value);
+                // Call fetchData after setting fromDate
+                fetchData();
+              }}
+              className="date"
+            />
+          </label>
+
+          <label htmlFor="to" className="label">
+            To
+            <input
+              name="to"
+              type="date"
+              min={min}
+              max={max}
+              value={toDate}
+              onChange={(e) => {
+                setToDate(e.target.value);
+                // Call fetchData after setting toDate
+                fetchData();
+              }}
+              className="date"
+            />
+          </label>
+        </div>
+
+        <ButtonGradientWrapper>
+          <Button
+            className="form-btn w-fit"
+            size="lg"
+            onClick={handleGeneratePDF}
+          >
+            Statement
+          </Button>
+        </ButtonGradientWrapper>
+      </form>
+    </div>
   );
 };
 
 export default Statement;
-
-// const GenerateStatementButton = ({
-//   onGeneratePDF,
-// }: {
-//   onGeneratePDF: () => void;
-// }) => {
-//   return (
-//     <Button className="btn w-fit" size="lg" onClick={onGeneratePDF}>
-//       Statement
-//     </Button>
-//   );
-// };
-
-// const RenderStatement = () => {
-//   const statements = [
-//     {
-//       id: "1",
-//       amount: "100",
-//       status: "Verified",
-//       createdAt: new Date(),
-//     },
-//     {
-//       id: "1",
-//       amount: "100",
-//       status: "Not verified",
-//       createdAt: new Date(),
-//     },
-//   ];
-
-//   return (
-//     <div className="container">
-//       {statements.length === 0 ? (
-//         "You currently have no tickets created"
-//       ) : (
-//         <table className="table">
-//           <thead>
-//             <tr>
-//               <th scope="col">#</th>
-//               <th scope="col">Amount</th>
-//               <th scope="col">Status</th>
-//               <th scope="col">Date</th>
-//               <th scope="col"></th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {statements.map((statement: StatementProp) => (
-//               <tr key={statement.id}>
-//                 <td>{statement.id}</td>
-//                 <td>{statement.contributionId}</td>
-//                 <td>{statement.amount}</td>
-//                 <td>{statement.plan}</td>
-//                 <td>{statement.verifiedContribution}</td>
-//                 <td>{statement.dateOfContribution}</td>
-//                 {/* <td>{statement.createdAt}</td> */}
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       )}
-//     </div>
-//   );
-// };

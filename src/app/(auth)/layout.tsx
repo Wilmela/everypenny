@@ -1,4 +1,3 @@
-import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
 import { Metadata } from "next";
 import React from "react";
 

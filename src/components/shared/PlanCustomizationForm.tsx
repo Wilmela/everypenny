@@ -23,6 +23,7 @@ import { handleError } from "@/lib/utils";
 import { createPlan } from "@/lib/actions/plan.action";
 import { useRouter } from "next/navigation";
 import Spinner from "./Spinner";
+import { ButtonGradientWrapper } from "../blocks/ButtonGradientWrapper";
 
 const PlanCustomizationForm = ({
   userId,
@@ -118,9 +119,11 @@ const PlanCustomizationForm = ({
           </div>
         </div>
 
-        <Button type="submit" disabled={form.formState.isSubmitting}>
-          Start {form.formState.isSubmitting && <Spinner />}
-        </Button>
+        <ButtonGradientWrapper>
+          <Button type="submit" disabled={form.formState.isSubmitting}>
+            Start {form.formState.isSubmitting && <Spinner />}
+          </Button>
+        </ButtonGradientWrapper>
       </form>
     </Form>
   );
