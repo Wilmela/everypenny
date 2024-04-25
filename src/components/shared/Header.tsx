@@ -14,7 +14,7 @@ const Header = async () => {
   const user = await findUserById(session.userId!);
 
   return (
-    <header className="bg-APP_GREEN fixed opacity-90 top-0 inset-x-0 z-50">
+    <header className="bg-primary fixed opacity-90 top-0 inset-x-0 z-50">
       <MaxWidthContainer>
         <div className="flex items-center justify-between py-6 h-14">
           <Link href="/">

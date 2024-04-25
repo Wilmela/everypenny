@@ -20,15 +20,14 @@ const NavItems = ({ userId, role }: { userId: string; role: string }) => {
       >
         {role === "admin"
           ? NAV_LINKS.map((link: NavLink) => {
-              const isActive = link.route === pathname;
 
               return (
                 <li
                   key={link.label}
                   className={cn(
-                    " text-white uppercase hover:text-green-200 ease-in duration-100 cursor-pointer",
+                    "text-primary-foreground uppercase hover:text-green-200 focus-visible:bg-green-200 ease-in duration-100 cursor-pointer",
                     {
-                      underline: isActive,
+                      underline: pathname === link.route,
                     }
                   )}
                   onClick={() => setToggled(false)}

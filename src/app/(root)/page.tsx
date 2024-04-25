@@ -34,11 +34,8 @@ const Overlay = ({
   </div>
 );
 
-
-const smallCard =
-  "relative group cursor-pointer rounded-md overflow-hidden";
-const bigCard =
-  "relative group cursor-pointer rounded-md overflow-hidden";
+const smallCard = "relative group cursor-pointer rounded-md overflow-hidden";
+const bigCard = "relative group cursor-pointer rounded-md overflow-hidden";
 
 export default function Home() {
   return (
@@ -213,7 +210,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <h3 className="text-green-50 text-4xl font-cambay font-[700] text-center mt-8">
+          <h3 className="text-green-50 text-4xl font-play font-[700] text-center mt-8">
             And lots more...
           </h3>
         </MaxWidthContainer>

@@ -102,6 +102,7 @@ export type VerificationProps = {
 
 // USER
 export interface User {
+  _id?: string;
   sn: string;
   firstName: string;
   lastName: string;
