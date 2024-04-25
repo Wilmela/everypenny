@@ -12,20 +12,33 @@ import Review from "@/components/shared/Review";
 import { cn } from "@/lib/utils";
 
 // OVERLAY COMPONENT
-const Overlay = ({ text, className }: { text: string; className?: string }) => (
+const Overlay = ({
+  text,
+  className,
+  title,
+}: {
+  text: string;
+  className?: string;
+  title: string;
+}) => (
   <div
     className={cn(
-      "group-hover:absolute transition-all top-0 right-0 bottom-0 left-0 bg-black/70 text-white hidden group-hover:flex items-center justify-center h-full p-4 rounded-md overflow-hidden duration-300",
+      "group-hover:absolute transition-all top-0 right-0 bottom-0 left-0 bg-black/70 text-primary-foreground hidden group-hover:flex items-center justify-center h-full p-4 rounded-md overflow-hidden",
       { className }
     )}
   >
-    <p className="text-sm font-cambay font-[400]">{text}</p>
+    <div className="flex flex-col gap-2">
+      <h3 className="card-title">{title}</h3>
+      <p className="text-sm font-cambay font-[400]">{text}</p>
+    </div>
   </div>
 );
 
+
 const smallCard =
-  "w-full h-full md:h-[80%] relative overflow-hidden rounded-md";
-const bigCard = "h-96 relative group cursor-pointer rounded-md overflow-hidden";
+  "relative group cursor-pointer rounded-md overflow-hidden";
+const bigCard =
+  "relative group cursor-pointer rounded-md overflow-hidden";
 
 export default function Home() {
   return (
@@ -149,28 +162,55 @@ export default function Home() {
           <p className="p-text-white-2">Explore How We Benefit You!</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 md:mt-12">
-            <div className="h-80 flex items-center justify-center relative group cursor-pointer">
-              <div className={cn(smallCard)}>
-                <Image src="/assets/images/travel.jpeg" fill alt="travel" />
-                <Overlay text="Every Penny helps you turn small, everyday savings into unforgettable travel experiences. By tracking your progress and visualizing your goals, you can transform seemingly insignificant amounts into plane tickets, dream accommodations, and the chance to explore new cultures and broaden your horizons." />
-              </div>
+            <div className={cn("h-[20rem]", smallCard)}>
+              <Image
+                src="/assets/images/travel.jpeg"
+                fill
+                alt="travel"
+                className="object-cover"
+              />
+              <Overlay
+                title="Travel"
+                text="Every Penny helps you turn small, everyday savings into unforgettable travel experiences. By tracking your progress and visualizing your goals, you can transform seemingly insignificant amounts into plane tickets, dream accommodations, and the chance to explore new cultures and broaden your horizons."
+              />
             </div>
 
-            <div className={cn(bigCard)}>
-              <Image src="/assets/images/study.jpeg" fill alt="study" />
-              <Overlay text="Saving with Every Penny can unlock the door to your academic dreams. Small, consistent savings can add up to significant amounts, helping you cover tuition fees, textbooks, and living expenses. Every Penny empowers you to visualize your educational goals and track your progress, turning spare change into the fuel for a brighter future. Don't let financial limitations hold you back - Every Penny can help you invest in your education and unlock a world of knowledge." />
+            <div className={cn("h-[20rem] lg:h-[25rem]", bigCard)}>
+              <Image
+                src="/assets/images/study.jpeg"
+                fill
+                alt="study"
+                className="object-cover"
+              />
+              <Overlay
+                title="Study"
+                text="Saving with Every Penny can unlock the door to your academic dreams. Small, consistent savings can add up to significant amounts, helping you cover tuition fees, textbooks, and living expenses. Every Penny empowers you to visualize your educational goals and track your progress, turning spare change into the fuel for a brighter future. Don't let financial limitations hold you back - Every Penny can help you invest in your education and unlock a world of knowledge."
+              />
+            </div>
+            <div className={cn("h-[20rem] lg:h-[30rem] ", bigCard)}>
+              <Image
+                src="/assets/images/invest.jpeg"
+                fill
+                alt="invest"
+                className="object-cover"
+              />
+              <Overlay
+                title="Investment"
+                text="Saving with Every Penny can unlock the door to your academic dreams. Small, consistent savings can add up to significant amounts, helping you cover tuition fees, textbooks, and living expenses. Every Penny empowers you to visualize your educational goals and track your progress, turning spare change into the fuel for a brighter future. Don't let financial limitations hold you back - Every Penny can help you invest in your education and unlock a world of knowledge."
+              />
             </div>
 
-            <div className={cn(bigCard)}>
-              <Image src="/assets/images/invest.jpeg" fill alt="invest" />
-              <Overlay text="Every Penny isn't just about everyday savings; it's your launching pad for future financial security. Those spare pennies you diligently save can blossom into a healthy investment nest egg. Every Penny fosters a habit of consistent saving, a crucial skill for building your investment portfolio. With clear goal setting tools and progress tracking, you can visualize your investment journey, turning small change into a foundation for long-term financial well-being. Start small, save smart, and watch Every Penny help your investments grow!" />
-            </div>
-
-            <div className="h-80 flex items-center justify-center relative group cursor-pointer">
-              <div className={smallCard}>
-                <Image src="/assets/images/projects.png" fill alt="projects" />
-                <Overlay text="Every Penny can be your project powerhouse! Those everyday savings, diligently tracked and visualized, can transform into the resources you need to bring your dreams to life. Whether it's a home renovation, a creative venture, or that passion project you've always envisioned, Every Penny helps you turn small amounts into big results.  See your progress unfold, celebrate milestones, and watch your project savings grow, one penny at a time." />
-              </div>
+            <div className={cn("h-[20rem] lg:h-[35rem] ", smallCard)}>
+              <Image
+                src="/assets/images/projects.png"
+                fill
+                alt="projects"
+                className="object-cover"
+              />
+              <Overlay
+                title="Projects"
+                text="Every Penny can be your project powerhouse! Those everyday savings, diligently tracked and visualized, can transform into the resources you need to bring your dreams to life. Whether it's a home renovation, a creative venture, or that passion project you've always envisioned, Every Penny helps you turn small amounts into big results.  See your progress unfold, celebrate milestones, and watch your project savings grow, one penny at a time."
+              />
             </div>
           </div>
           <h3 className="text-green-50 text-4xl font-cambay font-[700] text-center mt-8">

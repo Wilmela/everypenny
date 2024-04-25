@@ -8,7 +8,7 @@ export const siteConfig = {
   url:
     process.env.NODE_ENV === "production"
       ? "everypenny.ng"
-      : "http://localhost:300",
+      : "http://localhost:3000",
 };
 
 export type SiteConfig = typeof siteConfig;

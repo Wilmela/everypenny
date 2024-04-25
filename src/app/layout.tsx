@@ -25,7 +25,7 @@ const cambay = Cambay({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  // metadataBase: new URL(siteConfig.url),
   title: {
     template: `%s | ${siteConfig.name}`,
     default: siteConfig.shortDesc,
@@ -47,7 +47,7 @@ export default function RootLayout({
       <html lang="en">
         <body
           className={cn(
-            "font-kanit antialiased",
+            "font-kanit antialiased bg-background",
             kanit.variable,
             cambay.variable,
             play.variable

@@ -74,6 +74,9 @@ html {
   .sub-title {
     @apply text-2xl sm:text-3xl lg:text-4xl bg-gradient-to-r to-10% from-yellow-200 to-APP_GREEN bg-clip-text text-transparent font-cambay font-[700];
   }
+  .card-title {
+    @apply text-2xl sm:text-3xl lg:text-4xl text-green-300 font-cambay font-[700];
+  }
   .paddingY {
     @apply py-24;
   }
@@ -127,7 +130,7 @@ html {
   .date {
     @apply rounded-md p-4 border border-APP_GREEN/90;
   }
-  .label{
-    @apply flex flex-col gap-2 w-[120px] text-muted-foreground
+  .label {
+    @apply flex flex-col gap-2 w-[120px] text-muted-foreground;
   }
 }
