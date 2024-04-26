@@ -131,6 +131,6 @@ html {
     @apply rounded-md p-4 border border-APP_GREEN/90;
   }
   .label {
-    @apply flex flex-col gap-2 w-[120px] text-muted-foreground;
+    @apply flex flex-col gap-2 lg:w-[135px] text-muted-foreground;
   }
 }

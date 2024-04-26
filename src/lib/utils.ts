@@ -50,7 +50,7 @@ export const sessionOptions: SessionOptions = {
 
 // Naira formatting
 export const formatNaira = (amount: number) => {
-  return Intl.NumberFormat("en-Us", {
+  return new Intl.NumberFormat("en-Us", {
     style: "currency",
     currency: "NGN",
     maximumFractionDigits: 2,
@@ -59,7 +59,7 @@ export const formatNaira = (amount: number) => {
 
 // Date and time formatting
 export const formatDateTime = (date: Date) => {
-  const formattedDate = Intl.DateTimeFormat("en-Us", {
+  const formattedDate = new Intl.DateTimeFormat("en-Us", {
     dateStyle: "short",
     timeStyle: "short",
     // timeZone: "GMT+1",

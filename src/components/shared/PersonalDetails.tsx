@@ -20,7 +20,7 @@ const PersonalDetails = async ({
 
   return (
     <>
-      <div className="relative w-full h-[300px] flex gap-2 mb-2">
+      <div className="relative w-full h-[300px] flex gap-2 mb-2 rounded-md overflow-hidden">
         <Link
           href={`/profile/${userId}/edit`}
           className={cn(

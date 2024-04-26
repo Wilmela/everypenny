@@ -10,6 +10,7 @@ import Image from "next/image";
 import { points, review } from "@/constants";
 import Review from "@/components/shared/Review";
 import { cn } from "@/lib/utils";
+import { easeIn } from "framer-motion";
 
 // OVERLAY COMPONENT
 const Overlay = ({
@@ -153,13 +154,18 @@ export default function Home() {
       </section>
 
       {/* Benefits*/}
-      <section className="bg-APP_JUNGLE_GREEN paddingY relative">
+      <section className="bg-APP_JUNGLE_GREEN paddingY relative" id="benefits">
         <MaxWidthContainer>
           <h3 className="dark-page-title mb-4">Reap the rewards</h3>
           <p className="p-text-white-2">Explore How We Benefit You!</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 md:mt-12">
-            <div className={cn("h-[20rem]", smallCard)}>
+            <MotionDiv
+              whileInView={{ x: [200, 0], opacity: [0.5, 1] }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+              className={cn("h-[20rem]", smallCard)}
+            >
               <Image
                 src="/assets/images/travel.jpeg"
                 fill
@@ -170,9 +176,14 @@ export default function Home() {
                 title="Travel"
                 text="Every Penny helps you turn small, everyday savings into unforgettable travel experiences. By tracking your progress and visualizing your goals, you can transform seemingly insignificant amounts into plane tickets, dream accommodations, and the chance to explore new cultures and broaden your horizons."
               />
-            </div>
+            </MotionDiv>
 
-            <div className={cn("h-[20rem] lg:h-[25rem]", bigCard)}>
+            <MotionDiv
+              whileInView={{ y: [200, 0], opacity: [0, 1] }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+              className={cn("h-[20rem] lg:h-[25rem]", bigCard)}
+            >
               <Image
                 src="/assets/images/study.jpeg"
                 fill
@@ -183,8 +194,14 @@ export default function Home() {
                 title="Study"
                 text="Saving with Every Penny can unlock the door to your academic dreams. Small, consistent savings can add up to significant amounts, helping you cover tuition fees, textbooks, and living expenses. Every Penny empowers you to visualize your educational goals and track your progress, turning spare change into the fuel for a brighter future. Don't let financial limitations hold you back - Every Penny can help you invest in your education and unlock a world of knowledge."
               />
-            </div>
-            <div className={cn("h-[20rem] lg:h-[30rem] ", bigCard)}>
+            </MotionDiv>
+
+            <MotionDiv
+              whileInView={{ y: [-200, 0], opacity: [0, 1] }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+              className={cn("h-[20rem] lg:h-[30rem] ", bigCard)}
+            >
               <Image
                 src="/assets/images/invest.jpeg"
                 fill
@@ -193,11 +210,16 @@ export default function Home() {
               />
               <Overlay
                 title="Investment"
-                text="Saving with Every Penny can unlock the door to your academic dreams. Small, consistent savings can add up to significant amounts, helping you cover tuition fees, textbooks, and living expenses. Every Penny empowers you to visualize your educational goals and track your progress, turning spare change into the fuel for a brighter future. Don't let financial limitations hold you back - Every Penny can help you invest in your education and unlock a world of knowledge."
+                text="Every Penny isn't just about everyday savings; it's your launching pad for future financial security. Those spare pennies you diligently save can blossom into a healthy investment nest egg. Every Penny fosters a habit of consistent saving, a crucial skill for building your investment portfolio. With clear goal setting tools and progress tracking, you can visualize your investment journey, turning small change into a foundation for long-term financial well-being. Start small, save smart, and watch Every Penny help your investments grow!"
               />
-            </div>
+            </MotionDiv>
 
-            <div className={cn("h-[20rem] lg:h-[35rem] ", smallCard)}>
+            <MotionDiv
+              whileInView={{ x: [-200, 0], opacity: [0.5, 1] }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+              className={cn("h-[20rem] lg:h-[35rem] ", smallCard)}
+            >
               <Image
                 src="/assets/images/projects.png"
                 fill
@@ -208,7 +230,7 @@ export default function Home() {
                 title="Projects"
                 text="Every Penny can be your project powerhouse! Those everyday savings, diligently tracked and visualized, can transform into the resources you need to bring your dreams to life. Whether it's a home renovation, a creative venture, or that passion project you've always envisioned, Every Penny helps you turn small amounts into big results.  See your progress unfold, celebrate milestones, and watch your project savings grow, one penny at a time."
               />
-            </div>
+            </MotionDiv>
           </div>
           <h3 className="text-green-50 text-4xl font-play font-[700] text-center mt-8">
             And lots more...

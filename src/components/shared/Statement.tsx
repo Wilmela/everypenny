@@ -42,7 +42,7 @@ const Statement = ({ user, sum }: { user: any; sum: number }) => {
   return (
     <div>
       <form action="">
-        <div className="flex gap-2 justify-center pb-6 ">
+        <div className="flex gap-4 justify-between md:justify-start lg:justify-between pb-6 ">
           <label htmlFor="from" className="label">
             From
             <input

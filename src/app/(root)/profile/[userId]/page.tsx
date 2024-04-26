@@ -75,7 +75,7 @@ const ProfileDetail = async ({
         {/* GRID CONTAINER */}
         <div className="grid grid-cols-1 lg:grid-cols-5 justify-between rounded-md my-8 gap-4">
           {/* COLUMN-1 */}
-          <div className="items-start col-span-1 md:col-span-1 md:border-r-[0.5px] md:pr-4">
+          <div className="items-start col-span-1 md:col-span-1 md:border-r-[0.5px] md:pr-4 lg:w-[300px]">
             <>
               <PersonalDetails
                 firstName={user.firstName}
