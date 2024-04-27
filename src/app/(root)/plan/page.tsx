@@ -7,10 +7,10 @@ import { cn } from "@/lib/utils";
 
 const PlanPage = async () => {
   const { userId } = await getSession();
-  
+
   const user = await findUserById(userId!);
 
-  const isActive = user.plan?.isActive;
+  const isActive = user?.plan.isActive || false;
 
   return (
     <MaxWidthContainer className="paddingY flex flex-col">

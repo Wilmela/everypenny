@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const UsersPage = async () => {
-  const users: User[] = await findAllUsers();
+  const users: User[] = await findAllUsers(); //
 
   if (users == null) throw new Error("No users found.");
 

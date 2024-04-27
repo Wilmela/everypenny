@@ -7,7 +7,6 @@ export interface TimeLineProps extends Document {
   timeline: {
     title: string;
     cardTitle: string;
-    // cardSubtitle: string;
     media: {
       type: string;
       source: {

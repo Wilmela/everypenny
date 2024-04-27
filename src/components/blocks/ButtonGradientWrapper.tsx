@@ -10,7 +10,7 @@ export const ButtonGradientWrapper = ({
 }) => (
   <div
     className={cn(
-      "bg-gradient-to-r from-yellow-200 via-green-300 to-green-600 p-[2px] rounded-full",
+      "bg-gradient-to-r from-yellow-100 via-green-300 to-green-600 p-[2px] rounded-full",
       { className }
     )}
   >

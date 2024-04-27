@@ -56,7 +56,7 @@ const columns = [
       return (
         <div className="size-10 border border-APP_GRREN overflow-hidden rounded-full relative">
           <Image
-            src={`${baseUrl}/${info.getValue()}`}
+            src={`${baseUrl}${info.getValue()}`}
             fill
             alt="user"
             className="object-cover"

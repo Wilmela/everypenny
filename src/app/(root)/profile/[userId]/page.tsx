@@ -178,7 +178,7 @@ const ProfileDetail = async ({
               </CardContent>
               <CardFooter className="flex flex-col items-start bg-gray-50 pt-4 over border-t">
                 <Image
-                  src="/assets/icons/uba.gif"
+                  src="/assets/images/uba.png"
                   width={100}
                   height={100}
                   alt="uba-logo"
