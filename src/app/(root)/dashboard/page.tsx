@@ -9,10 +9,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { adminActions } from "@/constants";
+import User from "@/lib/database/model/user.model";
 
 import Link from "next/link";
 
-const DashboardPage = () => {
+const DashboardPage = async () => {
+  const usersCount = await User.countDocuments();
   return (
     <MaxWidthContainer className="paddingY">
       <PageHeading
@@ -26,12 +28,17 @@ const DashboardPage = () => {
             <Link href={action.href} key={action.text}>
               <Card>
                 <CardHeader>
-                  <CardTitle className="p-text uppercase">
+                  <CardTitle className="p-text uppercase inline-flex items-center gap-2">
                     {action.tag}
+                    {action.tag === "Users" && (
+                      <span className="px-2 bg-APP_GREEN/20 rounded-full text-green-700">
+                        {usersCount}
+                      </span>
+                    )}
                   </CardTitle>
                   <CardDescription>{action.text}</CardDescription>
                 </CardHeader>
-                <CardContent className="relative w-full h-fit">
+                <CardContent className="w-full h-fit">
                   <action.icon className="size-12 text-APP_GREEN" />
                 </CardContent>
               </Card>

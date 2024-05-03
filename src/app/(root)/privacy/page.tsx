@@ -1,13 +1,13 @@
+import PageHeading from "@/components/blocks/PageHeading";
 import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
-import { cn } from "@/lib/utils";
 
 const PrivacyPage = () => {
   return (
     <MaxWidthContainer className="paddingY flex flex-col items-center">
-      <div className="text-center">
-        <h1 className="page-title">Privacy Policy</h1>
-        <p className="page-sub-title">Learn about our privacy policy.</p>
-      </div>
+      <PageHeading
+        title="Privacy Policy"
+        description="Learn about our privacy policy."
+      />
 
       <div className="w-full max-w-4xl p-text">
         <p className="text-lg mb-4">

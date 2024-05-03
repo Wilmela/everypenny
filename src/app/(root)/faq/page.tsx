@@ -1,3 +1,4 @@
+import PageHeading from "@/components/blocks/PageHeading";
 import FaQAccordion from "@/components/shared/FaqAccordion";
 import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
 import { Metadata } from "next";
@@ -8,9 +9,8 @@ export const metadata: Metadata = {
 const FaqPage = () => {
   return (
     <MaxWidthContainer className="paddingY flex flex-col items-center">
-      <h1 className="page-title text-center">Faq</h1>
-      <h3 className="page-sub-title text-center my-1">Right to know more</h3>
-
+      <PageHeading title="Faq" description="Right to know more" />
+      
       <div className="w-full max-w-4xl">
         <FaQAccordion />
       </div>

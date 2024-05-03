@@ -1,3 +1,4 @@
+import PageHeading from "@/components/blocks/PageHeading";
 import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
 import UserUpdateForm from "@/components/shared/UserUpdateForm";
 import { getSession } from "@/lib/actions/auth.action";
@@ -13,12 +14,11 @@ const EdiPage = async ({ params }: { params: { userId: string } }) => {
 
   return (
     <MaxWidthContainer className="paddingY">
-      <div className="mb-8 text-center">
-        <h1 className="page-title">Update User</h1>
-        <p className="mt-2 page-sub-title">
-          Make changes to {user.firstName}&apos;s profile
-        </p>
-      </div>
+      <PageHeading
+        title="Update User"
+        description={` Make changes to ${user.firstName}&apos;s profile`}
+      />
+
       <div className="w-full flex items-center justify-center mt-8">
         <UserUpdateForm user={user} session={session} />
       </div>

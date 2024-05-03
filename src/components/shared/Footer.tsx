@@ -2,7 +2,11 @@ import { PropsWithChildren } from "react";
 import MaxWidthContainer from "./MaxWidthContainer";
 import Image from "next/image";
 import { InstagramLogoIcon } from "@radix-ui/react-icons";
-import { AiOutlineMail, AiOutlinePhone, AiOutlineWhatsApp } from "react-icons/ai";
+import {
+  AiOutlineMail,
+  AiOutlinePhone,
+  AiOutlineWhatsApp,
+} from "react-icons/ai";
 import { FaXTwitter } from "react-icons/fa6";
 import NavItems from "./NavItems";
 import { getSession } from "@/lib/actions/auth.action";
@@ -17,7 +21,7 @@ const Footer = async () => {
     <footer>
       <div className="py-8 bg-[#064b1e] relative">
         <MaxWidthContainer className="flex flex-col">
-          <div className="flex justify-between items-center mb-8 ">
+          <Link href="/" className="flex justify-between items-center mb-8 ">
             <Image
               src="/assets/images/logo.png"
               alt="company_logo"
@@ -42,7 +46,7 @@ const Footer = async () => {
                 <InstagramLogoIcon />
               </Logo>
             </div>
-          </div>
+          </Link>
           {/* Links */}
           <div className="justify-center flex my-2">
             <NavItems userId={user?._id} role={user?.role!} />

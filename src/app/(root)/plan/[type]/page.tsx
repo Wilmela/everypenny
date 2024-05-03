@@ -1,4 +1,5 @@
 import { MotionDiv } from "@/components/blocks/Blocks";
+import PageHeading from "@/components/blocks/PageHeading";
 import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
 import PlanCustomizationForm from "@/components/shared/PlanCustomizationForm";
 import { subscriptionPlans } from "@/constants";
@@ -22,7 +23,7 @@ const PlanSetUpPage = async ({
   return (
     <section className="bg-gray-50">
       <MaxWidthContainer className="paddingY">
-        <h3 className="sub-title">Setup Your {type} Plan</h3>
+        <PageHeading title="Plan Type" description={`Setup Your ${type} Plan`} />
 
         <MotionDiv
           whileInView={{ x: [100, 0] }}

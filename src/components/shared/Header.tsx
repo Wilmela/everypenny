@@ -32,7 +32,7 @@ const Header = async () => {
           <div className="flex gap-2 items-center">
             <div>
               {!session.isLoggedIn && (
-                <div className="flex gap-2">
+                <div className="flex gap-1 md:gap-2">
                   <Button asChild className="auth-btn" variant="secondary">
                     <Link href="/auth/sign-in">Sign-in</Link>
                   </Button>

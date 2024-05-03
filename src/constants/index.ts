@@ -48,7 +48,7 @@ export const points = [
   {
     title: "Security",
     image: "/assets/icons/security.png",
-    desc: "Rest assured that the security of your finances is our paramount concern. Our organization utilizes a meticulously designed and rigorously maintained system to manage financial transactions with absolute integrity and zero tolerance for any potential compromises.",
+    desc: "Rest assured that the security of your finances is our paramount concern. Our organization utilizes a carefully designed and rigorously maintained system to manage financial transactions with absolute integrity and zero tolerance for any potential compromises.",
   },
   {
     title: "Ease of Use",
@@ -58,7 +58,7 @@ export const points = [
   {
     title: "Plans",
     image: "/assets/icons/plan.png",
-    desc: "Our plans offer complete customization, allowing you to tailor your savings strategy. They are meticulously designed to assist in decision-making, ensuring alignment with your financial goals",
+    desc: "Our plans offer complete customization, allowing you to tailor your savings strategy. They are intentionally designed to assist in decision-making, ensuring alignment with your financial goals",
   },
 ];
 

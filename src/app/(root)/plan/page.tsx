@@ -1,3 +1,4 @@
+import PageHeading from "@/components/blocks/PageHeading";
 import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
 import PlanCard from "@/components/shared/PlanCard";
 import { subscriptionPlans } from "@/constants";
@@ -14,12 +15,10 @@ const PlanPage = async () => {
 
   return (
     <MaxWidthContainer className="paddingY flex flex-col">
-      <div className="text-center mb-8">
-        <h1 className="page-title">Pick A Plan</h1>
-        <p className={cn("mt-2 page-sub-title")}>
-          Choose a comfortable plan and start growing!
-        </p>
-      </div>
+      <PageHeading
+        title="Pick A Plan"
+        description="Choose a comfortable plan and start growing!"
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-2">
         {subscriptionPlans.map((plan) => {

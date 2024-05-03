@@ -11,6 +11,7 @@ import Contribution from "../database/model/contribution.model";
 import sendEmail from "../nodemailer";
 import Welcome from "@/components/emails/WelcomeTemplate";
 import { render } from "@react-email/render";
+import { notFound } from "next/navigation";
 
 export const createUser = async (user: CreateUserParams) => {
   try {
@@ -89,6 +90,7 @@ export const findAllUsers = async () => {
         path: "contributions",
         model: Contribution,
       });
+
     return JSON.parse(JSON.stringify(users));
   } catch (error) {
     return { error: handleError(error) };
@@ -147,6 +149,48 @@ export const generateReceiptPerMonth = async (
       },
     });
     return JSON.parse(JSON.stringify(user));
+  } catch (error) {
+    return { error: handleError(error) };
+  }
+};
+
+export const toggleVerification = async (userId: string, verify: boolean) => {
+  try {
+    await connectToDatabase();
+    const verifyUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          isVerified: verify,
+        },
+      },
+      { new: true }
+    );
+
+    if (verifyUser) {
+      revalidatePath("dashboard/users");
+    }
+  } catch (error) {
+    return { error: handleError(error) };
+  }
+};
+
+export const deleteUser = async (userId: string) => {
+  try {
+    await connectToDatabase();
+
+    const user = await User.findById(userId);
+
+    // If use has an active plan do not delete.
+    if (user?.plan != null && user?.contributions != null) {
+      return notFound();
+    }
+
+    const userToDelete = await User.findByIdAndDelete(userId);
+    if (userToDelete) {
+      revalidatePath("dashboard/users");
+    }
+
   } catch (error) {
     return { error: handleError(error) };
   }

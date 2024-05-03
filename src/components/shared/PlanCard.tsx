@@ -12,13 +12,14 @@ type Props = {
 };
 
 const PlanCard = ({ type, bgImg, duration, desc, isActive, userId }: Props) => {
+  
   return (
     <>
       <Link
         href={
           isActive
             ? `/profile/${userId}`
-            : !userId
+            : userId == undefined
             ? "/auth/sign-in"
             : `/plan/${type}`
         }

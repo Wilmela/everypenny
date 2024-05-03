@@ -110,6 +110,8 @@ export interface User {
   phone: string;
   regId: string;
   role: string;
+  isVerified: Boolean;
   imageUrl: string;
+
   // sum: number;
-};
+}
