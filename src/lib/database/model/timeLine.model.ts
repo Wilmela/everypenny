@@ -3,7 +3,7 @@ import { Document, Schema, model, models, Model } from "mongoose";
 
 export interface TimeLineProps extends Document {
   userId: string;
-  timeLineId: number;
+  timeLineId: string;
   timeline: {
     title: string;
     cardTitle: string;
@@ -19,7 +19,7 @@ export interface TimeLineProps extends Document {
 
 const timeLineSchema = new Schema<TimeLineProps>({
   userId: { type: String, required: true },
-  timeLineId: { type: Number, required: true },
+  timeLineId: { type: String, required: true },
   timeline: {
     title: {
       type: String,

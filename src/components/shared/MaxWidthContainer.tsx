@@ -11,7 +11,7 @@ export default function MaxWidthContainer({
   id?: string;
 }) {
   return (
-    <div
+    <section
       id={id}
       className={cn(
         "w-full px-6 sm:px-8 lg:px-12 max-w-screen-2xl mx-auto",
@@ -19,6 +19,6 @@ export default function MaxWidthContainer({
       )}
     >
       {children}
-    </div>
+    </section>
   );
 }

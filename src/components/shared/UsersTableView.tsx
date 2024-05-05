@@ -46,6 +46,7 @@ const UsersTableView = ({ users }: { users: User[] }) => {
             <TableHead>Reg ID</TableHead>
             <TableHead>Role</TableHead>
             <TableHead>Image</TableHead>
+            <TableHead>Balance</TableHead>
             <TableHead className="w-0">
               <span className="sr-only">Verified</span>
             </TableHead>
@@ -68,7 +69,11 @@ const UsersTableView = ({ users }: { users: User[] }) => {
                 <TableCell>
                   <div className="size-10 border border-APP_GRREN overflow-hidden rounded-full relative">
                     <Image
-                      src={`${baseUrl}${user.imageUrl}`}
+                      src={
+                        user.imageUrl
+                          ? `${baseUrl}${user.imageUrl}`
+                          : "/assets/images/dp.jpeg"
+                      }
                       fill
                       alt="user"
                       className="object-cover"

@@ -40,7 +40,7 @@ const ChronoTimeline = ({ timeLineItems }: any) => {
           slideShow
           slideItemDuration={2000}
           slideShowType="reveal"
-          onScrollEnd={() => console.log("End of timeline")}
+          // onScrollEnd={() => console.log("End of timeline")}
         />
       )}
     </>

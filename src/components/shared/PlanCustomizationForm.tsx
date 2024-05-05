@@ -120,7 +120,7 @@ const PlanCustomizationForm = ({
         </div>
 
         <ButtonGradientWrapper>
-          <Button type="submit" disabled={form.formState.isSubmitting}>
+          <Button type="submit" className="form-btn" disabled={form.formState.isSubmitting}>
             Start {form.formState.isSubmitting && <Spinner />}
           </Button>
         </ButtonGradientWrapper>

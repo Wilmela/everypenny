@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import connectToDatabase from "../database";
 import Plan from "../database/model/plan.model";
 import User from "../database/model/user.model";
@@ -11,14 +12,12 @@ export const createPlan = async (plan: CreatePlanParams) => {
     await connectToDatabase();
     const newPlan = await Plan.create(plan);
 
-    const user = await User.findByIdAndUpdate(
+    await User.findByIdAndUpdate(
       plan.subscriber,
       { plan: newPlan },
       { new: true }
     );
-    if (user) {
-      console.log(user);
-    }
+
     return JSON.parse(JSON.stringify(newPlan));
   } catch (error) {
     return { error: handleError(error) };
@@ -50,4 +49,3 @@ export const getPlans = async () => {
 //     return { error: handleError(error) };
 //   }
 // };
-

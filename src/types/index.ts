@@ -41,7 +41,7 @@ export type ContributionParams = {
 
 export type TimeLineParams = {
   title: string;
-  timeLineId: number;
+  timeLineId: string;
   cardTitle: string;
   // cardSubtitle: string;
   media: {

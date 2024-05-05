@@ -3,7 +3,7 @@ import { Schema, models, model } from "mongoose";
 const ContributionSchema = new Schema(
   {
     contributionId: {
-      type: Number,
+      type: String,
       required: true,
     },
     amount: {

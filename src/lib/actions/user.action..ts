@@ -11,13 +11,12 @@ import Contribution from "../database/model/contribution.model";
 import sendEmail from "../nodemailer";
 import Welcome from "@/components/emails/WelcomeTemplate";
 import { render } from "@react-email/render";
-import { notFound } from "next/navigation";
 
 export const createUser = async (user: CreateUserParams) => {
   try {
     await connectToDatabase();
 
-    const randNum: number = generateRandomNumber();
+    const randNum: string = generateRandomNumber();
     const uniqueId = `${user.firstName.toLowerCase().slice(0, 3)}-${randNum}`;
 
     const newUser = await User.create({ ...user, regId: uniqueId });
@@ -30,6 +29,7 @@ export const createUser = async (user: CreateUserParams) => {
       html: render(Welcome({ firstName: newUser.firstName })),
     });
 
+    revalidatePath("/dashboard/users");
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
     return { error: handleError(error) };
@@ -37,7 +37,7 @@ export const createUser = async (user: CreateUserParams) => {
 };
 
 // Todo
-export const verifyUser = async (otp: string) => {
+export const optVerification = async (otp: string) => {
   try {
     await connectToDatabase();
   } catch (error) {
@@ -121,6 +121,8 @@ export const updateUserById = async (
     );
 
     if (updatedUser) {
+      revalidatePath("/");
+      revalidatePath("/dashboard/users");
       revalidatePath(`/profile/${userId}`);
     }
     return JSON.parse(JSON.stringify(updatedUser));
@@ -168,7 +170,7 @@ export const toggleVerification = async (userId: string, verify: boolean) => {
     );
 
     if (verifyUser) {
-      revalidatePath("dashboard/users");
+      revalidatePath("/dashboard/users");
     }
   } catch (error) {
     return { error: handleError(error) };
@@ -182,15 +184,14 @@ export const deleteUser = async (userId: string) => {
     const user = await User.findById(userId);
 
     // If use has an active plan do not delete.
-    if (user?.plan != null && user?.contributions != null) {
-      return notFound();
+    if (user?.contributions.length !== 0) {
+      throw new Error("Cannot delete a user with contribution(s)");
     }
 
     const userToDelete = await User.findByIdAndDelete(userId);
     if (userToDelete) {
-      revalidatePath("dashboard/users");
+      revalidatePath("/dashboard/users");
     }
-
   } catch (error) {
     return { error: handleError(error) };
   }

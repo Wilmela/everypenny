@@ -43,13 +43,15 @@ const ContributionForm = ({ contributor, plan, chosenAmount }: Props) => {
   const [imgUrl, setImgUrl] = useState("");
 
   const onSubmit = async (data: ContributionType) => {
+    console.log(data);
+    
     if (imgUrl) {
       try {
         const contribution = await makeContribution(
           contributor,
           {
             ...data,
-            receipt: imgUrl || "http://localhost.com",
+            receipt: imgUrl,
             contributor,
             plan,
             dateOfContribution: data.date,

@@ -44,7 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <NavContextProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body
           className={cn(
             "font-kanit antialiased bg-background",

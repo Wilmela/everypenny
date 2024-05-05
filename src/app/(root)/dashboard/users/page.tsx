@@ -4,14 +4,12 @@ import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
 import UsersTableView from "@/components/shared/UsersTableView";
 import { findAllUsers } from "@/lib/actions/user.action.";
 import { cache } from "@/lib/cache";
-import { User } from "@/types";
 
 import { notFound } from "next/navigation";
 
 const getUsers = cache(
-  async () => {
-    const users: User[] = await findAllUsers();
-    return users;
+  () => {
+    return findAllUsers();
   },
   ["/dashboard/users", "getUsers"],
   { revalidate: 60 * 60 * 24 }
@@ -28,7 +26,6 @@ const UsersPage = async () => {
         {/* <UsersTable users={users} /> */}
         <UsersTableView users={users} />
       </div>
-
     </MaxWidthContainer>
   );
 };

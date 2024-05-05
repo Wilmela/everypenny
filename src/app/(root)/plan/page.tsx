@@ -11,7 +11,7 @@ const PlanPage = async () => {
 
   const user = await findUserById(userId!);
 
-  const isActive = user?.plan.isActive || false;
+  const isActive = user?.plan?.isActive || false;
 
   return (
     <MaxWidthContainer className="paddingY flex flex-col">

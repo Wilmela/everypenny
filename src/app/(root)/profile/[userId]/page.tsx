@@ -5,7 +5,7 @@ import MaxWidthContainer from "@/components/shared/MaxWidthContainer";
 import { getSubType } from "@/constants";
 import { getSession } from "@/lib/actions/auth.action";
 import { getUserTimeline } from "@/lib/actions/timeLines.actions";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { CopyIcon } from "@radix-ui/react-icons";
 import { getUserTotalAmount } from "@/lib/actions/contribution.action";
 import { cn, formatNaira } from "@/lib/utils";
@@ -53,6 +53,8 @@ const ProfileDetail = async ({
 
   // API CALL
   const { user, timeline, sum } = await getData(userId);
+  if (user && user.isVerified === false) redirect("/");
+
   // GET USER SUBSCRIPTION TYPE
   const userSub = getSubType(user.plan);
 
@@ -91,8 +93,15 @@ const ProfileDetail = async ({
               />
               <Separator className="mt-4" />
 
-              <p className="p-text uppercase mt-8">Make Contribution</p>
-              <div className="my-6 px-2 py-6 bg-white shadow-md w-full rounded-lg">
+              <p className={cn("p-text uppercase mt-8",{
+                'hidden': !user.plan?.type
+              })}>Make Contribution</p>
+              <div
+                className={cn(
+                  "my-6 px-2 py-6 bg-white shadow-md w-full rounded-lg",
+                  user.plan?.type == null && "hidden"
+                )}
+              >
                 <ContributionForm
                   contributor={userId}
                   plan={user.plan?.type}
@@ -107,7 +116,7 @@ const ProfileDetail = async ({
               <div className="flex flex-col items-center md:hidden">
                 <Separator className="mb-4" />
                 <Image
-                  src="/assets/icons/uba.jpeg"
+                  src="/assets/images/uba.png"
                   width={100}
                   height={100}
                   alt="uba-logo"

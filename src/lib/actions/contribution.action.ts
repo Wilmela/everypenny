@@ -27,7 +27,7 @@ export const makeContribution = async (
       contributionId,
     });
 
-    if(newContribution){
+    if (newContribution) {
       // create new contribution timeline
       await TimeLines.create({
         userId: contributor,
@@ -50,31 +50,34 @@ export const makeContribution = async (
       // Add contribution to user contributions array
       const user = await User.findById(contributor);
       if (!user) throw new Error("User not found.");
-      await User.findByIdAndUpdate(
+
+      const updatedUser = await User.findByIdAndUpdate(
         user._id,
         {
           $push: {
-            contributions: [...user.contributions, newContribution],
+            contributions: newContribution,
           },
         },
-        { new: true }
+        { new: true, upsert: true }
       );
 
       // Notify admin of a contribution by a user with regId: via email
-      await sendEmail({
-        from: user?.email,
-        to: process.env.EMAIL,
-        subject: "Contribution Alert.",
-        html: render(
-          ContributionTemplate({
-            firstName: user.firstName,
-            email: user.email,
-            regId: user.regId,
-          })
-        ),
-      });
+      if (updatedUser) {
+        await sendEmail({
+          from: user?.email,
+          to: process.env.EMAIL,
+          subject: "Contribution Alert.",
+          html: render(
+            ContributionTemplate({
+              firstName: user.firstName,
+              email: user.email,
+              regId: user.regId,
+            })
+          ),
+        });
 
-      revalidatePath(path);
+        revalidatePath(path);
+      }
     }
 
     return JSON.parse(JSON.stringify(newContribution));
@@ -93,14 +96,17 @@ export const getUserTotalAmount = async (userId: string) => {
     });
 
     if (!user) throw new Error("User not found.");
-    const contributedAmount: number[] = user!.contributions.map(
-      ({ amount }: { amount: number }) => amount
-    );
+    const contributedAmount: number[] =
+      user?.contributions.map(({ amount }: { amount: number }) => amount) || [];
 
-    let sum: number = 0;
-    for (let i = 0; i < contributedAmount.length; i++) {
-      sum += contributedAmount[i];
-    }
+    // let sum: number = 0;
+    // for (let i = 0; i < contributedAmount.length; i++) {
+    //   sum += contributedAmount[i];
+    // }
+
+    const sum = contributedAmount.reduce(
+      (prevAmount: number, currAmount: number) => prevAmount + currAmount
+    );
 
     return JSON.parse(JSON.stringify(sum));
   } catch (error) {
@@ -145,6 +151,27 @@ export const getAllContributions = async (userId: string) => {
       return JSON.parse(JSON.stringify(contributions));
     }
     return;
+  } catch (error) {
+    return { error: handleError(error) };
+  }
+};
+
+// Admin only
+export const deleteContribution = async (
+  contributionId: string,
+  userId: string
+) => {
+  try {
+    await connectToDatabase();
+
+    await TimeLines.findOneAndDelete({ timeLineId: contributionId });
+    const deletedContribution = await Contribution.findByIdAndDelete(
+      contributionId
+    );
+
+    if (deletedContribution) {
+      revalidatePath(`/profile/${userId}`);
+    }
   } catch (error) {
     return { error: handleError(error) };
   }

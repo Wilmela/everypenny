@@ -12,23 +12,22 @@ type Props = {
 };
 
 const PlanCard = ({ type, bgImg, duration, desc, isActive, userId }: Props) => {
-  
   return (
-    <>
-      <Link
-        href={
-          isActive
-            ? `/profile/${userId}`
-            : userId == undefined
-            ? "/auth/sign-in"
-            : `/plan/${type}`
-        }
+  
+      <MotionDiv
+        whileInView={{ x: [200, 0], opacity: [0, 1] }}
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.3 }}
+        key={type}
       >
-        <MotionDiv
-          whileInView={{ x: [200, 0], opacity: [0, 1] }}
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.3 }}
-          key={type}
+        <Link
+          href={
+            isActive
+              ? `/profile/${userId}`
+              : userId == undefined
+              ? "/auth/sign-in"
+              : `/plan/${type}`
+          }
           className="shadow-md rounded-md relative h-[400px] overflow-hidden flex flex-col cursor-pointer"
         >
           <Image
@@ -43,9 +42,8 @@ const PlanCard = ({ type, bgImg, duration, desc, isActive, userId }: Props) => {
             <h2 className="text-white text-3xl font-[700]">{duration}</h2>
             <p className="font-[200] text-white">{desc}</p>
           </div>
-        </MotionDiv>
-      </Link>
-    </>
+        </Link>
+      </MotionDiv>
   );
 };
 

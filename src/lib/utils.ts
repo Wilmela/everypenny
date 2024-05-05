@@ -69,11 +69,12 @@ export const formatDateTime = (date: Date) => {
   return formattedDate;
 };
 
-export const generateRandomNumber = (): number => {
-  const min = 10000;
-  const max = 99999;
-  const randNum = Math.floor(Math.random() * (max - min + 1)) + min;
+export const generateRandomNumber = (): string => {
+  // const min = 10000;
+  // const max = 99999;
+  // const randNum = Math.floor(Math.random() * (max - min + 1)) + min;
 
+  const randNum = crypto.randomUUID().slice(0, 5);
   return randNum;
 };
 
