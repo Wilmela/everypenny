@@ -130,6 +130,17 @@ export const updateUserById = async (
     return { error: handleError(error) };
   }
 };
+export const verifyUser = async (
+  data: string,
+
+) => {
+  try {
+    await connectToDatabase();
+    
+  } catch (error) {
+    return { error: handleError(error) };
+  }
+};
 
 export const generateReceiptPerMonth = async (
   userId: string,
